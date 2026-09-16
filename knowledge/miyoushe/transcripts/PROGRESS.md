@@ -1,7 +1,7 @@
 # Miyoushe UGC transcript progress
 
 - model: `tiny` (cpu/int8)
-- updated: 2026-09-16 17:35 CST
+- updated: 2026-09-16 17:49 CST
 
 | period | post_id | status | definition | duration_s | chars | notes |
 |---|---|---|---|---:|---:|---|
@@ -20,3 +20,7 @@
 | 3.17 | `71096551` | ok | 480P | 698.7 | 7700 | segs=295 |
 | 3.18 | `71096547` | ok | 480P | 827.2 | 9922 | segs=402 |
 | 2.1 | `71081311` | ok | 480P | 3152.5 | 38426 | elapsed=111s; size_mb=106.8 |
+| 2.2 | `71080887` | ok | 480P | 1727.7 | 19852 | elapsed=67s; size_mb=66.5 |
+| 2.3 | `71080585` | ok | 480P | 914.4 | 11280 | elapsed=39s; size_mb=35.8 |
+| 2.4 | `71081814` | ok | 480P | 3242.6 | 34467 | elapsed=130s; size_mb=135.7 |
+| 2.5 | `71081015` | ok | 480P | 1440.8 | 16493 | elapsed=60s; size_mb=54.0 |
