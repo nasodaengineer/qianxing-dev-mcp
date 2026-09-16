@@ -118,6 +118,13 @@ server.registerTool(
       "列出可复用 UGC 开发配方（碰撞触发、计分、信号、商店等），来自米游社教程蒸馏 + 官方节点名",
     inputSchema: {
       filter: z.string().optional().describe("可选关键词过滤，如 碰撞 / shop / 信号"),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(200)
+        .optional()
+        .describe("最多返回条数，默认/上限 200"),
     },
   },
   async (args) => handleListPatterns(args),

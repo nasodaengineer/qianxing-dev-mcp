@@ -3,7 +3,7 @@
  * and per-period notes under data/patterns/{period}.md
  */
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve, sep } from "node:path";
 import { PROJECT_ROOT } from "./knowledge.js";
 import { LIMITS, clampLimit } from "./limits.js";
 
@@ -28,9 +28,39 @@ const DATA_PATTERNS = join(PROJECT_ROOT, "data", "patterns");
 const KNOW_PATTERNS = join(PROJECT_ROOT, "knowledge", "miyoushe", "patterns");
 
 let catalogCache: PatternCatalog | null = null;
+/** How many times catalog.json was read/parsed (tests). */
+let loadCount = 0;
 
 function readUtf8(path: string): string {
   return readFileSync(path, "utf8");
+}
+
+/** Read at most maxBytes (UTF-8); avoids loading huge period notes fully. */
+function readUtf8Capped(path: string, maxBytes: number): string {
+  const buf = readFileSync(path);
+  if (buf.length <= maxBytes) return buf.toString("utf8");
+  let end = maxBytes;
+  while (end > 0 && (buf[end]! & 0xc0) === 0x80) end--;
+  return buf.subarray(0, end).toString("utf8");
+}
+
+/**
+ * Accept only period codes like 1.3 / 1-3 (optional period_ prefix).
+ * Rejects path segments (../) so getPeriodNote cannot escape patterns dirs.
+ */
+export function sanitizePeriodCode(period: string): string | null {
+  const code = period.trim().replace(/^period[_-]?/i, "");
+  const m = code.match(/^(\d+)[.-](\d+)$/);
+  if (!m) return null;
+  return `${m[1]}-${m[2]}`;
+}
+
+function assertResolvedUnder(root: string, candidate: string): string | null {
+  const r = resolve(root);
+  const c = resolve(candidate);
+  const prefix = r.endsWith(sep) ? r : r + sep;
+  if (c !== r && !c.startsWith(prefix)) return null;
+  return c;
 }
 
 export function patternsDir(): string {
@@ -46,14 +76,21 @@ export function loadCatalog(): PatternCatalog {
     catalogCache = { version: 0, recipes: [] };
     return catalogCache;
   }
+  loadCount += 1;
   catalogCache = JSON.parse(readUtf8(path)) as PatternCatalog;
   if (!Array.isArray(catalogCache.recipes)) catalogCache.recipes = [];
   return catalogCache;
 }
 
+/** Number of times catalog.json was read from disk (tests). */
+export function patternsLoadCount(): number {
+  return loadCount;
+}
+
 /** Clear cache (tests / hot reload). */
 export function clearPatternsCache(): void {
   catalogCache = null;
+  loadCount = 0;
 }
 
 export function listPatterns(filter?: string, limit?: number): PatternRecipe[] {
@@ -95,11 +132,17 @@ export function getPatternById(id: string): PatternRecipe | null {
 }
 
 export function getPeriodNote(period: string): string | null {
-  const code = period.trim().replace(/^period[_-]?/i, "");
-  const fname = `${code.replace(/\./g, "-")}.md`;
+  const code = sanitizePeriodCode(period);
+  if (!code) return null;
+  const fname = `${code}.md`;
   for (const dir of [patternsDir(), KNOW_PATTERNS, DATA_PATTERNS]) {
-    const path = join(dir, fname);
-    if (existsSync(path)) return readUtf8(path);
+    if (!existsSync(dir)) continue;
+    const candidate = join(dir, fname);
+    const safe = assertResolvedUnder(dir, candidate);
+    if (!safe) continue;
+    if (existsSync(safe)) {
+      return readUtf8Capped(safe, LIMITS.knowledgeReadMaxBytes);
+    }
   }
   return null;
 }

@@ -435,8 +435,8 @@ export function handleLookupSystem(args: {
   );
 }
 
-export function handleListPatterns(args: { filter?: string } = {}) {
-  const recipes = listPatterns(args.filter);
+export function handleListPatterns(args: { filter?: string; limit?: number } = {}) {
+  const recipes = listPatterns(args.filter, args.limit);
   const catalog = loadCatalog();
   const periods = listPeriodNoteIds();
   const lines = recipes.map(
@@ -465,17 +465,19 @@ export function handleGetPattern(args: { id: string }) {
   if (recipe) {
     return textResult(formatRecipe(recipe));
   }
-  // try period note
+  // try period note (sanitized period codes only; capped read)
   const note = getPeriodNote(id);
   if (note) {
     return textResult(note);
   }
-  const ids = listPatterns()
+  const ids = listPatterns(undefined, 40)
     .map((r) => r.id)
     .join(", ");
-  const periods = listPeriodNoteIds().join(", ");
+  const allPeriods = listPeriodNoteIds();
+  const periods = allPeriods.slice(0, 24).join(", ");
+  const more = allPeriods.length > 24 ? ` …(+${allPeriods.length - 24})` : "";
   return textResult(
-    `未找到 pattern id="${id}"。\n\n可用 recipe id：${ids}\n\n可用 period notes：${periods}`,
+    `未找到 pattern id="${id}"。\n\n可用 recipe id：${ids}\n\n可用 period notes：${periods}${more}`,
   );
 }
 

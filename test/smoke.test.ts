@@ -11,7 +11,15 @@ import {
   listKnowledgeFiles,
   resetKnowledgeCaches,
 } from "../src/knowledge.js";
-import { listPatterns, getPatternById, loadCatalog } from "../src/patterns.js";
+import {
+  listPatterns,
+  getPatternById,
+  loadCatalog,
+  getPeriodNote,
+  sanitizePeriodCode,
+  clearPatternsCache,
+  patternsLoadCount,
+} from "../src/patterns.js";
 import {
   loadNodes,
   lookupNodes,
@@ -104,6 +112,10 @@ const overList = listNodes({ limit: 99999 });
 assert.ok(overList.length <= LIMITS.listNodesMax, "list_nodes must clamp limit");
 const overSearch = searchKnowledge("节点", 9999);
 assert.ok(overSearch.length <= LIMITS.searchKnowledgeMax, "search_knowledge must clamp limit");
+const overSys = lookupSystem("界面", { limit: 9999 });
+assert.ok(overSys.length <= LIMITS.lookupSystemMax, "lookup_system must clamp limit");
+const overPat = listPatterns(undefined, 9999);
+assert.ok(overPat.length <= LIMITS.listPatternsMax, "list_patterns must clamp limit");
 
 // knowledge index is bounded + cached
 resetKnowledgeCaches();
@@ -127,6 +139,12 @@ assert.throws(
   () => scaffoldProject({ targetDir: "proj\0evil", name: "x" }),
   UnsafePathError,
 );
+// get_pattern period notes must reject path traversal
+assert.equal(sanitizePeriodCode("../etc/passwd"), null);
+assert.equal(sanitizePeriodCode("1.3"), "1-3");
+assert.equal(getPeriodNote("../etc/passwd"), null);
+assert.equal(getPeriodNote("..\\..\\secret"), null);
+assert.ok(getPeriodNote("1.3")?.length, "valid period note loads");
 const rejected = handleScaffoldProject({ targetDir: "bad\0path", name: "x" });
 assert.match(extractText(rejected), /拒绝|null/);
 
@@ -222,16 +240,29 @@ assert.ok(Object.keys(handlers).length >= 14);
 assert.ok(listSkills().length >= 8);
 
 // --- patterns ---
+clearPatternsCache();
 const catalog = loadCatalog();
 assert.ok(catalog.recipes.length >= 8, `expected >=8 recipes, got ${catalog.recipes.length}`);
+assert.equal(patternsLoadCount(), 1, "patterns catalog first load");
+loadCatalog();
+listPatterns();
+getPatternById("shop_open");
+assert.equal(patternsLoadCount(), 1, "patterns catalog must stay cached");
 assert.ok(listPatterns().some((r) => r.id === "collision_trigger_setup"));
 assert.ok(getPatternById("shop_open")?.related_nodes.includes("打开商店"));
 const lp = handlers.list_patterns({});
 assert.match(extractText(lp), /collision_trigger_setup/);
+const lpLim = handlers.list_patterns({ limit: 2 });
+assert.ok(
+  extractText(lpLim).split("\n").filter((l) => l.startsWith("- **")).length <= 2,
+  "list_patterns tool honors limit",
+);
 const gp = handlers.get_pattern({ id: "signal_bus" });
 assert.match(extractText(gp), /发送信号|监听信号/);
 const gpPeriod = handlers.get_pattern({ id: "1.3" });
 assert.match(extractText(gpPeriod), /节点图|period/);
+const gpEvil = handlers.get_pattern({ id: "../../etc/passwd" });
+assert.match(extractText(gpEvil), /未找到/);
 const patternsCapped = listPatterns(undefined, 3);
 assert.ok(patternsCapped.length <= 3, "list_patterns honors limit");
 
@@ -251,9 +282,15 @@ const sysTool = handlers.lookup_system({ domain: "ui", query: "计时器", limit
 const sysText = extractText(sysTool);
 assert.match(sysText, /计时器/);
 assert.ok(JSON.parse(sysText.split("---")[0]!).count >= 1, "lookup_system tool JSON count");
+const warmed = systemsLoadCount();
+assert.equal(warmed, 3, "three system domains loaded once each");
 loadSystemItems();
 loadSystemItems("ui");
-assert.ok(systemsLoadCount() >= 1 && systemsLoadCount() <= 3, "systems catalogs cached");
+lookupSystem("商店", { limit: 2 });
+assert.equal(systemsLoadCount(), 3, "systems catalogs must stay cached");
+const overSysTool = handlers.lookup_system({ query: "a", limit: 999 as unknown as number });
+const overSysJson = JSON.parse(extractText(overSysTool).split("---")[0]!);
+assert.ok(overSysJson.count <= LIMITS.lookupSystemMax, "lookup_system tool clamps via lookupSystem");
 
 const genUi = handleGenerateLogic({
   goal: "进入触发器得分，显示计分板与计时器界面，并打开商店",
