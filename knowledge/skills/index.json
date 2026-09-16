@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sandbox-basics",
+    "file": "sandbox-basics.md",
+    "name": "千星沙箱与编辑器基础",
+    "description": "编辑器界面、四模式、沙箱窗口、动态/静态实体、试玩、.gia 导入导出"
+  },
+  {
+    "id": "node-graphs",
+    "file": "node-graphs.md",
+    "name": "节点图类型与挂载",
+    "description": "服务端/客户端节点图类型表、挂载入口、执行流/运算流、强类型、过滤器"
+  },
+  {
+    "id": "variables-signals",
+    "file": "variables-signals.md",
+    "name": "自定义变量、节点图变量与信号",
+    "description": "三层数据选型、容器引用传值、信号解耦、本地同步注意点"
+  },
+  {
+    "id": "collision-interaction",
+    "file": "collision-interaction.md",
+    "name": "碰撞、触发器与交互判定",
+    "description": "原生/额外碰撞 vs 触发器+触发源、命中检测、踩踏/区域触发"
+  },
+  {
+    "id": "combat-skills-jobs",
+    "file": "combat-skills-jobs.md",
+    "name": "战斗、技能与职业",
+    "description": "阵营、战斗属性/设置、技能时间轴、职业打包、经典/超限差异"
+  },
+  {
+    "id": "scene-generation",
+    "file": "scene-generation.md",
+    "name": "场景生成模板",
+    "description": "预设/自建模板、层级剔除与植被伴生、密度与随机性调优"
+  },
+  {
+    "id": "minigame-design",
+    "file": "minigame-design.md",
+    "name": "小玩法从构思到试玩清单",
+    "description": "端到端 checklist + 最小「踩圈得分」实例"
+  },
+  {
+    "id": "debug-publish",
+    "file": "debug-publish.md",
+    "name": "调试、负载与发布准备",
+    "description": "节点图日志、试玩校验 vs 风险检查、负载优化、上传前清单"
+  }
+]
