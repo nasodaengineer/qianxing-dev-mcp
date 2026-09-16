@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated": "2026-09-16 17:31 CST",
+  "updated": "2026-09-16 18:09 CST",
   "description": "Reusable UGC development recipes distilled from Miyoushe 35-period tutorials + official node/component names",
-  "recipe_count": 10,
+  "recipe_count": 16,
   "recipes": [
     {
       "id": "collision_trigger_setup",
@@ -241,6 +241,126 @@
       "source_periods": [
         "1.5",
         "1.1"
+      ]
+    },
+    {
+      "id": "unit_status_buff",
+      "title": "单位状态增益/减益",
+      "steps": [
+        "战斗预设 → 单位状态：设层数、持续时间",
+        "效果表添加属性修正（如最大生命值）",
+        "技能或节点「施加/移除单位状态」；监听状态变化刷新逻辑/UI"
+      ],
+      "related_nodes": [
+        "施加单位状态",
+        "移除单位状态",
+        "单位状态变化时"
+      ],
+      "related_components": [
+        "单位状态"
+      ],
+      "source_periods": [
+        "3.5",
+        "2.8",
+        "3.15"
+      ]
+    },
+    {
+      "id": "filter_graph_gate",
+      "title": "过滤节点图做目标筛选",
+      "steps": [
+        "编写过滤节点图（自定义通过/拒绝规则）",
+        "挂到命中检测或碰撞的本地过滤",
+        "与阵营筛选同时启用时两边都须通过"
+      ],
+      "related_nodes": [],
+      "related_components": [
+        "过滤节点图",
+        "命中检测",
+        "碰撞触发器"
+      ],
+      "source_periods": [
+        "3.7",
+        "3.10",
+        "2.7"
+      ]
+    },
+    {
+      "id": "ability_unit_damage",
+      "title": "能力单元结算伤害",
+      "steps": [
+        "实体添加「能力单元」并配置伤害/效果",
+        "由命中检测、碰撞机关或技能触发执行",
+        "与投射运动器、单位状态组合做完整战斗管线"
+      ],
+      "related_nodes": [],
+      "related_components": [
+        "能力单元",
+        "命中检测",
+        "投射运动器"
+      ],
+      "source_periods": [
+        "3.9",
+        "3.8",
+        "3.10",
+        "2.8"
+      ]
+    },
+    {
+      "id": "nameplate_bubble",
+      "title": "铭牌与气泡对话",
+      "steps": [
+        "配置铭牌展示信息",
+        "编排气泡对话切换",
+        "交互触发对话；可与任务/自定义变量联动"
+      ],
+      "related_nodes": [],
+      "related_components": [
+        "铭牌",
+        "气泡对话"
+      ],
+      "source_periods": [
+        "3.11"
+      ]
+    },
+    {
+      "id": "card_selector_ui",
+      "title": "卡牌选择器交互",
+      "steps": [
+        "挂卡牌选择器并编辑卡面图标/选项",
+        "节点图读取选择结果写入自定义变量或结构体",
+        "用结果驱动奖励、分支或装备"
+      ],
+      "related_nodes": [],
+      "related_components": [
+        "卡牌选择器",
+        "自定义变量"
+      ],
+      "source_periods": [
+        "3.12",
+        "3.13"
+      ]
+    },
+    {
+      "id": "dict_struct_data",
+      "title": "字典与结构体存复杂数据",
+      "steps": [
+        "定义结构体字段（如装备条目）",
+        "用字典做键值索引；放入自定义变量容器",
+        "修改后再次「设置自定义变量」以触发变化时"
+      ],
+      "related_nodes": [
+        "设置自定义变量",
+        "获取自定义变量",
+        "自定义变量变化时"
+      ],
+      "related_components": [
+        "自定义变量"
+      ],
+      "source_periods": [
+        "3.13",
+        "3.1",
+        "3.15"
       ]
     }
   ],
