@@ -1,6 +1,13 @@
 /**
  * Emit ready-to-paste genshin-ts TypeScript stubs from a natural-language goal.
+ * Stubs annotate official catalog param names/types from data/nodes.catalog.json.
  */
+import {
+  getNodeByName,
+  formatNodeCatalogLine,
+  formatParamsByDirection,
+} from "./nodes.js";
+import { getPatternById } from "./patterns.js";
 import { generateSystemHints } from "./systems.js";
 
 export type GenerateMode = "beyond" | "classic";
@@ -15,6 +22,7 @@ export type GenerateResult = {
   mode: GenerateMode;
   graphType: GraphType;
   goal: string;
+  patternId?: string;
   mappedNodes: string[];
   mappedEvents: string[];
   code: string;
@@ -22,6 +30,19 @@ export type GenerateResult = {
 };
 
 const DEFAULT_ID = 1073741825;
+
+/** Key official node names we enrich stubs with. */
+const CATALOG_KEYS = {
+  enterCollision: "进入碰撞触发器时",
+  leaveCollision: "离开碰撞触发器时",
+  setCustomVar: "设置自定义变量",
+  getCustomVar: "获取自定义变量",
+  printString: "打印字符串",
+  entityCreated: "实体创建时",
+  timerTriggered: "定时器触发时",
+  settleStage: "结算关卡",
+  startTimer: "启动定时器",
+} as const;
 
 function detectGraphType(goal: string, explicit?: GraphType): GraphType {
   if (explicit) return explicit;
@@ -54,11 +75,46 @@ function detectThemes(goal: string) {
   };
 }
 
+function catalogLine(name: string): string | null {
+  const n = getNodeByName(name, { side: "server" });
+  return n ? formatNodeCatalogLine(n) : null;
+}
+
+function paramComment(name: string, direction: "in" | "out"): string {
+  const n = getNodeByName(name, { side: "server" });
+  if (!n) return `// Official: ${name}`;
+  const formatted = formatParamsByDirection(n.params, direction);
+  if (!formatted) {
+    const other = direction === "out" ? "in" : "out";
+    const alt = formatParamsByDirection(n.params, other);
+    if (alt) return `// Official: ${name} — ${other}s: ${alt}`;
+    return `// Official: ${name}${n.desc ? ` — ${n.desc.slice(0, 60)}` : ""}`;
+  }
+  return `// Official: ${name} — ${direction}s: ${formatted}`;
+}
+
+function collectCatalogSummaries(names: string[]): string[] {
+  const seen = new Set<string>();
+  const lines: string[] = [];
+  for (const name of names) {
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    const line = catalogLine(name);
+    if (line) lines.push(` * - ${line}`);
+  }
+  return lines;
+}
+
+function escapeBlockComment(s: string): string {
+  return s.replace(/\*\//g, "* /");
+}
+
 export function generateLogic(args: {
   goal: string;
   mode?: GenerateMode;
   graphType?: GraphType;
   graphId?: number;
+  patternId?: string;
 }): GenerateResult {
   const mode: GenerateMode = args.mode === "classic" ? "classic" : "beyond";
   const graphType = detectGraphType(args.goal, args.graphType);
@@ -72,6 +128,9 @@ export function generateLogic(args: {
     "自定义变量（如 Score）需在编辑器实体组件中预定义才会同步到 UI。",
   ];
 
+  const pattern = args.patternId ? getPatternById(args.patternId) : null;
+  const patternRelated: string[] = pattern?.related_nodes ?? [];
+
   if (graphType !== "entity") {
     const code = clientStub(graphType, id, mode, args.goal);
     mappedEvents.push("start");
@@ -80,6 +139,7 @@ export function generateLogic(args: {
       mode,
       graphType,
       goal: args.goal,
+      patternId: args.patternId,
       mappedNodes,
       mappedEvents,
       code,
@@ -94,71 +154,80 @@ export function generateLogic(args: {
   // Always give a create hook if nothing else matched strongly
   if (themes.create || (!themes.score && !themes.trigger && !themes.timer && !themes.settle)) {
     handlers.push(`.on('whenEntityIsCreated', (_evt, f) => {
-    f.printString(${JSON.stringify(`ready: ${args.goal.slice(0, 40)}`)})
+    ${paramComment(CATALOG_KEYS.entityCreated, "out")}
+    f.printString(${JSON.stringify(`ready: ${args.goal.slice(0, 40)}`)}) // ${CATALOG_KEYS.printString}
     f.set('score', 0n)
   })`);
     mappedEvents.push("whenEntityIsCreated");
-    mappedNodes.push("实体创建时", "打印字符串");
+    mappedNodes.push(CATALOG_KEYS.entityCreated, CATALOG_KEYS.printString);
   }
 
   if (themes.trigger || themes.score) {
     handlers.push(`.on('whenEnteringCollisionTrigger', (evt, f) => {
-    // Official: 进入碰撞触发器时 — evt.enteringEntity / triggerEntity
-    const who = evt.enteringEntity
+    ${paramComment(CATALOG_KEYS.enterCollision, "out")}
+    const who = evt.enteringEntity // 进入者实体
+    const trigger = evt.triggerEntity // 触发器实体
     const next = f.get('score') + 1n
-    f.set('score', next)
+    f.set('score', next) // 节点图变量（非自定义变量）
+    ${paramComment(CATALOG_KEYS.setCustomVar, "in")}
     // Prefer stage/player custom vars for UI binding (must be predefined):
-    // stage.set('Score', next)
-    f.printString(str(next))
+    // stage.set('Score', next)  // → ${CATALOG_KEYS.setCustomVar}
+    f.printString(str(next)) // ${CATALOG_KEYS.printString} — in: 字符串
     void who
+    void trigger
   })`);
     mappedEvents.push("whenEnteringCollisionTrigger");
-    mappedNodes.push("进入碰撞触发器时", "设置自定义变量/节点图变量", "打印字符串");
+    mappedNodes.push(
+      CATALOG_KEYS.enterCollision,
+      CATALOG_KEYS.setCustomVar,
+      CATALOG_KEYS.printString,
+    );
   }
 
   if (themes.timer || themes.settle) {
     // JS timer on create + settle pattern
     if (!handlers.some((h) => h.includes("whenEntityIsCreated"))) {
       handlers.unshift(`.on('whenEntityIsCreated', (_evt, f) => {
+    ${paramComment(CATALOG_KEYS.entityCreated, "out")}
     f.set('score', 0n)
-    // 30s match timer (genshin-ts compiles setTimeout to timer nodes)
+    // 30s match timer (genshin-ts compiles setTimeout to timer nodes / ${CATALOG_KEYS.startTimer})
     setTimeout(() => {
-      // Official: 结算关卡 (settleStage).
+      ${paramComment(CATALOG_KEYS.settleStage, "in")}
       // Optional player settle status (needs SettlementStatus enum in editor/runtime):
       // player(1).setSettlementStatus(SettlementStatus.Victory)
       // player(1).setSettlementRanking(1n)
-      f.settleStage()
+      f.settleStage() // ${CATALOG_KEYS.settleStage}
       f.printString('time up — settle')
     }, 30_000)
   })`);
       mappedEvents.push("whenEntityIsCreated", "setTimeout→定时器");
-      mappedNodes.push("结算关卡");
+      mappedNodes.push(CATALOG_KEYS.entityCreated, CATALOG_KEYS.settleStage, CATALOG_KEYS.startTimer);
     } else {
       // inject timer into existing create — regenerate create with timer
       handlers[0] = `.on('whenEntityIsCreated', (_evt, f) => {
+    ${paramComment(CATALOG_KEYS.entityCreated, "out")}
     f.printString('match start')
     f.set('score', 0n)
     setTimeout(() => {
       // Optional: player(1).setSettlementStatus(SettlementStatus.Victory)
-      f.settleStage()
+      f.settleStage() // ${CATALOG_KEYS.settleStage}
       f.printString('timer end → settle')
     }, 30_000)
   })`;
       mappedEvents.push("setTimeout→定时器");
-      mappedNodes.push("结算关卡");
+      mappedNodes.push(CATALOG_KEYS.settleStage, CATALOG_KEYS.startTimer);
     }
 
     // Also listen to named timer if using editor timers
     handlers.push(`.on('whenTimerIsTriggered', (evt, f) => {
-    // Official: 定时器触发时 — if you startTimer from editor/code
-    if (evt.timerName === str('MatchEnd')) {
-      f.settleStage()
+    ${paramComment(CATALOG_KEYS.timerTriggered, "out")}
+    if (evt.timerName === str('MatchEnd')) { // 定时器名称
+      f.settleStage() // ${CATALOG_KEYS.settleStage}
     }
   })`);
     mappedEvents.push("whenTimerIsTriggered");
-    mappedNodes.push("定时器触发时");
+    mappedNodes.push(CATALOG_KEYS.timerTriggered);
   }
-
 
   if (themes.shop) {
     mappedNodes.push("打开商店", "关闭商店", "商店出售自定义商品时");
@@ -168,11 +237,11 @@ export function generateLogic(args: {
   }
 
   if (themes.scoreboardUi) {
-    mappedNodes.push("设置自定义变量");
+    mappedNodes.push(CATALOG_KEYS.setCustomVar);
   }
 
   if (themes.timerUi) {
-    mappedNodes.push("开启计时器", "定时器触发时");
+    mappedNodes.push(CATALOG_KEYS.startTimer, CATALOG_KEYS.timerTriggered);
   }
 
   if (themes.signal) {
@@ -188,19 +257,43 @@ export function generateLogic(args: {
 
   if (handlers.length === 0) {
     handlers.push(`.on('whenEntityIsCreated', (_evt, f) => {
+    ${paramComment(CATALOG_KEYS.entityCreated, "out")}
     f.printString(${JSON.stringify(args.goal.slice(0, 80))})
   })`);
     mappedEvents.push("whenEntityIsCreated");
+    mappedNodes.push(CATALOG_KEYS.entityCreated);
   }
+
+  const uniqueMapped = [...new Set(mappedNodes)];
+  const headerCatalogNames = [
+    ...patternRelated,
+    ...uniqueMapped.filter((n) => !n.includes("（") && n !== "服务器信号"),
+  ];
+  const catalogSummaries = collectCatalogSummaries(headerCatalogNames);
+
+  const patternHeader = pattern
+    ? [
+        ` * Pattern: ${pattern.id} — ${escapeBlockComment(pattern.title)}`,
+        ` * Related nodes: ${pattern.related_nodes.join(", ") || "(none)"}`,
+        ` * Related components: ${pattern.related_components.join(", ") || "(none)"}`,
+      ].join("\n")
+    : args.patternId
+      ? ` * Pattern: (unknown id=${escapeBlockComment(args.patternId)})`
+      : "";
+
+  const catalogHeader =
+    catalogSummaries.length > 0
+      ? [" *", " * Catalog lookups:", ...catalogSummaries].join("\n")
+      : "";
 
   const code = `import { g } from 'genshin-ts/runtime/core'
 
 /**
- * Goal: ${args.goal.replace(/\*\//g, "* /")}
+ * Goal: ${escapeBlockComment(args.goal)}
  * Mode: ${mode} | Graph: server entity
  * Mapped events: ${mappedEvents.join(", ")}
- * Mapped nodes: ${[...new Set(mappedNodes)].join(", ")}
- */
+ * Mapped nodes: ${uniqueMapped.join(", ")}
+${patternHeader ? patternHeader + "\n" : ""}${catalogHeader ? catalogHeader + "\n" : ""} */
 g.server({
   id: ${id}${modeOpt},
   name: 'GeneratedLogic',
@@ -210,8 +303,21 @@ g.server({
 
   notes.push(
     `已映射事件: ${mappedEvents.join(", ") || "—"}`,
-    `对应官方节点倾向: ${[...new Set(mappedNodes)].join("、") || "—"}`,
+    `对应官方节点倾向: ${uniqueMapped.join("、") || "—"}`,
   );
+
+  if (pattern) {
+    notes.push(
+      `已挂 pattern: ${pattern.id} — ${pattern.title}`,
+      `pattern related_nodes: ${pattern.related_nodes.join("、") || "—"}`,
+    );
+  }
+
+  // Surface a few catalog lines in notes for MCP consumers that skip the code block
+  for (const name of uniqueMapped.slice(0, 6)) {
+    const line = catalogLine(name);
+    if (line) notes.push(`catalog: ${line}`);
+  }
 
   for (const h of generateSystemHints(args.goal)) {
     notes.push(h);
@@ -221,7 +327,8 @@ g.server({
     mode,
     graphType,
     goal: args.goal,
-    mappedNodes: [...new Set(mappedNodes)],
+    patternId: args.patternId,
+    mappedNodes: uniqueMapped,
     mappedEvents: [...new Set(mappedEvents)],
     code,
     notes,
@@ -270,3 +377,4 @@ g.server({ id: ${id}${modeOpt} }).on('whenEntityIsCreated', (_evt, f) => {
 `;
   }
 }
+

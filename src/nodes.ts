@@ -226,6 +226,61 @@ function scoreNode(n: NodeRecord, tokens: string[]): number {
   return score;
 }
 
+
+/** Exact name match (prefer given side). Falls back to first exact across sides. */
+export function getNodeByName(
+  name: string,
+  opts: { side?: "server" | "client" | "any" } = {},
+): NodeRecord | null {
+  const want = name.trim();
+  if (!want) return null;
+  const side = opts.side ?? "any";
+  const all = loadNodes().filter((n) => n.name === want);
+  if (all.length === 0) return null;
+  if (side === "any") {
+    return all.find((n) => n.side === "server") ?? all[0] ?? null;
+  }
+  return all.find((n) => n.side === side) ?? all[0] ?? null;
+}
+
+export function asNodeParams(params: NodeRecord["params"]): NodeParam[] {
+  if (!Array.isArray(params)) return [];
+  const out: NodeParam[] = [];
+  for (const p of params) {
+    if (
+      p &&
+      typeof p === "object" &&
+      typeof (p as NodeParam).name === "string" &&
+      typeof (p as NodeParam).type === "string"
+    ) {
+      out.push(p as NodeParam);
+    }
+  }
+  return out;
+}
+
+/** Compact "name:type" list for one direction (in/out). */
+export function formatParamsByDirection(
+  params: NodeRecord["params"],
+  direction: "in" | "out",
+): string {
+  const list = asNodeParams(params).filter((p) => p.direction === direction);
+  if (list.length === 0) return "";
+  return list.map((p) => `${p.name}:${p.type}`).join(", ");
+}
+
+/** One-line catalog summary for codegen headers / comments. */
+export function formatNodeCatalogLine(n: NodeRecord): string {
+  const params = asNodeParams(n.params);
+  const outs = formatParamsByDirection(params, "out");
+  const ins = formatParamsByDirection(params, "in");
+  const bits = [`${n.name} [${n.category}/${n.side}]`];
+  if (outs) bits.push(`outs: ${outs}`);
+  if (ins) bits.push(`ins: ${ins}`);
+  if (!outs && !ins && n.desc) bits.push(n.desc.slice(0, 80));
+  return bits.join(" — ");
+}
+
 export function lookupNodes(
   query: string,
   opts: { side?: "server" | "client" | "any"; limit?: number } = {},

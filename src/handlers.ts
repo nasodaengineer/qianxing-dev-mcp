@@ -11,7 +11,14 @@ import {
   type KnowledgeHit,
   type SkillMeta,
 } from "./knowledge.js";
-import { lookupNodes, listNodes, loadNodes, nodeToJsonFriendly } from "./nodes.js";
+import {
+  lookupNodes,
+  listNodes,
+  loadNodes,
+  nodeToJsonFriendly,
+  getNodeByName,
+  formatNodeCatalogLine,
+} from "./nodes.js";
 import {
   scaffoldProject,
   compileProject,
@@ -179,13 +186,22 @@ export function handleGenerateLogic(args: {
   if (args.patternId) {
     const recipe = getPatternById(args.patternId);
     if (recipe) {
+      const relatedSummaries = recipe.related_nodes
+        .map((name) => {
+          const n = getNodeByName(name, { side: "server" });
+          return n ? `  - ${formatNodeCatalogLine(n)}` : `  - ${name} (not in catalog)`;
+        })
+        .join("\n");
       patternPrefix = [
         `# pattern: ${recipe.id} — ${recipe.title}`,
         `nodes: ${recipe.related_nodes.join(", ") || "(none)"}`,
         `components: ${recipe.related_components.join(", ") || "(none)"}`,
         `source_periods: ${recipe.source_periods.join(", ")}`,
+        relatedSummaries ? `catalog:\n${relatedSummaries}` : "",
         "",
-      ].join("\n");
+      ]
+        .filter((line) => line !== undefined)
+        .join("\n");
       if (!goal || goal === args.patternId) {
         goal = recipe.title + "；" + recipe.steps.slice(0, 3).join("；");
       }

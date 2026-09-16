@@ -19,6 +19,8 @@ import {
   nodesCacheSource,
   resetNodesCache,
   nodesLoadCount,
+  getNodeByName,
+  formatNodeCatalogLine,
 } from "../src/nodes.js";
 import { LIMITS, clampLimit } from "../src/limits.js";
 import {
@@ -36,6 +38,7 @@ import {
   handleDiagnose,
   handlers,
 } from "../src/handlers.js";
+import { generateLogic } from "../src/generate.js";
 import {
   lookupSystem,
   loadSystemItems,
@@ -135,6 +138,44 @@ const gen = handleGenerateLogic({
 const genText = extractText(gen);
 assert.match(genText, /g\.server/);
 assert.match(genText, /whenEnteringCollisionTrigger|setTimeout|settleStage/);
+// Rich catalog params in stub comments / header
+assert.match(genText, /进入者实体/);
+assert.match(genText, /outs:.*进入者实体:实体/);
+assert.match(genText, /设置自定义变量/);
+assert.match(genText, /ins:.*变量名:字符串/);
+assert.match(genText, /Catalog lookups:/);
+
+const genScore = generateLogic({ goal: "进入触发器得分", mode: "beyond" });
+assert.match(genScore.code, /whenEnteringCollisionTrigger/);
+assert.match(genScore.code, /进入者实体:实体/);
+assert.match(genScore.code, /变量名:字符串/);
+assert.ok(genScore.mappedNodes.includes("进入碰撞触发器时"));
+assert.ok(genScore.mappedNodes.includes("设置自定义变量"));
+
+const genPat = handleGenerateLogic({
+  goal: "进入触发器得分",
+  mode: "beyond",
+  patternId: "collision_trigger_setup",
+});
+const genPatText = extractText(genPat);
+assert.match(genPatText, /collision_trigger_setup/);
+assert.match(genPatText, /离开碰撞触发器时/);
+assert.match(genPatText, /Catalog lookups:/);
+assert.match(genPatText, /激活\/关闭碰撞触发器|激活\/关闭碰撞触发源/);
+const genPatCode = generateLogic({
+  goal: "进入触发器得分",
+  mode: "beyond",
+  patternId: "collision_trigger_setup",
+});
+assert.match(genPatCode.code, /Pattern: collision_trigger_setup/);
+assert.match(genPatCode.code, /Related nodes:.*进入碰撞触发器时/);
+assert.match(genPatCode.code, /Catalog lookups:/);
+assert.match(genPatCode.code, /离开碰撞触发器时/);
+
+const exact = getNodeByName("进入碰撞触发器时", { side: "server" });
+assert.ok(exact);
+assert.ok(Array.isArray(exact!.params) && exact!.params.length >= 3);
+assert.match(formatNodeCatalogLine(exact!), /outs:/);
 
 // --- scaffold ---
 const tmp = mkdtempSync(join(tmpdir(), "qx-scaffold-"));
