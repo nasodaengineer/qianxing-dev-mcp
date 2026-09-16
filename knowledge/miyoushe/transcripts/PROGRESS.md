@@ -1,7 +1,7 @@
 # Miyoushe UGC transcript progress
 
 - model: `tiny` (cpu/int8)
-- updated: 2026-09-16 17:49 CST
+- updated: 2026-09-16 17:59 CST
 
 | period | post_id | status | definition | duration_s | chars | notes |
 |---|---|---|---|---:|---:|---|
@@ -24,3 +24,11 @@
 | 2.3 | `71080585` | ok | 480P | 914.4 | 11280 | elapsed=39s; size_mb=35.8 |
 | 2.4 | `71081814` | ok | 480P | 3242.6 | 34467 | elapsed=130s; size_mb=135.7 |
 | 2.5 | `71081015` | ok | 480P | 1440.8 | 16493 | elapsed=60s; size_mb=54.0 |
+| 2.6 | `71081492` | ok | 480P | 2293.1 | 23848 | elapsed=94s; size_mb=80.0 |
+| 2.7 | `71081097` | ok | 480P | 1289.1 | 14665 | elapsed=50s; size_mb=47.7 |
+| 2.8 | `71081485` | ok | 480P | 2241.9 | 28714 | elapsed=87s; size_mb=84.8 |
+| 2.9 | `71081312` | ok | 480P | 1339.7 | 18054 | elapsed=58s; size_mb=55.6 |
+| 2.10 | `71081435` | ok | 480P | 1311.5 | 15459 | elapsed=53s; size_mb=55.5 |
+| 2.11 | `71081727` | ok | 480P | 2266.8 | 24467 | elapsed=84s; size_mb=86.0 |
+| 3.1 | `71082203` | ok | 480P | 3025.8 | 34970 | elapsed=124s; size_mb=115.7 |
+| 3.4 | `71096473` | ok | 480P | 1079.0 | 12714 | elapsed=40s; size_mb=39.8 |
