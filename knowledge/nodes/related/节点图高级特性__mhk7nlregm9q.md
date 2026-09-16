@@ -1,0 +1,8 @@
+# 节点图高级特性
+
+- path_id: `mhk7nlregm9q`
+- path: `节点图高级特性`
+- source: https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhk7nlregm9q/content.html?v=1016
+- detail: https://act.mihoyo.com/ys/ugc/tutorial/detail/mhk7nlregm9q
+
+本目录下的内容对节点图进行更详细的介绍，包含泛型引脚、节点图变量、复合节点、节点图日志、客户端节点图日志、复合节点图日志、信号、字典、结构体等

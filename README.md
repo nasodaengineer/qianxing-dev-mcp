@@ -60,17 +60,27 @@ npm test
 | `recommend_workflow` | `goal` | 按目标推荐调用顺序 |
 | `genshin_ts_hint` | — | genshin-ts（TS→GIA）提示 |
 
+## 知识覆盖
+
+- **已落地 deep research**：节点百科索引（`knowledge/nodes/node-index.json`）、UI / 外围 / 资源正文与概览、4 份 deep skill drafts（`nodes-cookbook` / `ui-controls` / `peripheral-systems` / `resource-systems`）、米游社苦雪合集索引（正文多为视频壳）。
+- `search_knowledge` 递归检索整个 `knowledge/`（不仅 skills/）。
+- **仍待补**：原神 **7.1** 客户端脚本模块等细则（官方文档未完全公开，本 MCP 暂不覆盖）。
+- **米游社**：合集索引与分期末数据已收录；内容以视频为主，未做 ASR 转写。
+
 ## 安全与范围说明
 
 - **禁止用途**：游戏破解、盗版、绕过反作弊、未授权向他人客户端注入。
 - **社区 CLI**：仅文档指引；请在你本机自行安装并配置本地路径，本仓库不 vendoring 逆向二进制。
 - **版本缺口**：原神 **7.1** 预告的「客户端脚本模块」等能力，官方文档尚未完全公开；本 MCP **暂不覆盖 7.1 客户端脚本细则**，以现网编辑器与后续官方文档为准。
-- 知识来源：官方《综合指南》目录快照与整理的技能草稿（见 `knowledge/`）。
+- 知识来源：官方《综合指南》目录快照、整理的技能草稿，以及 deep research 包（见 `knowledge/`；原始 HTML 见研究归档说明）。
 
 ## 开发结构
 
 ```
-knowledge/          # 技能与目录（运行时读取）
+knowledge/          # 技能、deep 语料与目录（运行时读取）
+  skills/           # 技能 index + 原 8 份草稿
+  drafts/           # deep skill bodies（由 index 引用）
+  summaries/ nodes/ ui/ peripheral/ resources/ miyoushe/
 src/
   index.ts          # stdio MCP 入口
   handlers.ts       # 工具实现（可供测试直接 import）

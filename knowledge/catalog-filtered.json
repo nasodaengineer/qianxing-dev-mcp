@@ -1,0 +1,1248 @@
+{
+  "source": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/catalog.json",
+  "content_url_template": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/{path_id}/content.html?v=1016",
+  "count": 98,
+  "by_area": {
+    "nodes": 42,
+    "nodes-related": 13,
+    "ui": 24,
+    "peripheral": 9,
+    "resources": 7,
+    "resources-related": 3
+  },
+  "items": [
+    {
+      "path_id": "mhsok60iqlxk",
+      "title": "节点介绍",
+      "path": [
+        "节点介绍"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-09-30 11:00:38",
+      "doc_type": "document",
+      "child_count": 2
+    },
+    {
+      "path_id": "mhuto3r800b2",
+      "title": "服务器节点",
+      "path": [
+        "节点介绍",
+        "服务器节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-09-25 10:12:07",
+      "doc_type": "document",
+      "child_count": 5
+    },
+    {
+      "path_id": "mhw66orrrfkm",
+      "title": "执行节点",
+      "path": [
+        "节点介绍",
+        "服务器节点",
+        "执行节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-08 11:19:45",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhn7ko01v3yw",
+      "title": "事件节点",
+      "path": [
+        "节点介绍",
+        "服务器节点",
+        "事件节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-17 17:38:20",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhe8yn9bysd6",
+      "title": "流程控制节点",
+      "path": [
+        "节点介绍",
+        "服务器节点",
+        "流程控制节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 16:49:28",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhwbqlrw655q",
+      "title": "查询节点",
+      "path": [
+        "节点介绍",
+        "服务器节点",
+        "查询节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-06 10:20:54",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhnd4l069tk0",
+      "title": "运算节点",
+      "path": [
+        "节点介绍",
+        "服务器节点",
+        "运算节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:22:08",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhlv230i3opc",
+      "title": "客户端节点",
+      "path": [
+        "节点介绍",
+        "客户端节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-09 14:59:26",
+      "doc_type": "document",
+      "child_count": 6
+    },
+    {
+      "path_id": "mhuf56rvxhgm",
+      "title": "角色技能节点图",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色技能节点图"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-09 15:05:36",
+      "doc_type": "document",
+      "child_count": 5
+    },
+    {
+      "path_id": "mholjx05ji8w",
+      "title": "查询节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色技能节点图",
+        "查询节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:19:40",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhfmxw9fn6n6",
+      "title": "运算节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色技能节点图",
+        "运算节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-10 16:28:37",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh6obvipqv1g",
+      "title": "执行节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色技能节点图",
+        "执行节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:23:31",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhxppurzujfq",
+      "title": "流程控制节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色技能节点图",
+        "流程控制节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:23:33",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhor3u09y7u0",
+      "title": "其它节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色技能节点图",
+        "其它节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-10 16:46:31",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhlgj60615uw",
+      "title": "造物技能节点图",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物技能节点图"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-10 14:19:58",
+      "doc_type": "document",
+      "child_count": 5
+    },
+    {
+      "path_id": "mhpw06rvah3a",
+      "title": "查询节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物技能节点图",
+        "查询节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:25:57",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh7ys59fhtvu",
+      "title": "运算节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物技能节点图",
+        "运算节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:27:58",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhz064iplia4",
+      "title": "执行节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物技能节点图",
+        "执行节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:27:39",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhq1k3rzp6oe",
+      "title": "流程控制节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物技能节点图",
+        "流程控制节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:28:10",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh84c29jwjgy",
+      "title": "其它节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物技能节点图",
+        "其它节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-09 16:55:05",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhchx59g4u96",
+      "title": "造物状态节点图",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态节点图"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-10 16:44:26",
+      "doc_type": "document",
+      "child_count": 5
+    },
+    {
+      "path_id": "mh1w3z96rpne",
+      "title": "查询节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态节点图",
+        "查询节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:36:47",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhjyvxrqz2fy",
+      "title": "运算节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态节点图",
+        "运算节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-10 16:46:50",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhb09x012qu8",
+      "title": "执行节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态节点图",
+        "执行节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:37:16",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh21nw9b6f8i",
+      "title": "流程控制节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态节点图",
+        "流程控制节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:37:17",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mht31vila3ms",
+      "title": "其它节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态节点图",
+        "其它节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-01-23 10:48:05",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhukp3r0c71q",
+      "title": "造物状态决策节点图",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态决策节点图"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-10 14:30:32",
+      "doc_type": "document",
+      "child_count": 5
+    },
+    {
+      "path_id": "mhk4furvds12",
+      "title": "查询节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态决策节点图",
+        "查询节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:37:34",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhb5tu05hgfc",
+      "title": "运算节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态决策节点图",
+        "运算节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-10 16:29:23",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh277t9fl4tm",
+      "title": "执行节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态决策节点图",
+        "执行节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:37:46",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhk9zrrzshm6",
+      "title": "流程控制节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态决策节点图",
+        "流程控制节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 16:57:29",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhbbdr09w60g",
+      "title": "其它节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "造物状态决策节点图",
+        "其它节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-01-23 10:49:04",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mho2iu0eaia0",
+      "title": "角色操控技能节点图",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色操控技能节点图"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-23 20:05:38",
+      "doc_type": "document",
+      "child_count": 5
+    },
+    {
+      "path_id": "mh65asiyhv2k",
+      "title": "查询节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色操控技能节点图",
+        "查询节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-02 23:24:15",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mho82r0ip7v4",
+      "title": "运算节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色操控技能节点图",
+        "运算节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-07-10 16:29:32",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhf9gq9ssw9e",
+      "title": "执行节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色操控技能节点图",
+        "执行节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:10:13",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhxc8ord091y",
+      "title": "流程控制节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色操控技能节点图",
+        "流程控制节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:05:00",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhodmo0n3xg8",
+      "title": "其它节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "角色操控技能节点图",
+        "其它节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:05:25",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhcnh29kjjua",
+      "title": "过滤器节点图",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "过滤器节点图"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-10 16:47:01",
+      "doc_type": "document",
+      "child_count": 3
+    },
+    {
+      "path_id": "mh2crq9jzueq",
+      "title": "查询节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "过滤器节点图",
+        "查询节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 17:39:17",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhte5piu3it0",
+      "title": "运算节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "过滤器节点图",
+        "运算节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2026-06-24 19:42:07",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhbgxo0eavlk",
+      "title": "其它节点",
+      "path": [
+        "节点介绍",
+        "客户端节点",
+        "过滤器节点图",
+        "其它节点"
+      ],
+      "area": "nodes",
+      "updated_at": "2025-12-10 16:46:16",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhjwjrr5n73i",
+      "title": "节点图",
+      "path": [
+        "节点图"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2026-07-17 17:14:04",
+      "doc_type": "document",
+      "child_count": 2
+    },
+    {
+      "path_id": "mhk23ora1wom",
+      "title": "基础概念",
+      "path": [
+        "节点图",
+        "基础概念"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2026-01-30 11:20:29",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhb3ho0k5l2w",
+      "title": "节点图编辑指引",
+      "path": [
+        "节点图",
+        "节点图编辑指引"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2026-03-11 17:25:21",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhk7nlregm9q",
+      "title": "节点图高级特性",
+      "path": [
+        "节点图高级特性"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-10-24 11:50:06",
+      "doc_type": "document",
+      "child_count": 9
+    },
+    {
+      "path_id": "mhkirfrna1fy",
+      "title": "泛型引脚",
+      "path": [
+        "节点图高级特性",
+        "泛型引脚"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-09-22 11:47:19",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhtshailzs7w",
+      "title": "节点图变量",
+      "path": [
+        "节点图高级特性",
+        "节点图变量"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2026-07-24 17:00:43",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhty17iqeht0",
+      "title": "复合节点",
+      "path": [
+        "节点图高级特性",
+        "复合节点"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2026-07-10 17:05:32",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhu951iz7wz8",
+      "title": "节点图日志",
+      "path": [
+        "节点图高级特性",
+        "节点图日志"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-09-22 11:51:09",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhrnuz9izfne",
+      "title": "客户端节点图日志",
+      "path": [
+        "节点图高级特性",
+        "客户端节点图日志"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-10-17 11:53:38",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhip8yit341o",
+      "title": "复合节点图日志",
+      "path": [
+        "节点图高级特性",
+        "复合节点图日志"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-10-21 20:07:28",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhlaj0r9bldi",
+      "title": "信号",
+      "path": [
+        "节点图高级特性",
+        "信号"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-09-22 11:51:32",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhubgk9yy8gy",
+      "title": "字典",
+      "path": [
+        "节点图高级特性",
+        "字典"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-09-22 11:52:16",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh3fmi0t99ns",
+      "title": "结构体",
+      "path": [
+        "节点图高级特性",
+        "结构体"
+      ],
+      "area": "nodes-related",
+      "updated_at": "2025-12-09 10:22:04",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhnapxrumtzy",
+      "title": "界面控件",
+      "path": [
+        "界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-07-23 17:49:23",
+      "doc_type": "document",
+      "child_count": 19
+    },
+    {
+      "path_id": "mhwkfsitckrw",
+      "title": "交互按钮界面控件",
+      "path": [
+        "界面控件",
+        "交互按钮界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2025-10-17 11:46:35",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhjja1ipq9ck",
+      "title": "道具展示界面控件",
+      "path": [
+        "界面控件",
+        "道具展示界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-07-17 17:17:21",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhnltrr3g966",
+      "title": "文本框界面控件",
+      "path": [
+        "界面控件",
+        "文本框界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-03-11 17:34:00",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhen7r0djxkg",
+      "title": "弹窗界面控件",
+      "path": [
+        "界面控件",
+        "弹窗界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2025-09-22 11:09:30",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhwpzpixrad0",
+      "title": "进度条界面控件",
+      "path": [
+        "界面控件",
+        "进度条界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-05-07 14:49:19",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhnrdor7uyra",
+      "title": "计时器界面控件",
+      "path": [
+        "界面控件",
+        "计时器界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2025-09-22 11:09:47",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhesro0hyn5k",
+      "title": "计分板界面控件",
+      "path": [
+        "界面控件",
+        "计分板界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-03-11 17:36:55",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh2teu0bmfbc",
+      "title": "卡牌选择器界面控件",
+      "path": [
+        "界面控件",
+        "卡牌选择器界面控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-03-11 11:15:32",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh2iyk9fa4gy",
+      "title": "界面动效控件",
+      "path": [
+        "界面控件",
+        "界面动效控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-03-20 15:31:43",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhbn4i09l5ns",
+      "title": "全屏界面动效控件",
+      "path": [
+        "界面控件",
+        "全屏界面动效控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-04-13 16:29:18",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh2oih9jou22",
+      "title": "图片控件",
+      "path": [
+        "界面控件",
+        "图片控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-07-23 19:33:16",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhtpwgitsigc",
+      "title": "自定义按钮控件",
+      "path": [
+        "界面控件",
+        "自定义按钮控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-03-20 14:55:28",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhkrafr3w6um",
+      "title": "自定义开关控件",
+      "path": [
+        "界面控件",
+        "自定义开关控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-04-09 17:44:51",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh2u2e9o3jn6",
+      "title": "悬浮交互页控件",
+      "path": [
+        "界面控件",
+        "悬浮交互页控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-07-24 16:45:23",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhkwucr8awfq",
+      "title": "特殊数字控件",
+      "path": [
+        "界面控件",
+        "特殊数字控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-07-24 16:45:11",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh496c08hooo",
+      "title": "图文输入框控件",
+      "path": [
+        "界面控件",
+        "图文输入框控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-05-07 14:59:57",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh4ve00q4j14",
+      "title": "状态显示区控件",
+      "path": [
+        "界面控件",
+        "状态显示区控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-07-23 19:35:29",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhs1f7ibtc6c",
+      "title": "消息队列控件",
+      "path": [
+        "界面控件",
+        "消息队列控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-05-07 15:25:40",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhls9miyjwjg",
+      "title": "自定义小地图控件",
+      "path": [
+        "界面控件",
+        "自定义小地图控件"
+      ],
+      "area": "ui",
+      "updated_at": "2026-05-12 11:51:17",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhewyi0fjfvs",
+      "title": "界面控件组管理",
+      "path": [
+        "界面控件组管理"
+      ],
+      "area": "ui",
+      "updated_at": "2026-03-11 17:45:05",
+      "doc_type": "document",
+      "child_count": 3
+    },
+    {
+      "path_id": "mhozt0r74ng6",
+      "title": "界面布局",
+      "path": [
+        "界面控件组管理",
+        "界面布局"
+      ],
+      "area": "ui",
+      "updated_at": "2026-07-23 20:04:50",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhg1700h8bug",
+      "title": "界面控件组",
+      "path": [
+        "界面控件组管理",
+        "界面控件组"
+      ],
+      "area": "ui",
+      "updated_at": "2026-04-10 10:37:50",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhwylormozcm",
+      "title": "素材库",
+      "path": [
+        "界面控件组管理",
+        "素材库"
+      ],
+      "area": "ui",
+      "updated_at": "2026-05-07 16:21:44",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhjsw9rluwou",
+      "title": "外围系统",
+      "path": [
+        "外围系统"
+      ],
+      "area": "peripheral",
+      "updated_at": "2025-10-30 17:19:18",
+      "doc_type": "document",
+      "child_count": 8
+    },
+    {
+      "path_id": "mho2rt9ir6ay",
+      "title": "排行榜",
+      "path": [
+        "外围系统",
+        "排行榜"
+      ],
+      "area": "peripheral",
+      "updated_at": "2026-03-11 17:50:07",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhf45sisuup8",
+      "title": "竞技段位",
+      "path": [
+        "外围系统",
+        "竞技段位"
+      ],
+      "area": "peripheral",
+      "updated_at": "2026-01-30 11:12:32",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh65jrr2yj3i",
+      "title": "成就",
+      "path": [
+        "外围系统",
+        "成就"
+      ],
+      "area": "peripheral",
+      "updated_at": "2026-03-11 17:51:23",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhx1du08nhwo",
+      "title": "关卡结算",
+      "path": [
+        "外围系统",
+        "关卡结算"
+      ],
+      "area": "peripheral",
+      "updated_at": "2025-12-23 11:37:13",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhjdhpi4sd10",
+      "title": "奇域礼盒",
+      "path": [
+        "外围系统",
+        "奇域礼盒"
+      ],
+      "area": "peripheral",
+      "updated_at": "2026-05-21 00:00:37",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhv1zh9x9nbe",
+      "title": "奇域任务",
+      "path": [
+        "外围系统",
+        "奇域任务"
+      ],
+      "area": "peripheral",
+      "updated_at": "2026-05-12 11:51:50",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh8clk9nmkua",
+      "title": "先行体验",
+      "path": [
+        "外围系统",
+        "先行体验"
+      ],
+      "area": "peripheral",
+      "updated_at": "2026-06-15 15:02:15",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhzdzjixq98k",
+      "title": "奇匠订阅",
+      "path": [
+        "外围系统",
+        "奇匠订阅"
+      ],
+      "area": "peripheral",
+      "updated_at": "2026-06-15 15:00:10",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mht8l59439d6",
+      "title": "资源系统",
+      "path": [
+        "资源系统"
+      ],
+      "area": "resources",
+      "updated_at": "2025-09-22 11:16:26",
+      "doc_type": "document",
+      "child_count": 6
+    },
+    {
+      "path_id": "mhbgx0rspbqu",
+      "title": "道具",
+      "path": [
+        "资源系统",
+        "道具"
+      ],
+      "area": "resources",
+      "updated_at": "2025-09-22 11:16:35",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhkl2yin0cxo",
+      "title": "装备",
+      "path": [
+        "资源系统",
+        "装备"
+      ],
+      "area": "resources",
+      "updated_at": "2026-01-22 16:53:20",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh2cr30yeak0",
+      "title": "货币",
+      "path": [
+        "资源系统",
+        "货币"
+      ],
+      "area": "resources",
+      "updated_at": "2025-09-22 11:17:22",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhogfq9bf86q",
+      "title": "背包",
+      "path": [
+        "资源系统",
+        "背包"
+      ],
+      "area": "resources",
+      "updated_at": "2025-09-22 11:17:37",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhkfj1iilnck",
+      "title": "掉落物",
+      "path": [
+        "资源系统",
+        "掉落物"
+      ],
+      "area": "resources",
+      "updated_at": "2026-01-23 11:00:29",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mhi9s7isvp50",
+      "title": "商店",
+      "path": [
+        "资源系统",
+        "商店"
+      ],
+      "area": "resources",
+      "updated_at": "2026-03-11 17:55:25",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh5y5001vqd4",
+      "title": "背包组件",
+      "path": [
+        "背包组件"
+      ],
+      "area": "resources-related",
+      "updated_at": "2026-01-23 11:04:04",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mh63ox06afy8",
+      "title": "战利品",
+      "path": [
+        "战利品"
+      ],
+      "area": "resources-related",
+      "updated_at": "2025-10-20 10:29:26",
+      "doc_type": "document",
+      "child_count": 0
+    },
+    {
+      "path_id": "mho6gviqhsqs",
+      "title": "商店组件",
+      "path": [
+        "商店组件"
+      ],
+      "area": "resources-related",
+      "updated_at": "2025-09-22 10:55:50",
+      "doc_type": "document",
+      "child_count": 0
+    }
+  ]
+}

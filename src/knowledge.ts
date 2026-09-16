@@ -1,5 +1,5 @@
-import { readFileSync, existsSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { dirname, join, relative, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,9 +21,18 @@ let skillsCache: SkillMeta[] | null = null;
 let tocCache: string | null = null;
 let communityCache: string | null = null;
 let sourceReadmeCache: string | null = null;
+let knowledgeFilesCache: { rel: string; path: string }[] | null = null;
 
 function readUtf8(path: string): string {
   return readFileSync(path, "utf8");
+}
+
+/** Resolve skill body path: bare filename → skills/; path with / → under knowledge/. */
+export function resolveSkillPath(meta: SkillMeta): string {
+  if (meta.file.includes("/") || meta.file.includes("\\")) {
+    return join(KNOWLEDGE_DIR, meta.file);
+  }
+  return join(SKILLS_DIR, meta.file);
 }
 
 export function listSkills(): SkillMeta[] {
@@ -39,7 +48,7 @@ export function listSkills(): SkillMeta[] {
 export function getSkillById(id: string): { meta: SkillMeta; content: string } | null {
   const meta = listSkills().find((s) => s.id === id || s.file === id || s.name === id);
   if (!meta) return null;
-  const path = join(SKILLS_DIR, meta.file);
+  const path = resolveSkillPath(meta);
   if (!existsSync(path)) return null;
   return { meta, content: readUtf8(path) };
 }
@@ -111,11 +120,56 @@ function snippetAround(text: string, tokens: string[], radius = 160): string {
   return snip;
 }
 
-/** Search skills + TOC + community + source readme. */
+const SEARCHABLE_EXTS = new Set([".md", ".json"]);
+/** Skip very large blobs / skill bodies already scored via listSkills. */
+const SEARCH_SKIP_NAMES = new Set(["catalog-raw.json", "node-pages.json"]);
+
+function walkKnowledgeFiles(dir: string, out: { rel: string; path: string }[]): void {
+  if (!existsSync(dir)) return;
+  for (const name of readdirSync(dir)) {
+    if (name === "skills") continue; // skills scored separately via index
+    const full = join(dir, name);
+    let st;
+    try {
+      st = statSync(full);
+    } catch {
+      continue;
+    }
+    if (st.isDirectory()) {
+      walkKnowledgeFiles(full, out);
+      continue;
+    }
+    if (!st.isFile()) continue;
+    const ext = extname(name).toLowerCase();
+    if (!SEARCHABLE_EXTS.has(ext)) continue;
+    if (SEARCH_SKIP_NAMES.has(name)) continue;
+    // Cap individual files ~2MB to keep search snappy
+    if (st.size > 2_000_000) continue;
+    out.push({ rel: relative(KNOWLEDGE_DIR, full).replace(/\\/g, "/"), path: full });
+  }
+}
+
+function listKnowledgeFiles(): { rel: string; path: string }[] {
+  if (knowledgeFilesCache) return knowledgeFilesCache;
+  const out: { rel: string; path: string }[] = [];
+  walkKnowledgeFiles(KNOWLEDGE_DIR, out);
+  knowledgeFilesCache = out;
+  return out;
+}
+
+function titleFromRel(rel: string, text: string): string {
+  const heading = text.match(/^#\s+(.+)$/m);
+  if (heading) return heading[1].trim();
+  const base = rel.split("/").pop() ?? rel;
+  return base.replace(/\.(md|json)$/i, "");
+}
+
+/** Search skills + all knowledge/ docs (md/json) + TOC + community + source readme. */
 export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
   const tokens = tokenize(query);
   if (tokens.length === 0) return [];
   const hits: KnowledgeHit[] = [];
+  const seen = new Set<string>();
 
   for (const meta of listSkills()) {
     const full = getSkillById(meta.id);
@@ -130,6 +184,7 @@ export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
         snippet: snippetAround(full.content, tokens),
         score,
       });
+      seen.add(resolveSkillPath(meta));
     }
   }
 
@@ -160,6 +215,37 @@ export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
       hits.push({
         source,
         title,
+        snippet: snippetAround(text, tokens),
+        score,
+      });
+    }
+  }
+
+  // Recursively search remaining knowledge/ markdown & json (drafts already via skills;
+  // summaries/nodes/ui/peripheral/resources/miyoushe + meta files).
+  for (const { rel, path } of listKnowledgeFiles()) {
+    if (seen.has(path)) continue;
+    // Avoid double-counting TOC/community/readme already handled
+    if (
+      rel === "OFFICIAL-TOC.md" ||
+      rel === "COMMUNITY-TOOLS.md" ||
+      rel === "SOURCE-README.md"
+    ) {
+      continue;
+    }
+    let text: string;
+    try {
+      text = readUtf8(path);
+    } catch {
+      continue;
+    }
+    const score = scoreText(`${rel}\n${text}`, tokens);
+    if (score > 0) {
+      const top = rel.split("/")[0] ?? "knowledge";
+      hits.push({
+        source: `knowledge/${top}`,
+        id: rel,
+        title: titleFromRel(rel, text),
         snippet: snippetAround(text, tokens),
         score,
       });

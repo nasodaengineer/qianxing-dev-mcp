@@ -1,0 +1,29 @@
+# 其它节点
+
+- path_id: `mhor3u09y7u0`
+- path: `节点介绍 / 客户端节点 / 角色技能节点图 / 其它节点`
+- source: https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhor3u09y7u0/content.html?v=1016
+- detail: https://act.mihoyo.com/ys/ugc/tutorial/detail/mhor3u09y7u0
+
+## **1.节点图开始**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhor3u09y7u0/6714fdd9-8bfc-42ae-bfbe-25be979a38aa.png)
+
+**节点功能**
+
+技能节点图的开始事件
+
+自定义技能的逻辑，在该节点后进行编辑，会依照节点图执行顺序执行后续节点
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+|  |  |  |  |

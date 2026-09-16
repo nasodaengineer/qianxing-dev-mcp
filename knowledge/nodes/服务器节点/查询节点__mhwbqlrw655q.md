@@ -1,0 +1,3854 @@
+# 查询节点
+
+- path_id: `mhwbqlrw655q`
+- path: `节点介绍 / 服务器节点 / 查询节点`
+- source: https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/content.html?v=1016
+- detail: https://act.mihoyo.com/ys/ugc/tutorial/detail/mhwbqlrw655q
+
+# **一、通用**
+
+## **1. 获取局部变量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/33af0664-7f24-4073-998a-3154bbab9831.undefined)
+
+**节点功能**
+
+可以获取局部变量，也可以设置该局部变量的【初始值】
+
+设置【初始值】以后，出参的【值】输出即为输入的【初始值】
+
+当出参【局部变量】与执行节点【设置局部变量】的入参【局部变量】连接后，执行节点【设置局部变量】的入参【值】会覆写该查询节点的出参【值】，再次使用【获取局部变量】节点时，出参【值】为覆写后的值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 初始值 | 泛型 | 可以设置局部变量的初始默认值 |
+
+| 出参 | 局部变量 | 局部变量 | 存储数据的载体 |
+
+| 出参 | 值 | 泛型 | 未被覆写时，该值等于初始值，被覆写后，该值等于被覆写后的值 |
+
+## **2. 查询对局游玩方式及人数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/41705a62-5625-4251-ae8e-5b6d09e62bf6.undefined)
+
+**节点功能**
+
+查询进入对局的理论人数，即参与匹配或开房间的人数和进入对局的方式
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 游玩人数 | 整数 |  |
+
+| 出参 | 游玩方式 | 枚举 | 分为试玩、房间游玩、匹配游玩 |
+
+# **二、数学**
+
+## **1. 获取随机浮点数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/26e3cabb-73a4-4a1e-9956-92b04d76f1b3.undefined)
+
+**节点功能**
+
+获取一个大于等于下限，小于等于上限的随机浮点数。注意该节点生成的随机数包含上下限
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 下限 | 浮点数 |  |
+
+| 入参 | 上限 | 浮点数 |  |
+
+| 出参 | 结果 | 浮点数 |  |
+
+## **2. 权重随机**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/20dda6d9-5268-4cd8-834e-c526d680fa52.undefined)
+
+**节点功能**
+
+输入一组权重组成的权重列表，按照权重随机选择其中的一个序号
+
+例如：权重列表为{10，20，66，4}，那么此节点分别由10%、20%、66%、4%的概率输出0、1、2、3
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 权重列表 | 整数列表 |  |
+
+| 出参 | 权重序号 | 整数 |  |
+
+## **3. 圆周率**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/c854661f-e611-47e5-89bc-f46f85f62d3d.undefined)
+
+**节点功能**
+
+返回圆周率π的近似值，约为3.142
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 圆周率（π） | 浮点数 |  |
+
+## **4. 三维向量：零向量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/2919babc-6b30-4389-852e-8ff91e0f665b.undefined)
+
+**节点功能**
+
+返回(0,0,0)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | (0,0,0) | 三维向量 |  |
+
+## **5. 三维向量：上方**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/54d399cb-7176-4fd0-afe6-72370830cc32.undefined)
+
+**节点功能**
+
+返回(0,1,0)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | (0,1,0) | 三维向量 |  |
+
+## **6. 三维向量：下方**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/645305c9-2611-4928-b09e-012287a15b0a.undefined)
+
+**节点功能**
+
+返回(0,-1,0)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | (0,-1,0) | 三维向量 |  |
+
+## **7. 三维向量：左侧**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/7e356746-5c46-44b5-ad33-511a28c0a3a1.undefined)
+
+**节点功能**
+
+返回(-1,0,0)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | (-1,0,0) | 三维向量 |  |
+
+## **8. 三维向量：右侧**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/2719d169-bd17-47a9-a373-b5f50a0f8cda.undefined)
+
+**节点功能**
+
+返回(1,0,0)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | (1,0,0) | 三维向量 |  |
+
+## **9. 三维向量：前方**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/85583e6c-cd01-4db4-b190-14d95b833e6f.undefined)
+
+**节点功能**
+
+返回(0,0,1)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | (0,0,1) | 三维向量 |  |
+
+## **10. 三维向量：后方**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/d964d52c-e4ce-459b-9d76-d5b877e9db37.undefined)
+
+**节点功能**
+
+返回(0,0,-1)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | (0,0,-1) | 三维向量 |  |
+
+## **11. 获取随机整数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/0ea5ab8f-b298-400b-84c5-47a42c2b2546.undefined)
+
+**节点功能**
+
+获取一个大于等于下限，小于等于上限的随机整数。注意该节点生成的随机数包含上下限
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 下限 | 整数 |  |
+
+| 入参 | 上限 | 整数 |  |
+
+| 出参 | 结果 | 整数 |  |
+
+## **12. 查询时间戳（UTC+0时区）**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ef43c6c3-857a-4e60-b00c-ee079d001a84.undefined)
+
+**节点功能**
+
+可以查询当前的时间戳
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 时间戳 | 整数 |  |
+
+## **13. 查询服务器时区**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ba9e093d-d223-4bae-937f-4b673df3f70b.undefined)
+
+**节点功能**
+
+可以查询服务器的时区
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 时区 | 整数 |  |
+
+# **三、列表相关**
+
+## **1. 列表是否包含该值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b0a9e987-0668-4567-94fa-e562e619c15d.undefined)
+
+**节点功能**
+
+返回列表中是否包含指定值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 列表 | 泛型 |  |
+
+| 入参 | 值 | 泛型 |  |
+
+| 出参 | 是否包含 | 布尔值 |  |
+
+## **2. 查找列表并返回值的序号**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/173281b0-f205-4977-b9e5-a53ce2a04716.undefined)
+
+**节点功能**
+
+从列表中查找指定值，并返回列表中该值出现的序号列表
+
+例如：目标列表为{1,2,3,2,1}，值为1，返回的序号列表为{0，4}，即1出现在目标列表的序号0和4
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标列表 | 泛型 |  |
+
+| 入参 | 值 | 泛型 |  |
+
+| 出参 | 序号列表 | 整数列表 | 未找到则返回空列表 |
+
+## **3. 获取列表对应值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/8fcf7c4c-b4f5-4cbf-9773-6475fab16175.undefined)
+
+**节点功能**
+
+返回列表中指定序号对应的值，序号从0开始
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 列表 | 泛型 |  |
+
+| 入参 | 序号 | 整数 |  |
+
+| 出参 | 值 | 泛型 |  |
+
+## **4. 获取列表长度**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/05b68198-dae3-45e8-87d8-f0310415d841.undefined)
+
+**节点功能**
+
+获取列表长度（列表中的元素个数）
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 列表 | 泛型 |  |
+
+| 出参 | 长度 | 整数 |  |
+
+## **5. 获取列表最大值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/8be46140-c575-4d86-9fff-415f23f79ac6.undefined)
+
+**节点功能**
+
+仅对浮点数列表和整数列表有意义，返回列表中的最大值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 列表 | 泛型 |  |
+
+| 出参 | 最大值 | 泛型 |  |
+
+## **6. 获取列表最小值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/5effab06-cbba-4c14-8894-78caa578539f.undefined)
+
+**节点功能**
+
+仅对浮点数列表和整数列表有意义，返回列表中的最小值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 列表 | 泛型 |  |
+
+| 出参 | 最小值 | 泛型 |  |
+
+# **四、自定义变量**
+
+## **1. 获取自定义变量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/4ad46c9f-9703-480e-b1db-5944f2dba975.undefined)
+
+**节点功能**
+
+获取目标实体的指定自定义变量的值
+
+如果变量不存在，则返回类型的默认值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 入参 | 变量名 | 字符串 |  |
+
+| 出参 | 变量值 | 泛型 |  |
+
+## **2. 获取节点图变量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/932881fd-3dce-49d3-9902-8dd2459df7dd.undefined)
+
+**节点功能**
+
+获取当前节点图的指定节点图变量的值
+
+如果变量不存在，则返回类型的默认值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 变量名 | 字符串 |  |
+
+| 出参 | 变量值 | 泛型 |  |
+
+## **3. 查询自定义变量快照**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/f817ae6b-b73a-4a16-b6d1-285dd2d6b9c7.undefined)
+
+**节点功能**
+
+从自定义变量组件快照中，查询指定变量名的值
+
+仅可用于【实体销毁时】事件
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 自定义变量组件快照 | 自定义变量快照 |  |
+
+| 入参 | 变量名 | 字符串 |  |
+
+| 出参 | 变量值 | 泛型 |  |
+
+# **五、预设状态**
+
+## **1. 获取预设状态**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/3e0926c5-f732-424d-b281-7616e4fd7a92.undefined)
+
+**节点功能**
+
+获取目标实体的指定预设状态的预设状态值。如果该实体没有指定的预设状态，则返回0
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 入参 | 预设状态索引 | 整数 |  |
+
+| 出参 | 预设状态值 | 整数 |  |
+
+# **六、实体相关**
+
+## **1. 获取自身实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/7026248c-1a49-441a-88c5-a0df83859419.undefined)
+
+**节点功能**
+
+返回该节点图所关联的实体
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 自身实体 | 实体 |  |
+
+## **2. 以GUID查询实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/24827a01-bbca-4cfa-99bb-ac6ce1817cee.undefined)
+
+**节点功能**
+
+根据GUID查询实体
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | GUID | GUID |  |
+
+| 出参 | 实体 | 实体 |  |
+
+## **3. 以实体查询GUID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/78eb1efe-1ea1-42e5-80c6-2d302be1e929.undefined)
+
+**节点功能**
+
+查询指定实体的GUID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 实体 | 实体 |  |
+
+| 出参 | GUID | GUID |  |
+
+## **4. 获取实体位置与旋转**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/380cee1d-ff6d-4fd9-992f-1223677fc3c6.undefined)
+
+**节点功能**
+
+获取目标实体的位置和旋转
+
+对玩家实体和关卡实体无意义
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 位置 | 三维向量 |  |
+
+| 出参 | 旋转 | 三维向量 |  |
+
+## **5. 获取实体类型**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/87dfdd0b-724e-4d53-8f8b-bd7d7623f383.undefined)
+
+**节点功能**
+
+获取目标实体的实体类型
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 实体类型 | 枚举 | 分为玩家、角色、关卡、物件、造物 |
+
+## **6. 获取场上所有实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b90c8ca8-f217-4a45-99d0-0f32f6ead8b2.undefined)
+
+**节点功能**
+
+获取当前场上所有在场的实体，该实体列表的数量可能会较大
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 实体列表 | 实体列表 |  |
+
+## **7. 获取场上指定类型实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b52b1bb9-a861-4368-8923-7b3bb800ee76.undefined)
+
+**节点功能**
+
+获取当前场上指定类型的所有实体，该实体列表的数量可能会较大
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 实体类型 | 枚举 | 分为关卡、物件、玩家、角色、造物 |
+
+| 出参 | 实体列表 | 实体列表 |  |
+
+## **8. 获取场上指定元件ID的实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/4848d8fd-6211-4085-b746-920cb12cab1c.undefined)
+
+**节点功能**
+
+获取当前场上通过指定元件ID创建的所有实体
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 元件ID | 元件ID |  |
+
+| 出参 | 实体列表 | 实体列表 |  |
+
+## **9. 获取指定类型的实体列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/431a16fb-1d84-4f0c-b91e-282b6dd595a9.undefined)
+
+**节点功能**
+
+在目标实体列表中获取指定类型的实体列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体列表 | 实体列表 |  |
+
+| 入参 | 实体类型 | 枚举 | 分为玩家、角色、关卡、物件、造物 |
+
+| 出参 | 结果列表 | 实体列表 |  |
+
+## **10. 获取指定元件ID的实体列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ea3ead0e-b434-4341-b4f3-4359df3a6db9.undefined)
+
+**节点功能**
+
+在目标实体列表中获取以指定元件ID创建的实体列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体列表 | 实体列表 |  |
+
+| 入参 | 元件ID | 元件ID |  |
+
+| 出参 | 结果列表 | 实体列表 |  |
+
+## **11. 获取指定阵营的实体列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/f2743d3b-faa5-4531-8f33-c7721701b878.undefined)
+
+**节点功能**
+
+在目标实体列表中获取归属于某个阵营的实体列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体列表 | 实体列表 |  |
+
+| 入参 | 阵营 | 阵营 |  |
+
+| 出参 | 结果列表 | 实体列表 |  |
+
+## **12. 获取指定范围的实体列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/557e0e7c-4d80-45ba-9af9-8f061532be58.undefined)
+
+**节点功能**
+
+在目标实体列表中获取指定球形范围内的实体列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体列表 | 实体列表 |  |
+
+| 入参 | 中心点 | 三维向量 |  |
+
+| 入参 | 半径 | 浮点数 |  |
+
+| 出参 | 结果列表 | 实体列表 |  |
+
+## **13. 查询实体是否在场**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/f760d632-95ec-4562-82d7-5eec79ff285f.undefined)
+
+**节点功能**
+
+查询指定实体是否在场
+
+注意角色实体即使处于倒下状态，仍然认为在场
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 是否在场 | 布尔值 |  |
+
+## **14. 获取物件属性**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/6066d02f-91b3-4a2c-bc91-d060bda15aae.undefined)
+
+**节点功能**
+
+获取物件的相关基础属性
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 物件实体 | 实体 |  |
+
+| 出参 | 等级 | 整数 |  |
+
+| 出参 | 当前生命值 | 浮点数 |  |
+
+| 出参 | 上限生命值 | 浮点数 |  |
+
+| 出参 | 当前攻击力 | 浮点数 |  |
+
+| 出参 | 基础攻击力 | 浮点数 |  |
+
+| 出参 | 当前防御力 | 浮点数 |  |
+
+| 出参 | 基础防御力 | 浮点数 |  |
+
+## **15. 获取实体向前向量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/28c54be9-7fc9-44bf-b1e5-e4ccaa0baf1c.undefined)
+
+**节点功能**
+
+获取指定实体的向前向量（即该实体本地坐标系下的z轴正方向朝向）
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 向前向量 | 三维向量 |  |
+
+## **16. 获取实体向右向量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/5c392599-47c9-4683-b965-875736b107cc.undefined)
+
+**节点功能**
+
+获取指定实体的向右向量（即该实体本地坐标系下的x轴正方向朝向）
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 向右向量 | 三维向量 |  |
+
+## **17. 获取实体向上向量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/a05ca32d-678f-49e1-a5f0-742191be1cc9.undefined)
+
+**节点功能**
+
+获取指定实体的向上向量（即该实体本地坐标系下的y轴正方向朝向）
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 向上向量 | 三维向量 |  |
+
+## **18. 查询角色当前移动速度**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/536fcf53-22a4-4bb4-bf20-19faab63c968.undefined)
+
+**节点功能**
+
+仅当角色拥有【监听移动速率】的单位状态效果时，才能查询
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 出参 | 当前速度 | 浮点数 |  |
+
+| 出参 | 速度向量 | 三维向量 |  |
+
+## **19. 获取角色属性**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/c9b08651-6e7b-47c9-a66d-13f54bec9fca.undefined)
+
+**节点功能**
+
+获取角色实体的基础属性
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 等级 | 整数 |  |
+
+| 出参 | 当前生命值 | 浮点数 |  |
+
+| 出参 | 上限生命值 | 浮点数 |  |
+
+| 出参 | 当前攻击力 | 浮点数 |  |
+
+| 出参 | 基础攻击力 | 浮点数 |  |
+
+| 出参 | 当前防御力 | 浮点数 |  |
+
+| 出参 | 基础防御力 | 浮点数 |  |
+
+| 出参 | 受打断值上限 | 浮点数 |  |
+
+| 出参 | 当前受打断值 | 浮点数 |  |
+
+| 出参 | 当前受打断状态 | 枚举 |  |
+
+## **20. 获取拥有者实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/6307ab9c-14e7-4df5-a43f-1d42a2f34956.undefined)
+
+**节点功能**
+
+获取指定目标实体的拥有者实体
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 拥有者实体 | 实体 |  |
+
+## **21. 获取实体拥有的实体列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/823c4683-6c03-4b20-b6eb-d7bbd2a3bff4.undefined)
+
+**节点功能**
+
+获取所有以目标实体为拥有者的实体组成的列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 实体列表 | 实体列表 |  |
+
+## **22. 获取实体进阶属性**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/997df9ec-a0d6-40d1-8c72-4b8ca0748338.undefined)
+
+**节点功能**
+
+获取实体的进阶属性
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 暴击率 | 浮点数 |  |
+
+| 出参 | 暴击伤害 | 浮点数 |  |
+
+| 出参 | 治疗加成 | 浮点数 |  |
+
+| 出参 | 受治疗加成 | 浮点数 |  |
+
+| 出参 | 元素充能效率 | 浮点数 |  |
+
+| 出参 | 冷却缩减 | 浮点数 |  |
+
+| 出参 | 超限模式护盾强效 | 浮点数 |  |
+
+| 出参 | 经典模式护盾强效 | 浮点数 |  |
+
+## **23. 获取实体元素属性**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/9c0f6e84-b5ea-4268-bf07-d99ecd1dc408.undefined)
+
+**节点功能**
+
+获取目标实体的元素相关属性
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 火元素伤害加成 | 浮点数 |  |
+
+| 出参 | 火元素抗性 | 浮点数 |  |
+
+| 出参 | 水元素伤害加成 | 浮点数 |  |
+
+| 出参 | 水元素抗性 | 浮点数 |  |
+
+| 出参 | 草元素伤害加成 | 浮点数 |  |
+
+| 出参 | 草元素抗性 | 浮点数 |  |
+
+| 出参 | 雷元素伤害加成 | 浮点数 |  |
+
+| 出参 | 雷元素抗性 | 浮点数 |  |
+
+| 出参 | 风元素伤害加成 | 浮点数 |  |
+
+| 出参 | 风元素抗性 | 浮点数 |  |
+
+| 出参 | 冰元素伤害加成 | 浮点数 |  |
+
+| 出参 | 冰元素抗性 | 浮点数 |  |
+
+| 出参 | 岩元素伤害加成 | 浮点数 |  |
+
+| 出参 | 岩元素抗性 | 浮点数 |  |
+
+| 出参 | 物理伤害加成 | 浮点数 |  |
+
+| 出参 | 物理抗性 | 浮点数 |  |
+
+## **24. 查询实体的元素附着状态**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/24af3bdd-a8ee-438e-a293-0796635bed6d.undefined)
+
+**节点功能**
+
+查询实体当前的元素附着状态
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 水附着 | 布尔值 |  |
+
+| 出参 | 冰附着 | 布尔值 |  |
+
+| 出参 | 雷附着 | 布尔值 |  |
+
+| 出参 | 火附着 | 布尔值 |  |
+
+| 出参 | 草附着 | 布尔值 |  |
+
+| 出参 | 风附着 | 布尔值 |  |
+
+| 出参 | 岩附着 | 布尔值 |  |
+
+| 出参 | 冻结状态 | 布尔值 |  |
+
+| 出参 | 感电状态 | 布尔值 | 月感电不属于感电状态 |
+
+| 出参 | 燃烧状态 | 布尔值 |  |
+
+| 出参 | 石化状态 | 布尔值 |  |
+
+| 出参 | 激化状态 | 布尔值 |  |
+
+## **25. 获取模型颜色和材质**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/cb314c11-2668-413e-a578-d1924e415783.undefined)
+
+**节点功能**
+
+获取实体模型的【材质】功能是否开启、【叠加颜色】功能是否开启、以及具体【材质】【颜色叠加方式】【叠加颜色】
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 是否开启自定义颜色 | 布尔值 |  |
+
+| 出参 | 颜色叠加模式 | 枚举 |  |
+
+| 出参 | 颜色 | 整数 |  |
+
+| 出参 | 颜色透明度 | 浮点数 |  |
+
+| 出参 | 是否开启自定义材质 | 布尔值 |  |
+
+| 出参 | 材质 | 枚举 |  |
+
+# **七、关卡相关**
+
+## **1. 查询游戏已进行时间**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/280a3749-8fa0-4d0b-96ed-6b6fdde36ebe.undefined)
+
+**节点功能**
+
+查询游戏已进行了多长时间，单位秒
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 游戏已进行时间 | 整数 |  |
+
+## **2. 查询当前环境时间**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/1206cb39-7991-4cec-8056-5cfee25a5ca2.undefined)
+
+**节点功能**
+
+查询当前的环境时间，范围为[0,24)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 当前环境时间 | 浮点数 | 获取到的值范围为[0,24) |
+
+| 出参 | 当前循环天数 | 整数 | 当前已经循环了多少天 |
+
+# **八、阵营相关**
+
+## **1. 查询实体阵营**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/1c219937-6403-46f2-835d-ff1fe2e03b28.undefined)
+
+**节点功能**
+
+查询指定实体的阵营
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 阵营 | 阵营 |  |
+
+## **2. 查询阵营是否敌对**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/16fe5105-ce85-4c5c-99d9-7d6f5add77f4.undefined)
+
+**节点功能**
+
+查询两个阵营是否敌对
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 阵营1 | 阵营 |  |
+
+| 入参 | 阵营2 | 阵营 |  |
+
+| 出参 | 是否敌对 | 布尔值 |  |
+
+# **九、玩家与角色相关**
+
+## **1. 获取在场玩家实体列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/7b58dd38-280f-4677-bb0d-f863e05085d9.undefined)
+
+**节点功能**
+
+获取在场所有玩家实体组成的列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 玩家实体列表 | 实体列表 |  |
+
+## **2. 获取指定玩家所有角色实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/8c7ad59a-89c3-427a-b003-644319dee26a.undefined)
+
+**节点功能**
+
+获取指定玩家实体的所有角色实体列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 角色实体列表 | 实体列表 |  |
+
+## **3. 获取角色归属的玩家实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/12ff9e3e-af37-48ec-873d-2ee0ba0f2960.undefined)
+
+**节点功能**
+
+获取角色实体所归属的玩家实体
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 出参 | 所属玩家实体 | 实体 |  |
+
+## **4. 获取玩家剩余复苏次数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b2afe002-8193-49f9-9234-ad45dc3645f6.undefined)
+
+**节点功能**
+
+获取指定玩家实体的剩余复苏次数
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 剩余次数 | 整数 |  |
+
+## **5. 获取玩家复苏耗时**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/9abab912-75b5-45bd-b040-fafc6643bd1b.undefined)
+
+**节点功能**
+
+获取指定玩家实体的复苏耗时，单位秒
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 时长 | 整数 |  |
+
+## **6. 查询玩家角色是否全部倒下**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/32f214c1-b19e-414c-ae8c-399b4a94a8ac.undefined)
+
+**节点功能**
+
+查询玩家的所有角色是否已全部倒下
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 结果 | 布尔值 |  |
+
+## **7. 根据玩家序号获取玩家GUID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/3834c805-2b58-433b-b234-255cdaf902eb.undefined)
+
+**节点功能**
+
+根据玩家序号获取玩家GUID，玩家序号即该玩家为玩家几
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家序号 | 整数 |  |
+
+| 出参 | 玩家GUID | GUID |  |
+
+## **8. 根据玩家GUID获取玩家序号**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/d59e1771-dd24-4490-af16-bc04a7f96323.undefined)
+
+**节点功能**
+
+根据玩家GUID获取玩家序号，玩家序号即该玩家为玩家几
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家GUID | GUID |  |
+
+| 出参 | 玩家序号 | 整数 |  |
+
+## **9. 获取玩家昵称**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/004ff747-c08d-40b1-a620-c07d7d211417.undefined)
+
+**节点功能**
+
+获取玩家的昵称
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 玩家昵称 | 字符串 |  |
+
+## **10. 获得玩家客户端输入设备类型**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/5ea483df-3f23-41ba-8bc3-e22b45c5ee89.undefined)
+
+**节点功能**
+
+获得玩家的客户端输入设备类型，根据用户界面的映射方式决定
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 输入设备类型 | 枚举 | 分为键盘鼠标、手柄、触屏 |
+
+## **11. 查询经典模式角色编号**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/967c161a-68e6-4828-9c43-792e8ac53c3e.undefined)
+
+**节点功能**
+
+仅经典模式可用，查询目标角色的角色编号，可以查看附录对应具体是哪位角色经典模式角色编号一览
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标角色 | 实体 |  |
+
+| 出参 | 角色编号 | 整数 |  |
+
+## **12. 获取指定玩家的前台角色**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ab9926ca-7371-4011-95ef-75145833d4ee.undefined)
+
+**节点功能**
+
+仅经典模式可用，获取玩家队伍内的前台角色
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 前台角色实体 | 实体 |  |
+
+# **十、跟随运动器**
+
+## **1. 获取跟随运动器的目标**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/42f232b3-9ad5-416c-b46e-9cdeb42ece8b.undefined)
+
+**节点功能**
+
+获取跟随运动器的目标，可以获取目标实体和实体的GUID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 跟随目标实体 | 实体 |  |
+
+| 出参 | 跟随目标GUID | GUID |  |
+
+# **十一、全局计时器**
+
+## **1. 获取全局计时器当前时间**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/1912e0cb-3594-4a42-8db1-beb5ea7a806c.undefined)
+
+**节点功能**
+
+获取目标实体上指定全局计时器的当前时间
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 入参 | 计时器名称 | 字符串 |  |
+
+| 出参 | 当前时间 | 浮点数 |  |
+
+# **十二、界面控件组**
+
+## **1. 获取玩家当前界面布局**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/bf790dbb-7b49-4f90-abf4-e81a0a23fe92.undefined)
+
+**节点功能**
+
+获取指定玩家实体上当前生效的界面布局的索引
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 布局索引 | 整数 |  |
+
+# **十三、造物**
+
+## **1. 获取造物当前目标**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/c461a60a-ab8e-4249-bd1e-a53fdf50b739.undefined)
+
+**节点功能**
+
+根据造物当前行为的不同，目标实体也不尽相同。
+
+例如当造物在攻击敌方时，造物的目标为敌方指定实体。
+
+例如当造物在对友方进行治疗时，造物的目标为友方指定实体。
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 造物实体 | 实体 | 运行时的造物实体 |
+
+| 出参 | 目标实体 | 实体 | 造物当前的智能选取目标实体 |
+
+## **2. 获取造物属性**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ac494da1-b369-4c6a-a7a7-fc641b5730d5.undefined)
+
+**节点功能**
+
+获取指定造物的属性
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 造物实体 | 实体 |  |
+
+| 出参 | 等级 | 整数 |  |
+
+| 出参 | 当前生命值 | 浮点数 |  |
+
+| 出参 | 上限生命值 | 浮点数 |  |
+
+| 出参 | 当前攻击力 | 浮点数 |  |
+
+| 出参 | 基础攻击力 | 浮点数 |  |
+
+| 出参 | 受打断值上限 | 浮点数 |  |
+
+| 出参 | 当前受打断值 | 浮点数 |  |
+
+| 出参 | 当前受打断状态 | 枚举 |  |
+
+## **3. 获取默认模式的造物仇恨列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/a4972e12-0aff-4efa-a9d2-f2cf73a4afd1.undefined)
+
+**节点功能**
+
+获取造物的默认仇恨模式的仇恨列表，即仅仇恨配置为【默认类型】时，该节点才会有正确的输出列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 造物实体 | 实体 | 运行时的造物实体 |
+
+| 出参 | 仇恨列表 | 实体列表 | 造物当前对哪些实体有仇恨，该列表是无序的 |
+
+# **十四、职业**
+
+## **1. 查询玩家职业**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/481b0670-e3c3-43d5-8f68-f41b2d4c6cbc.undefined)
+
+**节点功能**
+
+查询玩家当前的职业，会输出该职业的配置ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 职业配置ID | 配置ID |  |
+
+## **2. 查询玩家职业的等级**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b41fda2b-0753-48c8-b6b6-3c995058b720.undefined)
+
+**节点功能**
+
+查询玩家指定职业的等级
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 入参 | 职业配置ID | 配置ID |  |
+
+| 出参 | 等级 | 整数 |  |
+
+# **十五、技能**
+
+## **1. 查询角色技能**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/93c4d8c3-69cf-4d4f-b623-9a01ab795134.undefined)
+
+**节点功能**
+
+查询角色指定槽位的技能，会输出该技能的配置ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 入参 | 角色技能槽位 | 枚举 |  |
+
+| 出参 | 技能配置ID | 配置ID |  |
+
+## **2. 以技能实例ID查询技能配置ID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/a4aa4ca6-18b9-4c99-82e4-332701318a4b.undefined)
+
+**节点功能**
+
+根据角色实体与指定技能实例ID查询对应的技能配置ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 入参 | 技能实例ID | 整数 |  |
+
+| 出参 | 技能配置ID | 配置ID |  |
+
+## **3. 以技能配置ID查询所有技能实例ID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/32bf6ebf-4592-4a35-8e8e-02291a9a9301.undefined)
+
+**节点功能**
+
+根据角色实体与指定技能配置ID查询对应的技能实例ID列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 入参 | 技能配置ID | 配置ID |  |
+
+| 出参 | 技能实例ID列表 | 整数列表 |  |
+
+## **4. 以技能槽位查询所有技能实例ID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/7b56fafe-e3a7-4c90-b2fd-83b23356385e.undefined)
+
+**节点功能**
+
+查询角色实体对应技能槽位上的所有技能实例ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 入参 | 技能槽位 | 枚举 |  |
+
+| 出参 | 技能实例ID列表 | 整数列表 |  |
+
+## **5. 以技能槽位和技能配置ID查询技能实例ID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/2dd59cdc-db93-4d7e-8d4d-d81c6306b5f8.undefined)
+
+**节点功能**
+
+根据技能配置ID查询角色实体对应技能槽位上的技能实例ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 入参 | 技能槽位 | 枚举 |  |
+
+| 入参 | 技能配置ID | 配置ID |  |
+
+| 出参 | 技能实例ID | 整数 |  |
+
+## **6. 查询技能属性组值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/97ff9f4e-8fd5-4531-a5c4-16f70a4747f7.undefined)
+
+**节点功能**
+
+查询角色实体上指定技能组配置ID对应技能组的值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 角色实体 | 实体 |  |
+
+| 入参 | 技能组配置ID | 配置ID |  |
+
+| 出参 | 技能组值 | 浮点数 |  |
+
+# **十六、单位状态**
+
+## **1. 查询实体是否具有单位状态**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/30ac1336-1ffc-4aae-8aa9-5a98555d2e9f.undefined)
+
+**节点功能**
+
+查询指定实体是否具有特定配置ID的单位状态
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 入参 | 单位状态配置ID | 配置ID |  |
+
+| 出参 | 是否具有 | 布尔值 |  |
+
+## **2. 根据槽位序号查询单位状态层数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/280ee365-fb63-4fdf-b32c-65aaac401751.undefined)
+
+**节点功能**
+
+查询目标实体指定槽位上的特定单位状态的层数
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 查询目标实体 | 实体 |  |
+
+| 入参 | 单位状态配置ID | 配置ID |  |
+
+| 入参 | 槽位序号 | 整数 |  |
+
+| 出参 | 层数 | 整数 |  |
+
+## **3. 根据槽位序号查询单位状态施加者**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b35abbf1-265e-4205-80ae-dc2303606ca2.undefined)
+
+**节点功能**
+
+查询目标实体指定槽位上的特定单位状态的施加者
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 查询目标实体 | 实体 |  |
+
+| 入参 | 单位状态配置ID | 配置ID |  |
+
+| 入参 | 槽位序号 | 整数 |  |
+
+| 出参 | 施加者实体 | 实体 |  |
+
+## **4. 查询单位状态的槽位序号列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/d04752e2-a4eb-4c9e-8933-566e3a124257.undefined)
+
+**节点功能**
+
+查询指定目标实体上特定配置ID的单位状态的所有槽位序号列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 查询目标实体 | 实体 |  |
+
+| 入参 | 单位状态配置ID | 配置ID |  |
+
+| 出参 | 槽位序号列表 | 整数列表 |  |
+
+# **十七、标签**
+
+## **1. 获取实体单位标签列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/555afe49-24a1-470a-99c6-61467ca01c4e.undefined)
+
+**节点功能**
+
+获取目标实体上携带的所有单位标签组成的列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 单位标签列表 | 整数列表 |  |
+
+## **2. 获取单位标签的实体列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/4aa604e2-d1d2-428b-a1c0-162aa0cece33.undefined)
+
+**节点功能**
+
+获取在场所有携带该单位标签的实体列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 单位标签索引 | 整数 |  |
+
+| 出参 | 实体列表 | 实体列表 |  |
+
+# **十八、自定义仇恨**
+
+## **1. 查询指定实体的仇恨值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b67f74a9-f8da-41d0-8a53-e74dfdfd047b.undefined)
+
+**节点功能**
+
+查询目标实体在仇恨拥有者上的仇恨值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 查询目标 | 实体 |  |
+
+| 入参 | 仇恨拥有者 | 实体 |  |
+
+| 出参 | 仇恨值 | 整数 |  |
+
+## **2. 查询指定实体的仇恨倍率**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/098eedde-65ac-415c-a96e-3eee97eeadd1.undefined)
+
+**节点功能**
+
+查询指定实体的仇恨倍率
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 查询目标 | 实体 |  |
+
+| 出参 | 仇恨倍率 | 浮点数 |  |
+
+## **3. 查询全局仇恨转移倍率**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/6fef6759-7880-46e5-a27d-e3f9b915924b.undefined)
+
+**节点功能**
+
+查询全局仇恨转移倍率，在【关卡设置】中可以配置
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 全局仇恨转移倍率 | 浮点数 |  |
+
+## **4. 获取指定实体的仇恨目标**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/90dfadd7-c7f5-4b06-a9f9-1338582adb48.undefined)
+
+**节点功能**
+
+获取指定实体的仇恨目标
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 仇恨拥有者 | 实体 |  |
+
+| 出参 | 仇恨目标 | 实体 |  |
+
+## **5. 获取目标所在仇恨列表的拥有者列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/abd09c51-edd7-4765-8f14-2be9ac4c46fd.undefined)
+
+**节点功能**
+
+查询指定目标实体在哪些实体的仇恨列表中
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 查询目标 | 实体 |  |
+
+| 出参 | 仇恨拥有者列表 | 实体列表 |  |
+
+## **6. 获取以目标为仇恨目标的拥有者列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/d756ca0e-c56b-465c-b38f-b852995acf92.undefined)
+
+**节点功能**
+
+查询哪些实体以目标实体为仇恨目标
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 仇恨拥有者列表 | 实体列表 |  |
+
+## **7. 获取指定实体的仇恨列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/fe7ca45e-fe47-4cdd-b3d7-c1601a4d4780.undefined)
+
+**节点功能**
+
+获取指定实体的仇恨列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 仇恨列表 | 实体列表 |  |
+
+## **8. 查询指定实体是否已入战**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/18b6c09a-1878-42c0-9d96-4ecae59cbe25.undefined)
+
+**节点功能**
+
+查询指定实体是否已经入战
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 查询目标 | 实体 |  |
+
+| 出参 | 是否入战 | 布尔值 |  |
+
+# **十九、路径**
+
+## **1. 获取指定路径点信息**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/2083eccd-3d03-4797-b488-214f7b176376.undefined)
+
+**节点功能**
+
+查询指定路径的特定路点信息
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 路径索引 | 整数 |  |
+
+| 入参 | 路径路点序号 | 整数 |  |
+
+| 出参 | 路点位置 | 三维向量 |  |
+
+| 出参 | 路点朝向 | 三维向量 |  |
+
+## **2. 获得全局路径的路点个数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/f7832f7b-b5c2-4992-b51d-76e443af4c2c.undefined)
+
+**节点功能**
+
+获得指定全局路径的路点个数
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 路径索引 | 整数 |  |
+
+| 出参 | 路点个数 | 整数 |  |
+
+# **二十、预设点**
+
+## **1. 查询预设点位置旋转**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/92fbbb1c-895b-451e-ae42-66f1407e837a.undefined)
+
+**节点功能**
+
+查询指定预设点的位置和旋转
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 点位索引 | 整数 |  |
+
+| 出参 | 位置 | 三维向量 |  |
+
+| 出参 | 旋转 | 三维向量 |  |
+
+## **2. 以单位标签获取预设点位列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/269c1db7-a6c2-4005-8a7d-0ae3569d4608.undefined)
+
+**节点功能**
+
+根据单位标签索引查询所有携带该单位标签的预设点位列表，输出值为该预设点位的索引
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 单位标签索引 | 整数 |  |
+
+| 出参 | 点位索引列表 | 整数列表 |  |
+
+# **二十一、关卡结算**
+
+## **1. 获取玩家结算排名数值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/a4ac2dcd-cd50-4640-9b40-1539121c9efb.undefined)
+
+**节点功能**
+
+获取指定玩家实体结算的排名数值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 排名数值 | 整数 |  |
+
+## **2. 获取玩家结算成功状态**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/505e26b8-ad7b-4f71-91a0-d9a7f3353a1d.undefined)
+
+**节点功能**
+
+获取玩家结算成功状态
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 结算状态 | 枚举 | 分为未定、胜利、失败 |
+
+## **3. 获取阵营结算排名数值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b2aa507d-9313-478f-8a33-28bc1d90998d.undefined)
+
+**节点功能**
+
+获取指定阵营结算的排名数值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 阵营 | 阵营 |  |
+
+| 出参 | 排名数值 | 整数 |  |
+
+## **4. 获取阵营结算成功状态**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b32ef1bd-b0f4-4c5e-8c9c-c8a9a8e1b66a.undefined)
+
+**节点功能**
+
+获取阵营结算成功状态
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 阵营 | 阵营 |  |
+
+| 出参 | 结算状态 | 枚举 | 分为未定、胜利、失败 |
+
+# **二十二、字典**
+
+## **1. 以键查询字典值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/b8425444-b419-4e73-bc82-52ad1f286b15.undefined)
+
+**节点功能**
+
+根据键查询字典中对应的值，如果键不存在，则返回类型默认值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 字典 | 泛型 |  |
+
+| 入参 | 键 | 泛型 |  |
+
+| 出参 | 值 | 泛型 |  |
+
+## **2. 查询字典是否包含特定键**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/af4e43f3-2ddc-4271-b11d-5069d5ba044f.undefined)
+
+**节点功能**
+
+查询指定字典是否包含特定的键
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 字典 | 泛型 |  |
+
+| 入参 | 键 | 泛型 |  |
+
+| 出参 | 是否包含 | 布尔值 |  |
+
+## **3. 查询字典是否包含特定值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/266a0ca6-7d7b-4eaf-8d30-8e49516a8ddd.undefined)
+
+**节点功能**
+
+查询指定字典是否包含特定的值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 字典 | 泛型 |  |
+
+| 入参 | 值 | 泛型 |  |
+
+| 出参 | 是否包含 | 布尔值 |  |
+
+## **4. 获取字典中键组成的列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/a83f900d-156a-4213-99c0-d95fd48c9ce5.undefined)
+
+**节点功能**
+
+获取字典中所有键组成的列表。由于字典中键值对是无序排列的，所以取出的键列表也不一定按照其插入顺序排列
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 字典 | 泛型 |  |
+
+| 出参 | 键列表 | 泛型 |  |
+
+## **5. 获取字典中值组成的列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/e865f202-295a-453e-853e-6b500c859c5e.undefined)
+
+**节点功能**
+
+获取字典中所有值组成的列表。由于字典中键值对是无序排列的，所以取出的值列表也不一定按照其插入顺序排列
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 字典 | 泛型 |  |
+
+| 出参 | 值列表 | 泛型 |  |
+
+## **6. 查询字典长度**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/1eafdf06-93f1-452d-8ac3-6689080aaa41.undefined)
+
+**节点功能**
+
+查询字典中键值对的数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 字典 | 泛型 |  |
+
+| 出参 | 长度 | 整数 |  |
+
+# **二十三、商店**
+
+## **1. 查询自定义商店商品出售列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/36249cd8-0e1a-4eee-bf24-3f50e6afcda8.undefined)
+
+**节点功能**
+
+查询自定义商店商品出售列表，出参为商品序号组成的列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 商店归属者实体 | 实体 |  |
+
+| 入参 | 商店序号 | 整数 |  |
+
+| 出参 | 商品序号列表 | 整数列表 |  |
+
+## **2. 查询背包商店物品出售列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/c50b2e1c-1847-4966-9df7-9f81bfe30028.undefined)
+
+**节点功能**
+
+查询背包商店物品出售列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 商店归属者实体 | 实体 |  |
+
+| 入参 | 商店序号 | 整数 |  |
+
+| 出参 | 道具配置ID列表 | 配置ID列表 |  |
+
+## **3. 查询商店收购物品列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/34f8160e-e580-4f52-8b89-f2bb343ca4b8.undefined)
+
+**节点功能**
+
+查询商店收购物品列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 商店归属者实体 | 实体 |  |
+
+| 入参 | 商店序号 | 整数 |  |
+
+| 出参 | 道具配置ID列表 | 配置ID列表 |  |
+
+## **4. 查询自定义商店商品出售信息**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/9f71453b-529c-4f11-9a9b-1a1d140064b2.undefined)
+
+**节点功能**
+
+查询自定义商店特定商品的出售信息
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 商店归属者实体 | 实体 |  |
+
+| 入参 | 商店序号 | 整数 |  |
+
+| 入参 | 商品序号 | 整数 |  |
+
+| 出参 | 道具配置ID | 配置ID |  |
+
+| 出参 | 出售货币字典 | 字典 |  |
+
+| 出参 | 所属页签序号 | 整数 |  |
+
+| 出参 | 是否限购 | 布尔值 |  |
+
+| 出参 | 限购数量 | 整数 |  |
+
+| 出参 | 排序优先级 | 整数 |  |
+
+| 出参 | 是否可出售 | 布尔值 |  |
+
+## **5. 查询背包商店商品出售信息**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/45584471-34cb-4e2d-a918-e9d9c474f047.undefined)
+
+**节点功能**
+
+查询背包商店中特定商品的出售信息
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 商店归属者实体 | 实体 |  |
+
+| 入参 | 商店序号 | 整数 |  |
+
+| 入参 | 道具配置ID | 配置ID |  |
+
+| 出参 | 出售货币字典 | 字典 |  |
+
+| 出参 | 排序优先级 | 整数 |  |
+
+| 出参 | 是否可出售 | 布尔值 |  |
+
+## **6. 查询商店物品收购信息**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/d8997f73-ab54-4e5b-88c8-f216e4aa00ce.undefined)
+
+**节点功能**
+
+查询商店特定物品的收购信息
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 商店归属者实体 | 实体 |  |
+
+| 入参 | 商店序号 | 整数 |  |
+
+| 入参 | 道具配置ID | 配置ID |  |
+
+| 出参 | 收购货币字典 | 字典 |  |
+
+| 出参 | 是否可收购 | 布尔值 |  |
+
+# **二十四、装备**
+
+## **1. 获取装备词条列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/bba4cb2d-9ed8-4528-a4ed-9f5d8a420e9e.undefined)
+
+**节点功能**
+
+获取该装备实例的所有词条组成的列表
+
+装备初始化时，词条的数值会发生随机，所以装备实例上的装备词条也会生成对应的实例，故数据类型为整数而不是配置ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 装备索引 | 整数 |  |
+
+| 出参 | 装备词条列表 | 整数列表 |  |
+
+## **2. 获取装备词条配置ID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/6170ac14-fdad-4005-a971-2e36bf82427d.undefined)
+
+**节点功能**
+
+根据装备实例上装备词条的序号获取该词条的配置ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 装备索引 | 整数 |  |
+
+| 入参 | 词条序号 | 整数 |  |
+
+| 出参 | 词条配置ID | 配置ID |  |
+
+## **3. 获取装备词条数值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/40f1b3c5-5535-4468-8948-523456d46baf.undefined)
+
+**节点功能**
+
+获取装备实例上对应序号词条的数值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 装备索引 | 整数 |  |
+
+| 入参 | 词条序号 | 整数 |  |
+
+| 出参 | 词条数值 | 浮点数 |  |
+
+## **4. 查询装备标签列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/c0156ea2-53be-4ba9-90da-bcc9863b5b51.undefined)
+
+**节点功能**
+
+查询该装备实例的所有标签组成的列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 装备索引 | 整数 |  |
+
+| 出参 | 标签列表 | 配置ID列表 |  |
+
+## **5. 根据装备索引查询装备配置ID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/62601ff0-4671-4c04-9324-919f99b521a7.undefined)
+
+**节点功能**
+
+根据装备索引查询装备配置ID，装备实例的索引可以在【装备初始化】事件中获取到
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 装备索引 | 整数 |  |
+
+| 出参 | 装备配置ID | 配置ID |  |
+
+## **6. 获取指定装备栏位的装备索引**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/7b9f6b5e-77e7-4f4f-b902-e80f720496cd.undefined)
+
+**节点功能**
+
+获取目标实体装备栏上指定行列对应装备的索引
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 入参 | 行 | 整数 |  |
+
+| 入参 | 列 | 整数 |  |
+
+| 出参 | 装备索引 | 整数 |  |
+
+# **二十五、道具**
+
+## **1. 获取背包容量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/f5c01148-016d-4227-93bc-f25ddb101254.undefined)
+
+**节点功能**
+
+获取背包容量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 背包持有者实体 | 实体 |  |
+
+| 出参 | 背包容量 | 整数 |  |
+
+## **2. 获取背包道具数量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ff374540-8708-46d1-b64e-2967618c7a5c.undefined)
+
+**节点功能**
+
+获取背包内特定配置ID的道具数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 背包持有者实体 | 实体 |  |
+
+| 入参 | 道具配置ID | 配置ID |  |
+
+| 出参 | 道具数量 | 整数 |  |
+
+## **3. 获取背包货币数量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/dcc7ea0a-1c6c-46c0-8f83-e1755103030a.undefined)
+
+**节点功能**
+
+获取背包内特定配置ID的货币数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 背包持有者实体 | 实体 |  |
+
+| 入参 | 货币配置ID | 配置ID |  |
+
+| 出参 | 资源数量 | 整数 |  |
+
+## **4. 获取背包所有基础道具**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/cb453789-0195-4008-9a3c-c790a2bfe90f.undefined)
+
+**节点功能**
+
+获取背包所有基础道具，包括道具类型和对应的数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 背包持有者实体 | 实体 |  |
+
+| 出参 | 基础道具字典 | 字典 |  |
+
+## **5. 获取背包所有货币**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/358d91fc-7d94-45e1-aa34-e80d83a1ca39.undefined)
+
+**节点功能**
+
+获取背包所有货币，包括货币类型和对应的数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 背包持有者实体 | 实体 |  |
+
+| 出参 | 货币字典 | 字典 |  |
+
+## **6. 获取背包所有装备**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/2cf41687-d573-40a5-bebe-a8705d15a20a.undefined)
+
+**节点功能**
+
+获取背包所有装备，出参为所有装备索引组成的列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 背包持有者实体 | 实体 |  |
+
+| 出参 | 装备索引列表 | 整数列表 |  |
+
+## **7. 获取掉落物组件道具数量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/e16619cd-7c6f-42cd-bff0-f8ce0c81fa1a.undefined)
+
+**节点功能**
+
+获取掉落物元件上掉落物组件中特定配置ID的道具数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 掉落物实体 | 实体 |  |
+
+| 入参 | 道具配置ID | 配置ID |  |
+
+| 出参 | 道具数量 | 整数 |  |
+
+## **8. 获取掉落物组件货币数量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ea684db0-cf1d-4335-8b67-39b1e3c6d466.undefined)
+
+**节点功能**
+
+获取掉落物元件上掉落物组件中特定配置ID的货币数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 掉落物实体 | 实体 |  |
+
+| 入参 | 货币配置ID | 配置ID |  |
+
+| 出参 | 货币数量 | 整数 |  |
+
+## **9. 获取掉落物组件所有道具**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ac1a539f-e53b-4ee3-a3e9-4a89f6bc4cd5.undefined)
+
+**节点功能**
+
+获取掉落物元件上掉落物组件中的所有道具
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 掉落者实体 | 实体 |  |
+
+| 出参 | 道具字典 | 字典 |  |
+
+## **10. 获取掉落物组件所有货币**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/77f4863f-1997-4043-a21f-65d13e40c415.undefined)
+
+**节点功能**
+
+获取掉落物元件上掉落物组件中的所有货币
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 掉落者实体 | 实体 |  |
+
+| 出参 | 货币字典 | 字典 |  |
+
+## **11. 获取掉落物组件所有装备**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/4eb8bd91-8101-4c21-8a18-2546025b749c.undefined)
+
+**节点功能**
+
+获取掉落物元件上掉落物组件中的所有装备
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 掉落物实体 | 实体 |  |
+
+| 出参 | 装备索引列表 | 整数列表 |  |
+
+# **二十六、碰撞触发器**
+
+## **1. 获取碰撞触发器内所有实体**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/417ff1c1-f854-4e5e-b08b-685cccbc7985.undefined)
+
+**节点功能**
+
+获取目标实体上碰撞触发器组件中特定序号对应的碰撞触发器内的所有实体
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 入参 | 触发器序号 | 整数 |  |
+
+| 出参 | 实体列表 | 实体列表 |  |
+
+# **二十七、小地图标识组件**
+
+## **1. 查询指定小地图标识信息**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/7cb189dd-db23-470c-a830-9caf3fb142f9.undefined)
+
+**节点功能**
+
+查询目标实体上小地图标识组件中特定序号对应的小地图标识的信息
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 | 运行时的实体 |
+
+| 入参 | 小地图标识序号 | 整数 | 要查询的指定小地图标识的序号 |
+
+| 出参 | 生效状态 | 布尔值 | 查询的小地图标识的生效状态 |
+
+| 出参 | 可见标识的玩家列表 | 实体列表 | 返回可见该标识的玩家列表 |
+
+| 出参 | 追踪标识的玩家列表 | 实体列表 | 返回追踪该标识的玩家列表 |
+
+## **2. 获取实体的小地图标识状态**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/639c054e-e989-4f36-b1af-1f62151c51db.undefined)
+
+**节点功能**
+
+查询实体当前小地图标识的配置及生效情况
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 | 运行时的实体 |
+
+| 出参 | 全量小地图标识序号列表 | 整数列表 | 该实体的所有小地图标识枚举列表 |
+
+| 出参 | 生效的小地图标识序号列表 | 整数列表 | 该实体的所有生效小地图标识枚举列表 |
+
+| 出参 | 未生效的小地图标识序号列表 | 整数列表 | 该实体的所有未生效小地图标识枚举列表 |
+
+# **二十八、造物巡逻**
+
+## **1. 获取当前造物的巡逻模板**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/917f9620-fa8c-4d2c-baae-a5a5ed8695a6.undefined)
+
+**节点功能**
+
+获取指定造物实体的巡逻模板信息
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 造物实体 | 实体 | 运行时的造物实体 |
+
+| 出参 | 巡逻模板序号 | 整数 | 造物当前生效的巡逻模板序号 |
+
+| 出参 | 路径索引 | 整数 | 造物当前生效的巡逻模板引用的路径索引 |
+
+| 出参 | 目标路点序号 | 整数 | 造物即将前往的路点序号 |
+
+# **二十九、成就**
+
+## **1. 查询成就是否完成**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/77368c5e-d28c-4a04-8411-0c12b879b62e.undefined)
+
+**节点功能**
+
+查询目标实体上特定序号对应的成就是否完成
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 入参 | 成就序号 | 整数 |  |
+
+| 出参 | 是否完成 | 布尔值 |  |
+
+# **三十、扫描标签**
+
+## **1. 获取当前生效的扫描标签配置ID**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/1d6cb1fa-8c1a-473e-8289-5a85234e5249.undefined)
+
+**节点功能**
+
+获取目标实体上当前生效的扫描标签的配置ID
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 |  |
+
+| 出参 | 扫描标签配置ID | 配置ID |  |
+
+# **三十一、段位**
+
+## **1. 获取玩家段位变化分数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/2129127c-e449-4dad-bf40-75a0479fce07.undefined)
+
+**节点功能**
+
+获取玩家实体在不同结算状态下段位的变化分数
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 入参 | 结算状态 | 枚举 |  |
+
+| 出参 | 分数 | 整数 |  |
+
+## **2. 获取玩家段位信息**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ca4c1f3a-79ce-4801-9914-2971023fbfbc.undefined)
+
+**节点功能**
+
+获取玩家段位相关信息
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 玩家段位总分 | 整数 |  |
+
+| 出参 | 玩家连胜次数 | 整数 |  |
+
+| 出参 | 玩家连败次数 | 整数 |  |
+
+| 出参 | 玩家连续逃跑次数 | 整数 |  |
+
+## **3. 获取玩家逃跑合法性**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/722fe7c5-9aff-40a6-b47a-29f237fea168.undefined)
+
+**节点功能**
+
+获取玩家逃跑合法性
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 是否合法 | 布尔值 |  |
+
+# **三十二、实体布设组**
+
+## **1. 查询当前激活的实体布设组列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/96916cbd-713a-4ea0-bcea-8a250ee9a954.undefined)
+
+**节点功能**
+
+查询当前关卡激活的实体布设组组成的列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 出参 | 实体布设组索引列表 | 整数列表 |  |
+
+# **三十三、奇域礼盒相关**
+
+## **1. 查询对应礼盒数量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/fc7e9b50-8301-48ed-ac43-9a648cf1cd3d.undefined)
+
+**节点功能**
+
+查询玩家实体上指定礼盒的数量
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 入参 | 礼盒索引 | 整数 |  |
+
+| 出参 | 数量 | 整数 |  |
+
+## **2. 查询对应华丽演绎礼盒消耗数量**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/05b2aec8-cee3-4a6c-bf71-15761c1711e5.undefined)
+
+**节点功能**
+
+查询玩家实体上华丽演绎礼盒的消耗数量(无法对其他类型的礼盒使用)
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 入参 | 礼盒索引 | 整数 |  |
+
+| 出参 | 数量 | 整数 |  |
+
+# **三十四、造物预设状态**
+
+## **1. 获取复杂造物的预设状态值**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/0e2dd995-7a97-4642-a863-ff0460975d49.undefined)
+
+**节点功能**
+
+**节点功能**
+获取复杂造物指定预设状态索引的预设状态值
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 目标实体 | 实体 | 复杂造物实体 |
+
+| 入参 | 预设状态索引 | 整数 |  |
+
+| 出参 | 预设状态值 | 整数 |  |
+
+# **三十五、关卡任务**
+
+## **1. 查询指定任务计数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/4264904c-d78c-452f-af8f-e8a8f941604a.undefined)
+
+**节点功能**
+
+仅超限模式可用
+
+可以查询对应玩家的指定任务的当前计数
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 入参 | 任务索引 | 整数 |  |
+
+| 出参 | 任务计数 | 整数 |  |
+
+## **2. 查询指定任务是否完成**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/7ede65bf-73dd-4ee5-b4d0-300bbf829ce6.undefined)
+
+**节点功能**
+
+仅超限模式可用
+
+可以查询对应玩家的指定任务是否完成
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 | 所查询的玩家实体 |
+
+| 入参 | 任务索引 | 整数 | 所要查询的任务对应的索引 |
+
+| 出参 | 是否完成 | 布尔值 |  |
+
+# **三十六、操控运动器**
+
+## **1. 查询玩家当前激活操控运动器列表**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/dc91202e-b4df-4af4-b86c-1e173a24dea1.undefined)
+
+**节点功能**
+
+查询玩家当前激活操控运动器列表
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 操控运动器实体列表 | 实体列表 |  |
+
+## **2. 查询玩家当前跟随操控运动器**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/0bd4981d-10ed-4e53-a332-b9c33d39f8f1.undefined)
+
+**节点功能**
+
+查询玩家当前跟随操控运动器
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 |  |
+
+| 出参 | 操控运动器实体 | 实体 |  |
+
+## **3. 查询操控运动器当前运动参数**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/16452581-7b31-4efb-9d80-5ebeb940253b.undefined)
+
+**节点功能**
+
+查询操控运动器当前运动参数。不包含操控技能节点添加的临时运动参数。
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 操控运动器 | 实体 |  |
+
+| 出参 | 前进加速度 | 浮点数 |  |
+
+| 出参 | 后退加速度 | 浮点数 |  |
+
+| 出参 | 转向速率 | 浮点数 |  |
+
+| 出参 | 基础阻力 | 浮点数 |  |
+
+| 出参 | 阻力系数 | 浮点数 |  |
+
+| 出参 | 最大前进速度 | 浮点数 |  |
+
+| 出参 | 最大后退速度 | 浮点数 |  |
+
+# **三十七、作者订阅**
+
+## **1. 查询玩家是否订阅**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/ce0fff6d-30c3-43a9-86c8-702b0a298825.undefined)
+
+**节点功能**
+
+可以查询对应玩家是否订阅该奇匠
+
+奇匠无法订阅自己，但该节点由奇匠自身触发时，出参结果为true
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 | 所查询的玩家实体 |
+
+| 出参 | 是否订阅 | 布尔值 |  |
+
+# **三十八、光标**
+
+## **1. 查询玩家光标是否激活**
+
+![img](https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwbqlrw655q/deba6adc-82dd-442c-a2b4-6b52ad9cd020.undefined)
+
+**节点功能**
+
+查询指定玩家当前的光标是否处于激活（常驻显示）状态
+
+**节点参数**
+
+****
+
+****
+
+****
+
+****
+| 参数类型 | 参数名 | 类型 | 说明 |
+
+| 入参 | 玩家实体 | 实体 | 要查询的玩家 |
+
+| 出参 | 是否激活 | 布尔值 | 光标常驻显示则为“是” |

@@ -46,5 +46,29 @@
     "file": "debug-publish.md",
     "name": "调试、负载与发布准备",
     "description": "节点图日志、试玩校验 vs 风险检查、负载优化、上传前清单"
+  },
+  {
+    "id": "nodes-cookbook",
+    "file": "drafts/qianxing-nodes-cookbook.md",
+    "name": "节点图速查与编排菜谱",
+    "description": "服务器五类节点+客户端多图差异；节点选型、参数与执行/事件/查询/运算/流程编排"
+  },
+  {
+    "id": "ui-controls",
+    "file": "drafts/qianxing-ui-controls.md",
+    "name": "界面控件与布局",
+    "description": "界面布局/控件组/素材库选型配置；布局切换、控件状态、动效与输入反馈"
+  },
+  {
+    "id": "peripheral-systems",
+    "file": "drafts/qianxing-peripheral-systems.md",
+    "name": "外围系统",
+    "description": "排行榜、竞技段位、成就、关卡结算、奇域礼盒/任务、先行体验、奇匠订阅"
+  },
+  {
+    "id": "resource-systems",
+    "file": "drafts/qianxing-resource-systems.md",
+    "name": "资源系统",
+    "description": "道具/装备/货币/背包/掉落物/商店配置与运行时操作、组件挂载"
   }
 ]
