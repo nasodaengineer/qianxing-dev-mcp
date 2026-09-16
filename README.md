@@ -1,16 +1,26 @@
 # qianxing-dev-mcp
 
-千星奇域（Miliastra Wonderland / 原神 UGC）**知识向** MCP 服务器（TypeScript / stdio）。
+千星奇域（Miliastra Wonderland / 原神 UGC）**开发工具向** MCP 服务器（TypeScript / stdio）。
 
-为助手提供技能草稿、官方目录检索、故障诊断、小玩法清单、社区工具链指引。  
-**不是**游戏客户端修改器，也不提供破解或未授权注入。
+面向 UGC 开发：脚手架 genshin-ts 工程、查节点做 codegen、生成 TypeScript 逻辑 stub、编译出 `.gia`。  
+知识检索 / 技能草稿仍可用，但是**次要**能力。
+
+**不是**游戏客户端修改器；`inject_hint` 只打印本机配置步骤，不宣称向实时游戏注入。
+
+## 从想法到 .gia（3 步）
+
+1. **`scaffold_project`** — 在目标目录生成最小 genshin-ts 工程（`src/main.ts` + `gsts.config.ts`）
+2. **`generate_logic`** + **`lookup_node`** — 生成可粘贴的 `g.server(...).on(...)` stub，并用 1275 节点索引核对官方节点名
+3. **`compile_project`** — `npm run build` / `gsts`，收集 `dist` 下 `.gs.ts` / `.json` / `.gia`
+
+需要本机地图注入时再看 **`inject_hint`**，自行填写 `gsts.config.ts` 的 `inject` 字段。
 
 ## 要求
 
 - Node.js ≥ 20
-- 已安装依赖并完成构建
+- 用户工程侧会安装 `genshin-ts`（scaffold 已写入 dependency）
 
-## 安装与构建
+## 安装与构建（本 MCP）
 
 ```bash
 cd /workspace/qianxing-dev-mcp
@@ -19,13 +29,7 @@ npm run build
 npm test
 ```
 
-- `npm run build` → 编译到 `dist/`
-- `npm start` → 启动 stdio MCP（供编辑器拉起，勿在普通终端交互使用）
-- `npm test` → 冒烟测试（断言技能数 ≥ 8）
-
 ## Cursor MCP 配置
-
-将下列片段写入 Cursor 的 MCP 设置（`mcp.json`）。**command 使用本机绝对路径**：
 
 ```json
 {
@@ -38,53 +42,74 @@ npm test
 }
 ```
 
-构建产物绝对路径：
-
-`/workspace/qianxing-dev-mcp/dist/index.js`
-
-知识数据目录（运行时相对包根读取，无需拷贝进 dist）：
-
-`/workspace/qianxing-dev-mcp/knowledge/`
-
 ## 工具一览
+
+### 开发主工具
 
 | 工具 | 参数 | 作用 |
 |------|------|------|
-| `list_skills` | — | 列出 8+ 技能草稿 |
-| `get_skill` | `id` | 读取技能全文 |
-| `search_knowledge` | `query`, `limit?` | 技能 + 目录 + 社区文档检索 |
-| `lookup_official_doc` | `query` | 官方 TOC 条目与 URL |
-| `diagnose` | `symptom` | 故障树排查建议 |
-| `minigame_checklist` | `players?`, `mode?`, `loop?` | 小玩法端到端清单 |
-| `list_community_tools` | — | 官方/社区工具对照 |
-| `recommend_workflow` | `goal` | 按目标推荐调用顺序 |
-| `genshin_ts_hint` | — | genshin-ts（TS→GIA）提示 |
+| `scaffold_project` | `targetDir`, `name?`, `mode?` classic\|beyond | 手写最小 genshin-ts 工程 |
+| `compile_project` | `projectDir` | 跑 build，返回日志 + dist 产物 |
+| `lookup_node` | `query`, `side?`, `limit?` | 查节点索引（JSON，便于 codegen） |
+| `list_nodes` | `category?`, `side?`, `prefix?` | 列出匹配节点名 |
+| `generate_logic` | `goal`, `mode?`, `graphType?` | 生成 genshin-ts TS stub |
+| `project_status` | `projectDir` | 检查是否像 genshin-ts 工程 |
+| `inject_hint` | — | 打印本地 inject 配置步骤 |
+| `diagnose` | `symptom` | 开发/试玩故障排查 |
 
-## 知识覆盖
+### 次要知识工具
 
-- **已落地 deep research**：节点百科索引（`knowledge/nodes/node-index.json`）、UI / 外围 / 资源正文与概览、4 份 deep skill drafts（`nodes-cookbook` / `ui-controls` / `peripheral-systems` / `resource-systems`）、米游社苦雪合集索引（正文多为视频壳）。
-- `search_knowledge` 递归检索整个 `knowledge/`（不仅 skills/）。
-- **仍待补**：原神 **7.1** 客户端脚本模块等细则（官方文档未完全公开，本 MCP 暂不覆盖）。
-- **米游社**：合集索引与分期末数据已收录；内容以视频为主，未做 ASR 转写。
+| 工具 | 作用 |
+|------|------|
+| `list_skills` / `get_skill` | 技能草稿 |
+| `search_knowledge` | 知识库检索（节点请用 `lookup_node`） |
+| `lookup_official_doc` | 官方 TOC |
+| `minigame_checklist` | 小玩法清单 |
+| `list_community_tools` | 工具对照 |
+| `recommend_workflow` | 推荐调用顺序 |
 
-## 安全与范围说明
+## 数据
 
-- **禁止用途**：游戏破解、盗版、绕过反作弊、未授权向他人客户端注入。
-- **社区 CLI**：仅文档指引；请在你本机自行安装并配置本地路径，本仓库不 vendoring 逆向二进制。
-- **版本缺口**：原神 **7.1** 预告的「客户端脚本模块」等能力，官方文档尚未完全公开；本 MCP **暂不覆盖 7.1 客户端脚本细则**，以现网编辑器与后续官方文档为准。
-- 知识来源：官方《综合指南》目录快照、整理的技能草稿，以及 deep research 包（见 `knowledge/`；原始 HTML 见研究归档说明）。
+- 节点索引：`knowledge/nodes/node-index.json`（1275）
+- 精简副本：`data/nodes.json`（运行时优先 knowledge 索引）
+
+
+## 端到端示例（本仓库验证）
+
+```bash
+# 1) scaffold
+# MCP: scaffold_project { targetDir: "/workspace/qx-demo-score", name: "qx-demo-score" }
+# 2) generate_logic → 写入 src/main.ts（进入触发器得分 + 30s 结算）
+# 3) compile
+cd /workspace/qx-demo-score && npm install && npm run build
+# → dist/src/main.gs.ts / main.json / main.gia
+```
+
+说明：scaffold 默认在 `gsts.config.ts` 写入 `lang: 'en'`，避免部分 Linux 环境因系统 locale 导致 `Incorrect locale information provided`。可按需改成 `'zh-CN'`。
+
+## 编译说明
+
+- scaffold **不**交互运行 `npm create genshin-ts`；布局对齐 [gsts.moe](https://gsts.moe) / 官方模板（`g.server`、`gsts.config.ts`、`npm run build` → `gsts`）。
+- 未配置 `inject.mapId` / `nodeGraphId` 时，`gsts` 仍应尝试编译；可能出现注入相关警告——属预期，以 dist 产物或清晰错误为准。
+- 完整注入需要 Windows + 本机 BeyondLocal 路径；本 MCP 只给配置提示。
+
+## 安全
+
+- 禁止：游戏破解、盗版、绕过反作弊、未授权向他人客户端注入。
+- 不 git push 到 GitHub，除非用户明确要求。
 
 ## 开发结构
 
 ```
-knowledge/          # 技能、deep 语料与目录（运行时读取）
-  skills/           # 技能 index + 原 8 份草稿
-  drafts/           # deep skill bodies（由 index 引用）
-  summaries/ nodes/ ui/ peripheral/ resources/ miyoushe/
 src/
-  index.ts          # stdio MCP 入口
-  handlers.ts       # 工具实现（可供测试直接 import）
-  knowledge.ts      # 文件加载与检索
+  index.ts       # stdio MCP 入口
+  handlers.ts    # 工具实现
+  project.ts     # scaffold / compile / status
+  generate.ts    # logic stub
+  nodes.ts       # node-index 查询
+  knowledge.ts   # 次要知识检索
+data/nodes.json
+knowledge/nodes/node-index.json
 test/smoke.test.ts
 ```
 

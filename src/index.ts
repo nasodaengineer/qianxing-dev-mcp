@@ -1,31 +1,146 @@
 #!/usr/bin/env node
 /**
- * qianxing-dev-mcp — 千星奇域 UGC 知识 MCP（stdio）
+ * qianxing-dev-mcp — 千星奇域 UGC 开发工具 MCP（stdio）
+ * Primary: scaffold / compile / node lookup / generate_logic
  */
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import {
+  handleCompileProject,
   handleDiagnose,
-  handleGenshinTsHint,
+  handleGenerateLogic,
   handleGetSkill,
+  handleInjectHint,
   handleListCommunityTools,
+  handleListNodes,
   handleListSkills,
+  handleLookupNode,
   handleLookupOfficialDoc,
   handleMinigameChecklist,
+  handleProjectStatus,
   handleRecommendWorkflow,
+  handleScaffoldProject,
   handleSearchKnowledge,
 } from "./handlers.js";
 
 const server = new McpServer({
   name: "qianxing-dev-mcp",
-  version: "1.0.0",
+  version: "1.1.0",
 });
+
+/* ---- Primary development tools ---- */
+
+server.registerTool(
+  "scaffold_project",
+  {
+    description:
+      "在 targetDir 创建最小可用 genshin-ts 工程（package.json / gsts.config.ts / src/main.ts）。mode: classic|beyond",
+    inputSchema: {
+      targetDir: z.string().describe("目标目录绝对或相对路径"),
+      name: z.string().optional().describe("项目显示名，默认取目录名"),
+      mode: z.enum(["classic", "beyond"]).optional().describe("默认 beyond"),
+    },
+  },
+  async (args) => handleScaffoldProject(args),
+);
+
+server.registerTool(
+  "compile_project",
+  {
+    description:
+      "在 projectDir 运行 npm run build / gsts，返回 stdout/stderr 与 dist 产物列表（.gia/.json/.gs.ts）",
+    inputSchema: {
+      projectDir: z.string().describe("genshin-ts 工程目录"),
+    },
+  },
+  async (args) => handleCompileProject(args),
+);
+
+server.registerTool(
+  "lookup_node",
+  {
+    description:
+      "在 1275 节点索引中查询节点（名/描述/侧/分类/参数），返回 JSON 便于 codegen",
+    inputSchema: {
+      query: z.string().describe("关键词，如「进入碰撞」「结算」「定时器」"),
+      side: z.enum(["server", "client", "any"]).optional().describe("默认 any"),
+      limit: z.number().int().min(1).max(50).optional().describe("默认 10"),
+    },
+  },
+  async (args) => handleLookupNode(args),
+);
+
+server.registerTool(
+  "list_nodes",
+  {
+    description: "按 category / side / prefix 列出节点名，便于发现 API",
+    inputSchema: {
+      category: z.string().optional().describe("分类关键词，如 事件节点 / 执行节点"),
+      side: z.enum(["server", "client", "any"]).optional(),
+      prefix: z.string().optional().describe("名称前缀或包含"),
+      limit: z.number().int().min(1).max(500).optional(),
+    },
+  },
+  async (args) => handleListNodes(args),
+);
+
+server.registerTool(
+  "generate_logic",
+  {
+    description:
+      "根据目标生成可粘贴的 genshin-ts TypeScript stub（g.server / .on / 定时结算等），并标注对应官方节点",
+    inputSchema: {
+      goal: z
+        .string()
+        .describe("如「进入触发器得分，30 秒后结算」"),
+      mode: z.enum(["beyond", "classic"]).optional(),
+      graphType: z
+        .enum(["entity", "characterSkill", "creationSkill", "boolFilter", "intFilter"])
+        .optional()
+        .describe("默认 entity（服务端实体图）"),
+    },
+  },
+  async (args) => handleGenerateLogic(args),
+);
+
+server.registerTool(
+  "project_status",
+  {
+    description: "检查目录是否像 genshin-ts 工程，报告 package/config/dist 产物",
+    inputSchema: {
+      projectDir: z.string(),
+    },
+  },
+  async (args) => handleProjectStatus(args),
+);
+
+server.registerTool(
+  "inject_hint",
+  {
+    description:
+      "打印本地 inject 所需配置字段与步骤（不声称注入到实时游戏；需本机路径）",
+  },
+  async () => handleInjectHint(),
+);
+
+server.registerTool(
+  "diagnose",
+  {
+    description: "根据开发/试玩故障症状给出排查步骤",
+    inputSchema: {
+      symptom: z.string().describe("如「走进去没反应」「编译失败」「变量 UI 读不到」"),
+    },
+  },
+  async (args) => handleDiagnose(args),
+);
+
+/* ---- Secondary knowledge tools ---- */
 
 server.registerTool(
   "list_skills",
   {
-    description: "列出全部千星奇域技能草稿（id / 名称 / 简介）",
+    description: "【次要】列出技能草稿",
   },
   async () => handleListSkills(),
 );
@@ -33,9 +148,9 @@ server.registerTool(
 server.registerTool(
   "get_skill",
   {
-    description: "按 id 读取技能草稿全文（如 sandbox-basics、node-graphs）",
+    description: "【次要】按 id 读取技能草稿全文",
     inputSchema: {
-      id: z.string().describe("技能 id，见 list_skills"),
+      id: z.string(),
     },
   },
   async (args) => handleGetSkill(args),
@@ -44,10 +159,10 @@ server.registerTool(
 server.registerTool(
   "search_knowledge",
   {
-    description: "在技能正文、官方目录、社区工具说明中全文检索",
+    description: "【次要】知识库全文检索；节点请优先 lookup_node",
     inputSchema: {
-      query: z.string().describe("检索关键词"),
-      limit: z.number().int().min(1).max(50).optional().describe("返回条数，默认 8"),
+      query: z.string(),
+      limit: z.number().int().min(1).max(50).optional(),
     },
   },
   async (args) => handleSearchKnowledge(args),
@@ -56,33 +171,22 @@ server.registerTool(
 server.registerTool(
   "lookup_official_doc",
   {
-    description: "在官方综合指南目录（OFFICIAL-TOC）中查找文档条目与 URL",
+    description: "【次要】官方综合指南目录检索",
     inputSchema: {
-      query: z.string().describe("文档标题或关键词，如「碰撞触发器」「技能」"),
+      query: z.string(),
     },
   },
   async (args) => handleLookupOfficialDoc(args),
 );
 
 server.registerTool(
-  "diagnose",
-  {
-    description: "根据故障症状给出排查步骤，并推荐相关技能 id",
-    inputSchema: {
-      symptom: z.string().describe("现象描述，如「走进去没反应」「变量 UI 读不到」"),
-    },
-  },
-  async (args) => handleDiagnose(args),
-);
-
-server.registerTool(
   "minigame_checklist",
   {
-    description: "生成小玩法从构思到试玩的端到端 checklist",
+    description: "小玩法 checklist（配合 generate_logic）",
     inputSchema: {
-      players: z.string().optional().describe("人数/对抗或合作，如「单人」或「4 人对抗」"),
-      mode: z.string().optional().describe("经典 / 超限"),
-      loop: z.string().optional().describe("核心循环一句话"),
+      players: z.string().optional(),
+      mode: z.string().optional(),
+      loop: z.string().optional(),
     },
   },
   async (args) => handleMinigameChecklist(args),
@@ -91,7 +195,7 @@ server.registerTool(
 server.registerTool(
   "list_community_tools",
   {
-    description: "列出官方入口与社区开源工具链（genshin-ts 等）对照",
+    description: "【次要】官方/社区工具对照",
   },
   async () => handleListCommunityTools(),
 );
@@ -99,20 +203,12 @@ server.registerTool(
 server.registerTool(
   "recommend_workflow",
   {
-    description: "按创作目标推荐工具调用顺序与技能阅读路径",
+    description: "推荐从想法到 .gia 的工具调用顺序",
     inputSchema: {
-      goal: z.string().describe("目标，如「做个踩圈得分小玩法」「调试节点图」"),
+      goal: z.string(),
     },
   },
   async (args) => handleRecommendWorkflow(args),
-);
-
-server.registerTool(
-  "genshin_ts_hint",
-  {
-    description: "社区 genshin-ts（TypeScript→GIA）使用提示；不含破解或未授权注入",
-  },
-  async () => handleGenshinTsHint(),
 );
 
 async function main() {

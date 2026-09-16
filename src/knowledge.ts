@@ -150,7 +150,8 @@ function walkKnowledgeFiles(dir: string, out: { rel: string; path: string }[]): 
 }
 
 function listKnowledgeFiles(): { rel: string; path: string }[] {
-  if (knowledgeFilesCache) return knowledgeFilesCache;
+  // Re-walk each call so newly added miyoushe transcripts / docs are searchable
+  // without restarting the MCP process (was permanently cached).
   const out: { rel: string; path: string }[] = [];
   walkKnowledgeFiles(KNOWLEDGE_DIR, out);
   knowledgeFilesCache = out;

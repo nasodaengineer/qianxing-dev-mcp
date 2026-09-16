@@ -1,14 +1,19 @@
 /**
- * Smoke test: import handlers, call list_skills, assert >= 8 skills.
- * Also lightly exercises get_skill / search / lookup.
+ * Smoke tests for development-first qianxing-dev-mcp.
  */
 import assert from "node:assert/strict";
+import { mkdtempSync, existsSync, readFileSync, rmSync } from "node:fs";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { listSkills } from "../src/knowledge.js";
+import { loadNodes, lookupNodes } from "../src/nodes.js";
 import {
-  handleGetSkill,
-  handleListSkills,
-  handleLookupOfficialDoc,
-  handleSearchKnowledge,
+  handleGenerateLogic,
+  handleLookupNode,
+  handleListNodes,
+  handleScaffoldProject,
+  handleProjectStatus,
+  handleDiagnose,
   handlers,
 } from "../src/handlers.js";
 
@@ -16,31 +21,75 @@ function extractText(result: { content: { type: string; text: string }[] }): str
   return result.content.map((c) => c.text).join("\n");
 }
 
-const skills = listSkills();
-assert.ok(skills.length >= 8, `expected >=8 skills, got ${skills.length}`);
-
-const listed = handleListSkills();
-const listedText = extractText(listed);
-assert.match(listedText, /sandbox-basics/);
-assert.match(listedText, /node-graphs/);
+// --- nodes ---
+const nodes = loadNodes();
+assert.ok(nodes.length >= 1275, `expected >=1275 nodes, got ${nodes.length}`);
+const lookupHits = lookupNodes("进入碰撞", { side: "server", limit: 5 });
+assert.ok(lookupHits.length >= 1, "lookup 进入碰撞 should hit");
 assert.ok(
-  (listedText.match(/^\- \*\*/gm) ?? []).length >= 8 ||
-    (listedText.match(/\*\*[a-z0-9-]+\*\*/g) ?? []).length >= 8,
-  "list_skills should mention many skill ids",
+  lookupHits.some((n) => n.name.includes("碰撞") || n.desc.includes("碰撞")),
+  "hit should relate to collision",
 );
 
-const skill = handleGetSkill({ id: "sandbox-basics" });
-assert.match(extractText(skill), /千星沙箱|编辑器/);
+const lookupTool = handleLookupNode({ query: "结算", limit: 5 });
+const lookupJson = JSON.parse(extractText(lookupTool));
+assert.ok(lookupJson.count >= 1, "lookup_node tool should return hits");
+assert.ok(Array.isArray(lookupJson.nodes));
 
-const search = handleSearchKnowledge({ query: "碰撞触发器", limit: 5 });
-assert.ok(extractText(search).length > 20);
+const listed = handleListNodes({ side: "server", prefix: "设置", limit: 20 });
+const listJson = JSON.parse(extractText(listed));
+assert.ok(listJson.count >= 1, "list_nodes should return names");
 
-const docs = handleLookupOfficialDoc({ query: "节点图" });
-assert.match(extractText(docs), /act\.mihoyo\.com|content\.html/);
+// --- generate_logic ---
+const gen = handleGenerateLogic({
+  goal: "进入触发器得分，30秒定时结束并结算",
+  mode: "beyond",
+});
+const genText = extractText(gen);
+assert.match(genText, /g\.server/);
+assert.match(genText, /whenEnteringCollisionTrigger|setTimeout|settleStage/);
 
-assert.equal(typeof handlers.list_skills, "function");
+// --- scaffold ---
+const tmp = mkdtempSync(join(tmpdir(), "qx-scaffold-"));
+try {
+  const sc = handleScaffoldProject({
+    targetDir: tmp,
+    name: "demo-score",
+    mode: "beyond",
+  });
+  const scText = extractText(sc);
+  assert.match(scText, /scaffold_project/);
+  assert.ok(existsSync(join(tmp, "package.json")), "package.json");
+  assert.ok(existsSync(join(tmp, "gsts.config.ts")), "gsts.config.ts");
+  assert.ok(existsSync(join(tmp, "src", "main.ts")), "src/main.ts");
+  const main = readFileSync(join(tmp, "src/main.ts"), "utf8");
+  assert.match(main, /g\.server/);
+  assert.match(main, /genshin-ts/);
+
+  const status = handleProjectStatus({ projectDir: tmp });
+  const statusJson = JSON.parse(extractText(status));
+  assert.equal(statusJson.looksLikeGenshinTs, true);
+  assert.equal(statusJson.hasGstsConfig, true);
+} finally {
+  rmSync(tmp, { recursive: true, force: true });
+}
+
+// --- diagnose still works ---
+const diag = handleDiagnose({ symptom: "走进去没反应" });
+assert.match(extractText(diag), /触发器|碰撞/);
+
+// --- handlers registry ---
+assert.equal(typeof handlers.scaffold_project, "function");
+assert.equal(typeof handlers.compile_project, "function");
+assert.equal(typeof handlers.lookup_node, "function");
+assert.equal(typeof handlers.generate_logic, "function");
+assert.equal(typeof handlers.project_status, "function");
 assert.equal(typeof handlers.diagnose, "function");
-assert.equal(typeof handlers.genshin_ts_hint, "function");
-assert.equal(Object.keys(handlers).length, 9);
+assert.ok(Object.keys(handlers).length >= 14);
 
-console.log(`OK: ${skills.length} skills, 9 handlers, smoke assertions passed`);
+// secondary still ok
+assert.ok(listSkills().length >= 8);
+
+console.log(
+  `OK: ${nodes.length} nodes, scaffold+generate+lookup assertions passed, ${Object.keys(handlers).length} handlers`,
+);

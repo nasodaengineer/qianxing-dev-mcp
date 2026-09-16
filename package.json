@@ -1,7 +1,7 @@
 {
   "name": "qianxing-dev-mcp",
-  "version": "1.0.0",
-  "description": "千星奇域（Miliastra Wonderland）UGC 知识 MCP 服务器 — 技能草稿、官方目录检索、诊断与工作流建议",
+  "version": "1.1.0",
+  "description": "千星奇域（Miliastra Wonderland）UGC 开发工具 MCP — scaffold/compile/lookup_node/generate_logic（genshin-ts）",
   "type": "module",
   "license": "MIT",
   "main": "dist/index.js",
@@ -18,7 +18,8 @@
     "genshin",
     "miliastra",
     "qianxing",
-    "ugc"
+    "ugc",
+    "genshin-ts"
   ],
   "author": "",
   "dependencies": {

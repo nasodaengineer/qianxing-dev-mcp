@@ -70,5 +70,11 @@
     "file": "drafts/qianxing-resource-systems.md",
     "name": "资源系统",
     "description": "道具/装备/货币/背包/掉落物/商店配置与运行时操作、组件挂载"
+  },
+  {
+    "id": "miyoushe-ugc-tutorials",
+    "file": "miyoushe-ugc-tutorials.md",
+    "name": "米游社UGC入门教程ASR（35期）",
+    "description": "苦雪千星奇域UGC入门教程三章35期语音转写；编辑器基础/基础功能/进阶功能实例；见 miyoushe/transcripts"
   }
 ]
