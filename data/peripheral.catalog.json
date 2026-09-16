@@ -1,0 +1,264 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-16 17:37 CST",
+  "source": "official docs under knowledge/peripheral/ + summaries/peripheral-overview.md",
+  "count": 9,
+  "items": [
+    {
+      "id": "peripheral/overview",
+      "name": "外围系统",
+      "kind": "system",
+      "aliases": [
+        "外围",
+        "大厅系统"
+      ],
+      "description": "不在可游玩关卡局内，而是关卡外围功能：排行榜、竞技段位、成就、关卡结算、奇域礼盒等。",
+      "config_fields": [],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhjsw9rluwou",
+        "path": "外围系统",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhjsw9rluwou/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhjsw9rluwou"
+      }
+    },
+    {
+      "id": "peripheral/settlement",
+      "name": "关卡结算",
+      "kind": "system",
+      "aliases": [
+        "结算",
+        "settle",
+        "settlement",
+        "通关结算"
+      ],
+      "description": "由节点图触发；触发后整关结束，结果传递到外围系统更新排行榜/竞技段位。玩家结算状态含逃跑合法性与结算状态（胜利/失败/未定）。表现侧可选阵营结算或个人结算，可启用游戏内排名。",
+      "config_fields": [
+        "结算界面类型（阵营/个人）",
+        "启用游戏内排名",
+        "排名数值比较顺序（由小到大/由大到小）",
+        "逃跑合法性",
+        "结算状态（胜利/失败/未定）"
+      ],
+      "related_nodes": [
+        "结算关卡",
+        "设置玩家结算排名数值",
+        "设置阵营结算排名数值",
+        "设置玩家结算成功状态",
+        "设置阵营结算成功状态"
+      ],
+      "source": {
+        "path_id": "mhx1du08nhwo",
+        "path": "外围系统 / 关卡结算",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhx1du08nhwo/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhx1du08nhwo"
+      }
+    },
+    {
+      "id": "peripheral/leaderboard",
+      "name": "排行榜",
+      "kind": "system",
+      "aliases": [
+        "榜单",
+        "leaderboard",
+        "rankboard"
+      ],
+      "description": "将对局内信息持久化到外围；大厅可浏览。与竞技段位二选一开放。每关可多模板，仅记前1000名。分数可用浮点或整数节点写入。",
+      "config_fields": [
+        "是否开启排行榜",
+        "允许房间内游玩结算排行榜",
+        "排行榜名称",
+        "序号",
+        "显示优先级",
+        "显示格式（纯数值/时间/百分比）",
+        "榜单重置类型（不重置/随赛季）",
+        "成绩排序规则（越小/越大越靠前）"
+      ],
+      "related_nodes": [
+        "以浮点数设置玩家排行榜分数",
+        "以整数设置玩家排行榜分数"
+      ],
+      "source": {
+        "path_id": "mho2rt9ir6ay",
+        "path": "外围系统 / 排行榜",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mho2rt9ir6ay/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mho2rt9ir6ay"
+      }
+    },
+    {
+      "id": "peripheral/rank",
+      "name": "竞技段位",
+      "kind": "system",
+      "aliases": [
+        "段位",
+        "rank",
+        "段位分",
+        "计分组"
+      ],
+      "description": "结算时按结算状态加段位分；用计分组模板预设胜利/失败/未定/逃跑分数。与排行榜二选一。大厅展示持久化段位。",
+      "config_fields": [
+        "是否开启竞技段位",
+        "允许房间内游玩结算分数",
+        "奇匠留言",
+        "计分组名称",
+        "序号",
+        "胜利分数",
+        "失败分数",
+        "未定分数",
+        "逃跑分数",
+        "包含的玩家"
+      ],
+      "related_nodes": [
+        "切换玩家的段位分数配置计分组",
+        "设置玩家段位变化分数",
+        "获取玩家段位变化分数",
+        "获取玩家段位信息"
+      ],
+      "source": {
+        "path_id": "mhf45sisuup8",
+        "path": "外围系统 / 竞技段位",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhf45sisuup8/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhf45sisuup8"
+      }
+    },
+    {
+      "id": "peripheral/achievement",
+      "name": "成就",
+      "kind": "system",
+      "aliases": [
+        "成就系统",
+        "achievement"
+      ],
+      "description": "跨对局继承进度的目标/里程碑。可配多个普通成就与一个极致成就（需至少五个普通成就且名称/图片齐全）。房间游玩可否结算可开关。",
+      "config_fields": [
+        "是否开启成就",
+        "允许房间内游玩结算成就",
+        "成就名称",
+        "序号",
+        "稀有度（耀金/星银/辉铜）",
+        "成就计数",
+        "成就描述",
+        "成就图标"
+      ],
+      "related_nodes": [
+        "设置成就进度计数",
+        "变更成就进度计数",
+        "查询成就是否完成"
+      ],
+      "source": {
+        "path_id": "mh65jrr2yj3i",
+        "path": "外围系统 / 成就",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh65jrr2yj3i/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh65jrr2yj3i"
+      }
+    },
+    {
+      "id": "peripheral/gift_box",
+      "name": "奇域礼盒",
+      "kind": "system",
+      "aliases": [
+        "礼盒",
+        "嘉奖礼盒",
+        "gift box"
+      ],
+      "description": "投放给玩家的额外游戏内容；入口在系统菜单「奇域礼盒管理」。每关最多20个。可设获取条件（排行榜/段位/极致成就等）、有效期与上架赛季。",
+      "config_fields": [
+        "礼盒索引",
+        "获取条件",
+        "持有有效期",
+        "生效后是否常驻",
+        "上架赛季"
+      ],
+      "related_nodes": [
+        "消耗礼盒",
+        "查询对应礼盒数量",
+        "查询对应礼盒消耗数量"
+      ],
+      "source": {
+        "path_id": "mhjdhpi4sd10",
+        "path": "外围系统 / 奇域礼盒",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhjdhpi4sd10/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhjdhpi4sd10"
+      }
+    },
+    {
+      "id": "peripheral/tasks",
+      "name": "奇域任务",
+      "kind": "system",
+      "aliases": [
+        "任务",
+        "task",
+        "quests"
+      ],
+      "description": "为玩家设定可完成目标并发奖；可按日/周/赛季或不刷新重置。单奇域最多20个任务；奖励须关联奇域嘉奖礼盒（至多3类）才生效。",
+      "config_fields": [
+        "开启游戏内奇域任务入口",
+        "允许房间内游玩结算奇域任务",
+        "刷新类型",
+        "任务描述",
+        "任务计数",
+        "任务奖励",
+        "是否生效",
+        "生效后是否常驻"
+      ],
+      "related_nodes": [
+        "设置任务计数",
+        "增加任务计数",
+        "查询指定任务计数",
+        "查询指定任务是否完成"
+      ],
+      "source": {
+        "path_id": "mhv1zh9x9nbe",
+        "path": "外围系统 / 奇域任务",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhv1zh9x9nbe/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhv1zh9x9nbe"
+      }
+    },
+    {
+      "id": "peripheral/early_access",
+      "name": "先行体验",
+      "kind": "system",
+      "aliases": [
+        "先行",
+        "early access",
+        "测试版发布"
+      ],
+      "description": "创作者快速上线玩法原型并标注待完善；数据与评价正常累积。正式版发布后不可再转回先行体验；正式版版本号从1.01起算。",
+      "config_fields": [
+        "先行体验版本说明",
+        "转为正式版本"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mh8clk9nmkua",
+        "path": "外围系统 / 先行体验",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh8clk9nmkua/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh8clk9nmkua"
+      }
+    },
+    {
+      "id": "peripheral/subscription",
+      "name": "奇匠订阅",
+      "kind": "system",
+      "aliases": [
+        "订阅",
+        "subscription",
+        "粉丝"
+      ],
+      "description": "创作者建立流量私域：发布/更新可推送动态（每周3条）。局内可加订阅奇匠按钮；服务器查询节点可查玩家是否订阅（创作者本人默认是）。",
+      "config_fields": [
+        "发布关卡动态",
+        "局内订阅按钮"
+      ],
+      "related_nodes": [
+        "查询玩家是否订阅"
+      ],
+      "source": {
+        "path_id": "mhzdzjixq98k",
+        "path": "外围系统 / 奇匠订阅",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhzdzjixq98k/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhzdzjixq98k"
+      }
+    }
+  ]
+}

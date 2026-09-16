@@ -51,8 +51,11 @@ npm test
 | `scaffold_project` | `targetDir`, `name?`, `mode?` classic\|beyond | 手写最小 genshin-ts 工程 |
 | `compile_project` | `projectDir` | 跑 build，返回日志 + dist 产物 |
 | `lookup_node` | `query`, `side?`, `limit?` | 查节点索引（JSON，便于 codegen） |
+| `lookup_system` | `domain?`, `query`, `limit?` | 查 UI/外围/资源目录（控件、结算、商店等 + 关联节点） |
 | `list_nodes` | `category?`, `side?`, `prefix?` | 列出匹配节点名 |
-| `generate_logic` | `goal`, `mode?`, `graphType?` | 生成 genshin-ts TS stub |
+| `generate_logic` | `goal`, `mode?`, `graphType?`, `patternId?` | 生成 genshin-ts TS stub（可挂 pattern） |
+| `list_patterns` | `filter?` | 列出可复用开发配方（米游社教程蒸馏） |
+| `get_pattern` | `id` | 按 recipe id 或期次（如 `2.1`）读步骤 |
 | `project_status` | `projectDir` | 检查是否像 genshin-ts 工程 |
 | `inject_hint` | — | 打印本地 inject 配置步骤 |
 | `diagnose` | `symptom` | 开发/试玩故障排查 |
@@ -72,6 +75,8 @@ npm test
 
 - 节点索引：`knowledge/nodes/node-index.json`（1275）
 - 精简副本：`data/nodes.json`（运行时优先 knowledge 索引）
+- 富节点目录：`data/nodes.catalog.json`
+- UI / 外围 / 资源：`data/ui.catalog.json`、`data/peripheral.catalog.json`、`data/resources.catalog.json`（`lookup_system`）
 
 
 ## 端到端示例（本仓库验证）
@@ -107,12 +112,29 @@ src/
   project.ts     # scaffold / compile / status
   generate.ts    # logic stub
   nodes.ts       # node-index 查询
+  systems.ts     # UI/外围/资源 catalog 查询
   knowledge.ts   # 次要知识检索
 data/nodes.json
+data/ui.catalog.json | peripheral.catalog.json | resources.catalog.json
 knowledge/nodes/node-index.json
 test/smoke.test.ts
 ```
 
+
+## Performance & memory
+
+See [`docs/PERF.md`](docs/PERF.md) for guarantees:
+
+- Node catalog loaded **once** and cached; list/search limits clamped.
+- Knowledge search: bounded walk depth/size, capped file reads & snippets; path index TTL cache.
+- `compile_project`: no shell, timeout + maxBuffer; path writes stay under target dir.
+
 ## License
 
 MIT
+
+## Patterns（米游社教程蒸馏）
+
+- `data/patterns/catalog.json` — ≥8 可复用配方（碰撞触发、计分、信号、商店、定时结算等）
+- `data/patterns/{period}.md` / `knowledge/miyoushe/patterns/` — 逐期步骤与官方节点/组件对照
+- ASR 转写：`knowledge/miyoushe/transcripts/`；进度见 `knowledge/miyoushe/PROGRESS.md`

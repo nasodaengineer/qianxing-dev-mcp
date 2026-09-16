@@ -1,5 +1,6 @@
 /**
  * genshin-ts project scaffold / compile / status helpers.
+ * Path-safe writes; compile uses argv spawn (no shell) + timeout/maxBuffer.
  */
 import {
   existsSync,
@@ -9,12 +10,47 @@ import {
   readdirSync,
   statSync,
 } from "node:fs";
-import { join, resolve, basename } from "node:path";
+import { join, resolve, basename, sep, normalize } from "node:path";
 import { spawnSync } from "node:child_process";
+import { LIMITS } from "./limits.js";
 
 export type ScaffoldMode = "classic" | "beyond";
 
 const DEFAULT_GRAPH_ID = 1073741825;
+
+/** Error thrown when a user path is rejected for safety. */
+export class UnsafePathError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UnsafePathError";
+  }
+}
+
+/**
+ * Resolve/normalize a directory path for scaffold/compile.
+ * Rejects null bytes and empty strings. `..` in the input is collapsed by
+ * path.resolve; file writes must still pass assertUnderDir / writeUnder.
+ */
+export function resolveSafeDir(input: string): string {
+  if (typeof input !== "string" || !input.trim()) {
+    throw new UnsafePathError("path must be a non-empty string");
+  }
+  if (input.includes("\0")) {
+    throw new UnsafePathError("path must not contain null bytes");
+  }
+  return resolve(normalize(input));
+}
+
+/** Ensure candidate resolves strictly under root (or equals root). */
+export function assertUnderDir(root: string, candidate: string): string {
+  const r = resolve(root);
+  const c = resolve(candidate);
+  const prefix = r.endsWith(sep) ? r : r + sep;
+  if (c !== r && !c.startsWith(prefix)) {
+    throw new UnsafePathError(`path escapes target directory: ${candidate}`);
+  }
+  return c;
+}
 
 function safeName(name: string): string {
   const n = name.trim() || "miliastra-project";
@@ -165,12 +201,20 @@ export type ScaffoldResult = {
   notes: string[];
 };
 
+function writeUnder(root: string, rel: string, content: string): void {
+  if (rel.includes("\0") || rel.split(/[/\\]/).includes("..")) {
+    throw new UnsafePathError(`refusing relative path: ${rel}`);
+  }
+  const full = assertUnderDir(root, join(root, rel));
+  writeFileSync(full, content, "utf8");
+}
+
 export function scaffoldProject(args: {
   targetDir: string;
   name?: string;
   mode?: ScaffoldMode;
 }): ScaffoldResult {
-  const targetDir = resolve(args.targetDir);
+  const targetDir = resolveSafeDir(args.targetDir);
   const name = safeName(args.name ?? basename(targetDir));
   const mode: ScaffoldMode = args.mode === "classic" ? "classic" : "beyond";
   const notes: string[] = [];
@@ -178,12 +222,11 @@ export function scaffoldProject(args: {
   if (existsSync(targetDir)) {
     const entries = readdirSync(targetDir);
     if (entries.length > 0 && !entries.every((e) => e === ".git" || e === ".gitignore")) {
-      // allow empty-ish dirs; if package.json already exists, refuse overwrite of core files unless only scaffolding missing pieces
       if (existsSync(join(targetDir, "package.json")) && existsSync(join(targetDir, "gsts.config.ts"))) {
         notes.push("目录已有 genshin-ts 工程痕迹，跳过覆盖；仅确保 src/ 存在。");
         mkdirSync(join(targetDir, "src"), { recursive: true });
         if (!existsSync(join(targetDir, "src", "main.ts"))) {
-          writeFileSync(join(targetDir, "src", "main.ts"), sampleMainTs(mode), "utf8");
+          writeUnder(targetDir, "src/main.ts", sampleMainTs(mode));
         }
         return {
           targetDir,
@@ -209,7 +252,7 @@ export function scaffoldProject(args: {
   ];
 
   for (const [rel, content] of filesToWrite) {
-    writeFileSync(join(targetDir, rel), content, "utf8");
+    writeUnder(targetDir, rel, content);
   }
 
   notes.push(
@@ -227,9 +270,16 @@ export function scaffoldProject(args: {
   };
 }
 
-function walkFiles(dir: string, base: string, out: string[], max = 200): void {
-  if (out.length >= max || !existsSync(dir)) return;
-  for (const name of readdirSync(dir)) {
+function walkFiles(dir: string, base: string, out: string[], max: number = LIMITS.projectListMaxFiles, depth = 0): void {
+  if (out.length >= max || !existsSync(dir) || depth > 12) return;
+  let names: string[];
+  try {
+    names = readdirSync(dir);
+  } catch {
+    return;
+  }
+  for (const name of names) {
+    if (out.length >= max) return;
     if (name === "node_modules" || name === ".git") continue;
     const full = join(dir, name);
     let st;
@@ -239,14 +289,14 @@ function walkFiles(dir: string, base: string, out: string[], max = 200): void {
       continue;
     }
     const rel = join(base, name).replace(/\\/g, "/");
-    if (st.isDirectory()) walkFiles(full, rel, out, max);
+    if (st.isDirectory()) walkFiles(full, rel, out, max, depth + 1);
     else out.push(rel);
   }
 }
 
 export function listProjectFiles(projectDir: string): string[] {
   const out: string[] = [];
-  walkFiles(projectDir, "", out);
+  walkFiles(projectDir, "", out, LIMITS.projectListMaxFiles);
   return out.sort();
 }
 
@@ -260,8 +310,50 @@ export type CompileResult = {
   hint: string;
 };
 
+function compileArgv(projectDir: string): { command: string; argv: string[]; display: string } {
+  const pkgPath = join(projectDir, "package.json");
+  const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
+  const npxCmd = process.platform === "win32" ? "npx.cmd" : "npx";
+  if (existsSync(pkgPath)) {
+    try {
+      const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as {
+        scripts?: Record<string, string>;
+      };
+      if (pkg.scripts?.build) {
+        return {
+          command: npmCmd,
+          argv: ["run", "build", "--silent"],
+          display: "npm run build",
+        };
+      }
+    } catch {
+      /* fall through */
+    }
+  }
+  return {
+    command: npxCmd,
+    argv: ["--yes", "gsts"],
+    display: "npx --yes gsts",
+  };
+}
+
 export function compileProject(args: { projectDir: string; timeoutMs?: number }): CompileResult {
-  const projectDir = resolve(args.projectDir);
+  let projectDir: string;
+  try {
+    projectDir = resolveSafeDir(args.projectDir);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return {
+      projectDir: String(args.projectDir),
+      command: "(rejected)",
+      exitCode: 1,
+      stdout: "",
+      stderr: msg,
+      outputs: [],
+      hint: "projectDir 路径不安全或无效",
+    };
+  }
+
   if (!existsSync(projectDir)) {
     return {
       projectDir,
@@ -274,29 +366,17 @@ export function compileProject(args: { projectDir: string; timeoutMs?: number })
     };
   }
 
-  const pkgPath = join(projectDir, "package.json");
-  let command = "npx --yes gsts";
-  if (existsSync(pkgPath)) {
-    try {
-      const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as {
-        scripts?: Record<string, string>;
-      };
-      if (pkg.scripts?.build) command = "npm run build";
-    } catch {
-      /* ignore */
-    }
-  }
-
-  const timeout = args.timeoutMs ?? 120_000;
-  const result = spawnSync(command, {
+  const { command, argv, display } = compileArgv(projectDir);
+  const timeout = args.timeoutMs ?? LIMITS.compileTimeoutMs;
+  const result = spawnSync(command, argv, {
     cwd: projectDir,
     encoding: "utf8",
-    shell: true,
+    shell: false,
     timeout,
+    maxBuffer: LIMITS.compileMaxBuffer,
     env: {
       ...process.env,
       npm_config_yes: "true",
-      // Harden against Intl locale crashes on minimal Linux images
       LANG: process.env.LANG || "C.UTF-8",
       LC_ALL: process.env.LC_ALL || "C.UTF-8",
     },
@@ -306,7 +386,7 @@ export function compileProject(args: { projectDir: string; timeoutMs?: number })
   const outputs: string[] = [];
   if (existsSync(distDir)) {
     const all: string[] = [];
-    walkFiles(distDir, "dist", all, 500);
+    walkFiles(distDir, "dist", all, LIMITS.distListMaxFiles);
     for (const f of all) {
       if (/\.(gia|json|gs\.ts)$/i.test(f) || f.includes(".gs.ts")) outputs.push(f);
     }
@@ -326,10 +406,10 @@ export function compileProject(args: { projectDir: string; timeoutMs?: number })
 
   return {
     projectDir,
-    command,
+    command: display,
     exitCode: result.status,
-    stdout: (result.stdout || "").slice(0, 20_000),
-    stderr: stderr.slice(0, 20_000),
+    stdout: (result.stdout || "").slice(0, LIMITS.compileOutputChars),
+    stderr: stderr.slice(0, LIMITS.compileOutputChars),
     outputs,
     hint,
   };
@@ -349,7 +429,25 @@ export type ProjectStatus = {
 };
 
 export function projectStatus(args: { projectDir: string }): ProjectStatus {
-  const projectDir = resolve(args.projectDir);
+  let projectDir: string;
+  try {
+    projectDir = resolveSafeDir(args.projectDir);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return {
+      projectDir: String(args.projectDir),
+      looksLikeGenshinTs: false,
+      hasPackageJson: false,
+      hasGstsConfig: false,
+      hasSrcMain: false,
+      hasNodeModules: false,
+      genshinTsVersion: null,
+      scripts: {},
+      distArtifacts: [],
+      notes: [msg],
+    };
+  }
+
   const notes: string[] = [];
   if (!existsSync(projectDir)) {
     return {
@@ -397,7 +495,7 @@ export function projectStatus(args: { projectDir: string }): ProjectStatus {
   const distDir = join(projectDir, "dist");
   if (existsSync(distDir)) {
     const all: string[] = [];
-    walkFiles(distDir, "dist", all, 300);
+    walkFiles(distDir, "dist", all, LIMITS.distListMaxFiles);
     for (const f of all) {
       if (/\.(gia|json|gs\.ts)$/i.test(f) || f.includes(".gs.ts")) distArtifacts.push(f);
     }

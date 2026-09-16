@@ -17,8 +17,24 @@ import {
   compileProject,
   projectStatus,
   injectHint,
+  UnsafePathError,
 } from "./project.js";
 import { generateLogic } from "./generate.js";
+import {
+  listPatterns,
+  getPatternById,
+  getPeriodNote,
+  formatRecipe,
+  listPeriodNoteIds,
+  loadCatalog,
+} from "./patterns.js";
+import {
+  lookupSystem,
+  loadSystemItems,
+  systemItemToJsonFriendly,
+  formatSystemHit,
+  type SystemDomain,
+} from "./systems.js";
 
 function textResult(text: string) {
   return { content: [{ type: "text" as const, text }] };
@@ -43,21 +59,28 @@ export function handleScaffoldProject(args: {
   name?: string;
   mode?: "classic" | "beyond";
 }) {
-  const result = scaffoldProject(args);
-  return textResult(
-    [
-      `# scaffold_project → ${result.targetDir}`,
-      `- name: ${result.name}`,
-      `- mode: ${result.mode}`,
-      `- files:`,
-      ...result.files.map((f) => `  - ${f}`),
-      "",
-      "## Notes",
-      ...result.notes.map((n) => `- ${n}`),
-      "",
-      "下一步：`cd` 到目录后 `npm install && npm run build`，或调用 `compile_project`。",
-    ].join("\n"),
-  );
+  try {
+    const result = scaffoldProject(args);
+    return textResult(
+      [
+        `# scaffold_project → ${result.targetDir}`,
+        `- name: ${result.name}`,
+        `- mode: ${result.mode}`,
+        `- files:`,
+        ...result.files.map((f) => `  - ${f}`),
+        "",
+        "## Notes",
+        ...result.notes.map((n) => `- ${n}`),
+        "",
+        "下一步：`cd` 到目录后 `npm install && npm run build`，或调用 `compile_project`。",
+      ].join("\n"),
+    );
+  } catch (e) {
+    if (e instanceof UnsafePathError) {
+      return textResult(`# scaffold_project 拒绝\n\n${e.message}`);
+    }
+    throw e;
+  }
 }
 
 export function handleCompileProject(args: { projectDir: string }) {
@@ -122,6 +145,10 @@ export function handleListNodes(args: {
     name: n.name,
     side: n.side,
     category: n.category,
+    graphKinds: n.graphKinds?.length ? n.graphKinds : undefined,
+    description: n.desc || undefined,
+    param_count: Array.isArray(n.params) ? n.params.length : 0,
+    path_id: n.path_id || undefined,
   }));
   return textResult(
     JSON.stringify(
@@ -145,11 +172,31 @@ export function handleGenerateLogic(args: {
   goal: string;
   mode?: "beyond" | "classic";
   graphType?: "entity" | "characterSkill" | "creationSkill" | "boolFilter" | "intFilter";
+  patternId?: string;
 }) {
-  const result = generateLogic(args);
+  let goal = args.goal;
+  let patternPrefix = "";
+  if (args.patternId) {
+    const recipe = getPatternById(args.patternId);
+    if (recipe) {
+      patternPrefix = [
+        `# pattern: ${recipe.id} — ${recipe.title}`,
+        `nodes: ${recipe.related_nodes.join(", ") || "(none)"}`,
+        `components: ${recipe.related_components.join(", ") || "(none)"}`,
+        `source_periods: ${recipe.source_periods.join(", ")}`,
+        "",
+      ].join("\n");
+      if (!goal || goal === args.patternId) {
+        goal = recipe.title + "；" + recipe.steps.slice(0, 3).join("；");
+      }
+    } else {
+      patternPrefix = `# warning: unknown patternId=${args.patternId}\n\n`;
+    }
+  }
+  const result = generateLogic({ ...args, goal });
   return textResult(
     [
-      `# generate_logic`,
+      patternPrefix + `# generate_logic`,
       `- goal: ${result.goal}`,
       `- mode: ${result.mode}`,
       `- graphType: ${result.graphType}`,
@@ -336,13 +383,84 @@ export function handleRecommendWorkflow(args: { goal: string }) {
 ## 从想法到 .gia（推荐）
 1. \`scaffold_project { targetDir, name?, mode? }\`
 2. \`generate_logic { goal }\` → 粘贴进 src/main.ts
-3. \`lookup_node\` / \`list_nodes\` 核对节点
+3. \`lookup_node\` / \`list_nodes\` 核对节点；UI/外围/资源用 \`lookup_system\`
 4. \`compile_project { projectDir }\`
 5. 需要本机注入时看 \`inject_hint\`（自行改 gsts.config.ts）
 6. 遇障 \`diagnose { symptom }\`
 
 次要：search_knowledge / get_skill / lookup_official_doc
 `);
+}
+
+
+export function handleLookupSystem(args: {
+  domain?: "ui" | "peripheral" | "resources";
+  query: string;
+  limit?: number;
+}) {
+  const domain = args.domain;
+  const hits = lookupSystem(args.query, {
+    domain: domain as SystemDomain | undefined,
+    limit: args.limit ?? 8,
+  });
+  const payload = {
+    domain: domain ?? "all",
+    query: args.query,
+    total_index: loadSystemItems(domain as SystemDomain | undefined).length,
+    count: hits.length,
+    items: hits.map(systemItemToJsonFriendly),
+  };
+  const summary =
+    hits.length === 0
+      ? "未命中。可试 domain=ui|peripheral|resources，关键词如 计分板 / 结算 / 商店。"
+      : hits.map(formatSystemHit).join("\n\n");
+  return textResult(
+    JSON.stringify(payload, null, 2) + "\n\n---\n\n" + summary,
+  );
+}
+
+export function handleListPatterns(args: { filter?: string } = {}) {
+  const recipes = listPatterns(args.filter);
+  const catalog = loadCatalog();
+  const periods = listPeriodNoteIds();
+  const lines = recipes.map(
+    (r) =>
+      `- **${r.id}** — ${r.title}\n  nodes: ${r.related_nodes.slice(0, 5).join(", ") || "—"}\n  periods: ${r.source_periods.join(", ")}`,
+  );
+  return textResult(
+    [
+      `# list_patterns (${recipes.length}/${catalog.recipes.length} recipes)`,
+      catalog.description ? `> ${catalog.description}` : "",
+      args.filter ? `filter: ${args.filter}` : "",
+      "",
+      ...lines,
+      "",
+      `Period notes available: ${periods.length} (${periods.slice(0, 8).join(", ")}${periods.length > 8 ? ", …" : ""})`,
+      "Use get_pattern { id } for full steps; id may be recipe id or period like 2.1",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+  );
+}
+
+export function handleGetPattern(args: { id: string }) {
+  const id = args.id.trim();
+  const recipe = getPatternById(id);
+  if (recipe) {
+    return textResult(formatRecipe(recipe));
+  }
+  // try period note
+  const note = getPeriodNote(id);
+  if (note) {
+    return textResult(note);
+  }
+  const ids = listPatterns()
+    .map((r) => r.id)
+    .join(", ");
+  const periods = listPeriodNoteIds().join(", ");
+  return textResult(
+    `未找到 pattern id="${id}"。\n\n可用 recipe id：${ids}\n\n可用 period notes：${periods}`,
+  );
 }
 
 /** Exported for smoke tests without starting stdio transport. */
@@ -352,6 +470,9 @@ export const handlers = {
   lookup_node: handleLookupNode,
   list_nodes: handleListNodes,
   generate_logic: handleGenerateLogic,
+  list_patterns: handleListPatterns,
+  get_pattern: handleGetPattern,
+  lookup_system: handleLookupSystem,
   project_status: handleProjectStatus,
   inject_hint: handleInjectHint,
   diagnose: handleDiagnose,

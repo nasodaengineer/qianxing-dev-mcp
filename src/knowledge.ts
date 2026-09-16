@@ -1,6 +1,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, relative, extname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LIMITS, clampLimit } from "./limits.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,10 +22,23 @@ let skillsCache: SkillMeta[] | null = null;
 let tocCache: string | null = null;
 let communityCache: string | null = null;
 let sourceReadmeCache: string | null = null;
-let knowledgeFilesCache: { rel: string; path: string }[] | null = null;
+
+type FileIndexEntry = { rel: string; path: string; size: number };
+let knowledgeFilesCache: FileIndexEntry[] | null = null;
+let knowledgeFilesCacheAt = 0;
 
 function readUtf8(path: string): string {
   return readFileSync(path, "utf8");
+}
+
+/** Read at most maxBytes (UTF-8); avoids loading huge docs fully into memory. */
+function readUtf8Capped(path: string, maxBytes: number): string {
+  const buf = readFileSync(path);
+  if (buf.length <= maxBytes) return buf.toString("utf8");
+  // Avoid splitting a multi-byte code unit at the boundary
+  let end = maxBytes;
+  while (end > 0 && (buf[end]! & 0xc0) === 0x80) end--;
+  return buf.subarray(0, end).toString("utf8");
 }
 
 /** Resolve skill body path: bare filename → skills/; path with / → under knowledge/. */
@@ -50,7 +64,7 @@ export function getSkillById(id: string): { meta: SkillMeta; content: string } |
   if (!meta) return null;
   const path = resolveSkillPath(meta);
   if (!existsSync(path)) return null;
-  return { meta, content: readUtf8(path) };
+  return { meta, content: readUtf8Capped(path, LIMITS.knowledgeReadMaxBytes) };
 }
 
 export function getOfficialToc(): string {
@@ -94,7 +108,6 @@ function scoreText(text: string, tokens: string[]): number {
     if (!t) continue;
     if (lower.includes(t)) {
       score += 2;
-      // bonus for title-ish early occurrence
       const idx = lower.indexOf(t);
       if (idx >= 0 && idx < 120) score += 1;
     }
@@ -102,7 +115,8 @@ function scoreText(text: string, tokens: string[]): number {
   return score;
 }
 
-function snippetAround(text: string, tokens: string[], radius = 160): string {
+function snippetAround(text: string, tokens: string[], radius = LIMITS.snippetMaxChars): string {
+  const maxRadius = Math.min(radius, LIMITS.snippetMaxChars);
   const lower = text.toLowerCase();
   let best = 0;
   for (const t of tokens) {
@@ -113,21 +127,53 @@ function snippetAround(text: string, tokens: string[], radius = 160): string {
     }
   }
   const start = Math.max(0, best - 40);
-  const end = Math.min(text.length, start + radius);
+  const end = Math.min(text.length, start + maxRadius);
   let snip = text.slice(start, end).replace(/\s+/g, " ").trim();
   if (start > 0) snip = "…" + snip;
   if (end < text.length) snip = snip + "…";
+  if (snip.length > LIMITS.snippetMaxChars + 2) {
+    snip = snip.slice(0, LIMITS.snippetMaxChars) + "…";
+  }
   return snip;
 }
 
-const SEARCHABLE_EXTS = new Set([".md", ".json"]);
+const SEARCHABLE_EXTS = new Set([".md", ".json", ".txt", ".markdown"]);
 /** Skip very large blobs / skill bodies already scored via listSkills. */
-const SEARCH_SKIP_NAMES = new Set(["catalog-raw.json", "node-pages.json"]);
+const SEARCH_SKIP_NAMES = new Set([
+  "catalog-raw.json",
+  "node-pages.json",
+  "nodes.catalog.json",
+  "nodes.by_name.json",
+  "nodes.json",
+]);
+/** Directory names to skip (binaries, VCS, deps). */
+const SEARCH_SKIP_DIRS = new Set([
+  "skills",
+  "node_modules",
+  ".git",
+  "dist",
+  ".cache",
+  "__pycache__",
+]);
 
-function walkKnowledgeFiles(dir: string, out: { rel: string; path: string }[]): void {
+function walkKnowledgeFiles(
+  dir: string,
+  out: FileIndexEntry[],
+  depth: number,
+): void {
+  if (out.length >= LIMITS.knowledgeMaxFiles) return;
+  if (depth > LIMITS.knowledgeMaxDepth) return;
   if (!existsSync(dir)) return;
-  for (const name of readdirSync(dir)) {
-    if (name === "skills") continue; // skills scored separately via index
+  let names: string[];
+  try {
+    names = readdirSync(dir);
+  } catch {
+    return;
+  }
+  for (const name of names) {
+    if (out.length >= LIMITS.knowledgeMaxFiles) return;
+    if (name.startsWith(".")) continue;
+    if (SEARCH_SKIP_DIRS.has(name)) continue;
     const full = join(dir, name);
     let st;
     try {
@@ -136,61 +182,82 @@ function walkKnowledgeFiles(dir: string, out: { rel: string; path: string }[]): 
       continue;
     }
     if (st.isDirectory()) {
-      walkKnowledgeFiles(full, out);
+      walkKnowledgeFiles(full, out, depth + 1);
       continue;
     }
     if (!st.isFile()) continue;
     const ext = extname(name).toLowerCase();
     if (!SEARCHABLE_EXTS.has(ext)) continue;
     if (SEARCH_SKIP_NAMES.has(name)) continue;
-    // Cap individual files ~2MB to keep search snappy
-    if (st.size > 2_000_000) continue;
-    out.push({ rel: relative(KNOWLEDGE_DIR, full).replace(/\\/g, "/"), path: full });
+    if (st.size > LIMITS.knowledgeSkipFileBytes) continue;
+    // Skip empty / tiny non-text-looking files by extension already filtered
+    out.push({
+      rel: relative(KNOWLEDGE_DIR, full).replace(/\\/g, "/"),
+      path: full,
+      size: st.size,
+    });
   }
 }
 
-function listKnowledgeFiles(): { rel: string; path: string }[] {
-  // Re-walk each call so newly added miyoushe transcripts / docs are searchable
-  // without restarting the MCP process (was permanently cached).
-  const out: { rel: string; path: string }[] = [];
-  walkKnowledgeFiles(KNOWLEDGE_DIR, out);
+/** Cached file index; refreshes after TTL so new docs appear without restart. */
+export function listKnowledgeFiles(force = false): FileIndexEntry[] {
+  const now = Date.now();
+  if (
+    !force &&
+    knowledgeFilesCache &&
+    now - knowledgeFilesCacheAt < LIMITS.knowledgeIndexTtlMs
+  ) {
+    return knowledgeFilesCache;
+  }
+  const out: FileIndexEntry[] = [];
+  walkKnowledgeFiles(KNOWLEDGE_DIR, out, 0);
   knowledgeFilesCache = out;
+  knowledgeFilesCacheAt = now;
   return out;
 }
 
 function titleFromRel(rel: string, text: string): string {
   const heading = text.match(/^#\s+(.+)$/m);
-  if (heading) return heading[1].trim();
+  if (heading) return heading[1]!.trim();
   const base = rel.split("/").pop() ?? rel;
-  return base.replace(/\.(md|json)$/i, "");
+  return base.replace(/\.(md|json|txt|markdown)$/i, "");
 }
 
-/** Search skills + all knowledge/ docs (md/json) + TOC + community + source readme. */
-export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
+/** Search skills + knowledge docs (bounded walk/reads) + TOC + community + source readme. */
+export function searchKnowledge(query: string, limit: number = LIMITS.searchKnowledgeDefault): KnowledgeHit[] {
   const tokens = tokenize(query);
   if (tokens.length === 0) return [];
+  const cappedLimit = clampLimit(limit, LIMITS.searchKnowledgeDefault, LIMITS.searchKnowledgeMax);
   const hits: KnowledgeHit[] = [];
   const seen = new Set<string>();
 
   for (const meta of listSkills()) {
-    const full = getSkillById(meta.id);
-    if (!full) continue;
-    const blob = `${meta.id}\n${meta.name}\n${meta.description}\n${full.content}`;
-    const score = scoreText(blob, tokens);
+    const metaBlob = `${meta.id}\n${meta.name}\n${meta.description}`;
+    let score = scoreText(metaBlob, tokens);
+    let content = "";
+    // Only open skill body when meta looks relevant or score is still low — always cap read size
+    const path = resolveSkillPath(meta);
+    if (existsSync(path)) {
+      try {
+        content = readUtf8Capped(path, LIMITS.knowledgeReadMaxBytes);
+        score = Math.max(score, scoreText(`${metaBlob}\n${content}`, tokens));
+      } catch {
+        /* skip unreadable */
+      }
+    }
     if (score > 0) {
       hits.push({
         source: "skill",
         id: meta.id,
         title: meta.name,
-        snippet: snippetAround(full.content, tokens),
+        snippet: snippetAround(content || meta.description, tokens),
         score,
       });
-      seen.add(resolveSkillPath(meta));
+      seen.add(path);
     }
   }
 
   const toc = getOfficialToc();
-  // Score each TOC line that looks like an entry
   for (const line of toc.split("\n")) {
     const m = line.match(/\*\*(.+?)\*\*\s+`([a-z0-9]+)`\s+(https?:\/\/\S+)/);
     if (!m) continue;
@@ -200,9 +267,9 @@ export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
       hits.push({
         source: "official-toc",
         id: pathId,
-        title,
-        snippet: `${title} (${pathId}) — ${url}`,
-        score: score + 1, // slight TOC boost for doc lookup
+        title: title!,
+        snippet: `${title} (${pathId}) — ${url}`.slice(0, LIMITS.snippetMaxChars),
+        score: score + 1,
       });
     }
   }
@@ -222,11 +289,8 @@ export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
     }
   }
 
-  // Recursively search remaining knowledge/ markdown & json (drafts already via skills;
-  // summaries/nodes/ui/peripheral/resources/miyoushe + meta files).
   for (const { rel, path } of listKnowledgeFiles()) {
     if (seen.has(path)) continue;
-    // Avoid double-counting TOC/community/readme already handled
     if (
       rel === "OFFICIAL-TOC.md" ||
       rel === "COMMUNITY-TOOLS.md" ||
@@ -236,7 +300,7 @@ export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
     }
     let text: string;
     try {
-      text = readUtf8(path);
+      text = readUtf8Capped(path, LIMITS.knowledgeReadMaxBytes);
     } catch {
       continue;
     }
@@ -254,30 +318,44 @@ export function searchKnowledge(query: string, limit = 8): KnowledgeHit[] {
   }
 
   hits.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, "zh"));
-  return hits.slice(0, Math.max(1, Math.min(limit, 50)));
+  return hits.slice(0, cappedLimit);
 }
 
 /** Lookup official doc entries from OFFICIAL-TOC.md. */
-export function lookupOfficialDoc(query: string, limit = 12): KnowledgeHit[] {
+export function lookupOfficialDoc(query: string, limit: number = 12): KnowledgeHit[] {
   const tokens = tokenize(query);
   const toc = getOfficialToc();
   const hits: KnowledgeHit[] = [];
+  const cappedLimit = clampLimit(limit, 12, LIMITS.officialDocMax);
   for (const line of toc.split("\n")) {
     const m = line.match(/(-+)\s+\*\*(.+?)\*\*\s+`([a-z0-9]+)`\s+(https?:\/\/\S+)/);
     if (!m) continue;
     const [, indent, title, pathId, url] = m;
-    const depth = Math.floor(indent.length / 2);
+    const depth = Math.floor(indent!.length / 2);
     const score = tokens.length === 0 ? 1 : scoreText(`${title} ${pathId}`, tokens);
     if (score > 0) {
       hits.push({
         source: "official-toc",
         id: pathId,
         title: `${"  ".repeat(Math.max(0, depth - 1))}${title}`,
-        snippet: `${url}\ncontent.html: https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/${pathId}/content.html`,
+        snippet: `${url}\ncontent.html: https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/${pathId}/content.html`.slice(
+          0,
+          LIMITS.snippetMaxChars * 2,
+        ),
         score,
       });
     }
   }
   hits.sort((a, b) => b.score - a.score);
-  return hits.slice(0, Math.max(1, Math.min(limit, 40)));
+  return hits.slice(0, cappedLimit);
+}
+
+/** Reset knowledge caches (tests). */
+export function resetKnowledgeCaches(): void {
+  skillsCache = null;
+  tocCache = null;
+  communityCache = null;
+  sourceReadmeCache = null;
+  knowledgeFilesCache = null;
+  knowledgeFilesCacheAt = 0;
 }

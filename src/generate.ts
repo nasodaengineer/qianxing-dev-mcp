@@ -1,6 +1,8 @@
 /**
  * Emit ready-to-paste genshin-ts TypeScript stubs from a natural-language goal.
  */
+import { generateSystemHints } from "./systems.js";
+
 export type GenerateMode = "beyond" | "classic";
 export type GraphType =
   | "entity"
@@ -44,6 +46,11 @@ function detectThemes(goal: string) {
       /结算|通关|结束关卡|settle|settlement/.test(goal) || /settle/.test(g),
     signal: /信号|signal/.test(goal) || /signal/.test(g),
     create: /创建|生成|spawn|created/.test(goal),
+    shop: /商店|shop|买卖|购买|出售/.test(goal) || /shop/.test(g),
+    scoreboardUi: /计分板|分数板|scoreboard/.test(goal) || /scoreboard/.test(g),
+    timerUi:
+      /计时器.?界面|计时器.?控件|倒计时.?ui|timer.?ui|正计时/.test(goal) ||
+      (/计时器|倒计时/.test(goal) && /界面|控件|ui|显示/.test(goal)),
   };
 }
 
@@ -152,6 +159,22 @@ export function generateLogic(args: {
     mappedNodes.push("定时器触发时");
   }
 
+
+  if (themes.shop) {
+    mappedNodes.push("打开商店", "关闭商店", "商店出售自定义商品时");
+    notes.push(
+      "商店：编辑器配置商店模板并挂「商店组件」；运行时节点「打开商店」。lookup_system { domain: \"resources\", query: \"商店\" }。",
+    );
+  }
+
+  if (themes.scoreboardUi) {
+    mappedNodes.push("设置自定义变量");
+  }
+
+  if (themes.timerUi) {
+    mappedNodes.push("开启计时器", "定时器触发时");
+  }
+
   if (themes.signal) {
     handlers.push(`.onSignal('match_score', (_evt, f) => {
     // Prefer Signal.xxx from src/resources/signals.ts when inject is configured
@@ -189,6 +212,10 @@ g.server({
     `已映射事件: ${mappedEvents.join(", ") || "—"}`,
     `对应官方节点倾向: ${[...new Set(mappedNodes)].join("、") || "—"}`,
   );
+
+  for (const h of generateSystemHints(args.goal)) {
+    notes.push(h);
+  }
 
   return {
     mode,

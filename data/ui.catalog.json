@@ -1,0 +1,717 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-16 17:37 CST",
+  "source": "official docs under knowledge/ui/ + summaries/ui-overview.md",
+  "count": 31,
+  "items": [
+    {
+      "id": "ui/overview",
+      "name": "界面控件",
+      "kind": "system",
+      "aliases": [
+        "UI",
+        "控件总览",
+        "界面"
+      ],
+      "description": "界面控件是设计和实现界面布局的文本框、图标或特殊功能基础资产。分为固有界面控件（流程/业务必需，不可移除）与预制界面控件（可编辑组合为控件组）。运行显示依赖界面布局。",
+      "config_fields": [
+        "索引",
+        "变换",
+        "可见性"
+      ],
+      "related_nodes": [
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhnapxrumtzy"
+      }
+    },
+    {
+      "id": "ui/layout",
+      "name": "界面布局",
+      "kind": "layout",
+      "aliases": [
+        "layout",
+        "布局"
+      ],
+      "description": "关卡运行时的主界面容器。控件直接配置在布局中默认生效，也可通过节点图切换玩家当前布局。支持 PC/移动/主机等设备画布与渲染模式（时序渲染旧 / 层级渲染新）。",
+      "config_fields": [
+        "目标玩家",
+        "布局索引",
+        "所选设备",
+        "渲染模式",
+        "锚点"
+      ],
+      "related_nodes": [
+        "切换界面布局"
+      ],
+      "source": {
+        "path_id": "mhozt0r74ng6",
+        "path": "界面布局",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhozt0r74ng6/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhozt0r74ng6"
+      }
+    },
+    {
+      "id": "ui/control_group",
+      "name": "界面控件组",
+      "kind": "group",
+      "aliases": [
+        "控件组",
+        "控件组模板"
+      ],
+      "description": "将预制控件编辑为可复用模板，通过节点图挂载/触发。交互类控件触发后向节点图发送「界面控件组触发时」事件。",
+      "config_fields": [
+        "索引",
+        "模板名称",
+        "变换"
+      ],
+      "related_nodes": [
+        "界面控件组触发时",
+        "创建界面控件组",
+        "销毁界面控件组"
+      ],
+      "source": {
+        "path_id": "mhg1700h8bug",
+        "path": "界面控件组",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhg1700h8bug/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhg1700h8bug"
+      }
+    },
+    {
+      "id": "ui/control_group_mgmt",
+      "name": "界面控件组管理",
+      "kind": "system",
+      "aliases": [
+        "控件组库",
+        "添加界面控件"
+      ],
+      "description": "统一管理界面布局与界面控件组库；可从预制模板添加控件（含订阅奇匠按钮等）。",
+      "config_fields": [
+        "布局列表",
+        "控件组库",
+        "预制模板"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhewyi0fjfvs",
+        "path": "界面控件组管理",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhewyi0fjfvs/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhewyi0fjfvs"
+      }
+    },
+    {
+      "id": "ui/asset_library",
+      "name": "素材库",
+      "kind": "system",
+      "aliases": [
+        "素材",
+        "素材组"
+      ],
+      "description": "界面素材资产库；含素材组遮罩等编辑能力，供布局与控件组引用。",
+      "config_fields": [
+        "素材组",
+        "遮罩"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhwylormozcm",
+        "path": "素材库",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwylormozcm/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhwylormozcm"
+      }
+    },
+    {
+      "id": "ui/builtin_minimap",
+      "name": "小地图（固有）",
+      "kind": "builtin",
+      "aliases": [
+        "小地图",
+        "minimap"
+      ],
+      "description": "关卡运行中默认存在的固有控件；满足条件时显示带小地图标识的实体。",
+      "config_fields": [
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件 / 固有界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html"
+      }
+    },
+    {
+      "id": "ui/builtin_skill_area",
+      "name": "技能区（固有）",
+      "kind": "builtin",
+      "aliases": [
+        "技能按键"
+      ],
+      "description": "关卡运行时用于释放角色技能的按键区域。",
+      "config_fields": [
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件 / 固有界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html"
+      }
+    },
+    {
+      "id": "ui/builtin_team",
+      "name": "队伍信息（固有）",
+      "kind": "builtin",
+      "aliases": [
+        "队伍"
+      ],
+      "description": "显示共同运行关卡的玩家角色信息。",
+      "config_fields": [
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件 / 固有界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html"
+      }
+    },
+    {
+      "id": "ui/builtin_hp",
+      "name": "角色生命值条（固有）",
+      "kind": "builtin",
+      "aliases": [
+        "血条",
+        "HP"
+      ],
+      "description": "显示当前角色生命值；另有造物生命值条显示造物名称与血量。",
+      "config_fields": [
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件 / 固有界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html"
+      }
+    },
+    {
+      "id": "ui/builtin_joystick",
+      "name": "摇杆（固有）",
+      "kind": "builtin",
+      "aliases": [
+        "移动摇杆"
+      ],
+      "description": "移动端操控角色移动的固有控件。",
+      "config_fields": [
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件 / 固有界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html"
+      }
+    },
+    {
+      "id": "ui/builtin_exit",
+      "name": "退出按钮（固有）",
+      "kind": "builtin",
+      "aliases": [
+        "退出"
+      ],
+      "description": "中断/退出关卡的按键。",
+      "config_fields": [
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件 / 固有界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html"
+      }
+    },
+    {
+      "id": "ui/builtin_tab",
+      "name": "选项卡（固有）",
+      "kind": "builtin",
+      "aliases": [
+        "选项卡控件"
+      ],
+      "description": "与选项卡组件关联，满足组件配置时显示对应信息。",
+      "config_fields": [
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhnapxrumtzy",
+        "path": "界面控件 / 固有界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnapxrumtzy/content.html"
+      }
+    },
+    {
+      "id": "ui/scoreboard",
+      "name": "计分板界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "计分板",
+        "scoreboard",
+        "排行UI",
+        "分数板"
+      ],
+      "description": "关卡运行时显示玩家自定义变量，并可根据自定义变量排名。类型分个人/阵营；个人可显示名次/分数/阵营图标/玩家名称/头像。绑定的自定义变量须在实体组件中预定义。",
+      "config_fields": [
+        "排序（升序/降序）",
+        "类型（个人/阵营）",
+        "显示内容（名次/分数/阵营图标/玩家名称/头像）",
+        "绑定自定义变量"
+      ],
+      "related_nodes": [
+        "设置自定义变量",
+        "获取自定义变量"
+      ],
+      "source": {
+        "path_id": "mhesro0hyn5k",
+        "path": "界面控件 / 计分板界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhesro0hyn5k/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhesro0hyn5k"
+      }
+    },
+    {
+      "id": "ui/timer",
+      "name": "计时器界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "计时器UI",
+        "倒计时UI",
+        "timer UI",
+        "正计时"
+      ],
+      "description": "显示时间进度的界面，支持倒计时与正计时。绑定符合类型的预定义全局计时器；来源实体默认关卡实体，也可选手动玩家实体。",
+      "config_fields": [
+        "类型（正计时/倒计时）",
+        "指定计时器",
+        "来源实体（关卡实体/玩家实体）"
+      ],
+      "related_nodes": [
+        "开启计时器",
+        "关闭计时器",
+        "定时器触发时",
+        "设置计时器剩余时间"
+      ],
+      "source": {
+        "path_id": "mhnrdor7uyra",
+        "path": "界面控件 / 计时器界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnrdor7uyra/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhnrdor7uyra"
+      }
+    },
+    {
+      "id": "ui/progress",
+      "name": "进度条界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "进度条",
+        "progress"
+      ],
+      "description": "实时展示需求变量在配置范围内占比的图形界面。样式含横向/纵向/圆环；进度提示可为百分比、真实比例或当前值。",
+      "config_fields": [
+        "样式（横向/纵向/圆环）",
+        "进度提示（不显示/百分比/真实比例/当前值）",
+        "绑定变量",
+        "范围最小值",
+        "范围最大值"
+      ],
+      "related_nodes": [
+        "设置自定义变量"
+      ],
+      "source": {
+        "path_id": "mhwpzpixrad0",
+        "path": "界面控件 / 进度条界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwpzpixrad0/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhwpzpixrad0"
+      }
+    },
+    {
+      "id": "ui/textbox",
+      "name": "文本框界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "文本框",
+        "text",
+        "label"
+      ],
+      "description": "显示预先编辑的文本；若内容包含自定义变量占位，会实时更新。支持玩家/关卡/自身实体变量前缀（p1~8 / lv / ps）与对齐方式。",
+      "config_fields": [
+        "文本内容",
+        "自定义变量目标前缀",
+        "对齐方式",
+        "字号/颜色"
+      ],
+      "related_nodes": [
+        "设置自定义变量"
+      ],
+      "source": {
+        "path_id": "mhnltrr3g966",
+        "path": "界面控件 / 文本框界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhnltrr3g966/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhnltrr3g966"
+      }
+    },
+    {
+      "id": "ui/interact_button",
+      "name": "交互按钮界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "交互按钮",
+        "按钮"
+      ],
+      "description": "点击或外接设备输入可触发交互，交互后向节点图发送「界面控件组触发时」事件。",
+      "config_fields": [
+        "可见性",
+        "变换",
+        "交互映射"
+      ],
+      "related_nodes": [
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mhwkfsitckrw",
+        "path": "界面控件 / 交互按钮界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhwkfsitckrw/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhwkfsitckrw"
+      }
+    },
+    {
+      "id": "ui/custom_button",
+      "name": "自定义按钮控件",
+      "kind": "prefab",
+      "aliases": [
+        "自定义按钮"
+      ],
+      "description": "特殊交互按钮，可配置图标与显示文本。",
+      "config_fields": [
+        "图标",
+        "显示文本",
+        "可见性",
+        "变换"
+      ],
+      "related_nodes": [
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mhtpwgitsigc",
+        "path": "界面控件 / 自定义按钮控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhtpwgitsigc/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhtpwgitsigc"
+      }
+    },
+    {
+      "id": "ui/custom_switch",
+      "name": "自定义开关控件",
+      "kind": "prefab",
+      "aliases": [
+        "开关",
+        "toggle"
+      ],
+      "description": "通过点击或映射的自定义变量切换开/关状态，并触发不同功能逻辑。",
+      "config_fields": [
+        "映射自定义变量",
+        "开状态",
+        "关状态",
+        "图标/文本"
+      ],
+      "related_nodes": [
+        "设置自定义变量",
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mhkrafr3w6um",
+        "path": "界面控件 / 自定义开关控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhkrafr3w6um/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhkrafr3w6um"
+      }
+    },
+    {
+      "id": "ui/popup",
+      "name": "弹窗界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "弹窗",
+        "dialog",
+        "modal"
+      ],
+      "description": "由逻辑触发出现的界面，用于重要信息、提示、选项或交互。",
+      "config_fields": [
+        "可见性",
+        "内容",
+        "选项"
+      ],
+      "related_nodes": [
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mhen7r0djxkg",
+        "path": "界面控件 / 弹窗界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhen7r0djxkg/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhen7r0djxkg"
+      }
+    },
+    {
+      "id": "ui/item_display",
+      "name": "道具展示界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "道具展示",
+        "物品展示"
+      ],
+      "description": "可交互的道具展示控件；交互后发送「界面控件组触发时」。常与资源系统道具/背包联动。",
+      "config_fields": [
+        "展示道具",
+        "可见性",
+        "变换"
+      ],
+      "related_nodes": [
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mhjja1ipq9ck",
+        "path": "界面控件 / 道具展示界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhjja1ipq9ck/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhjja1ipq9ck"
+      }
+    },
+    {
+      "id": "ui/card_selector",
+      "name": "卡牌选择器界面控件",
+      "kind": "prefab",
+      "aliases": [
+        "卡牌选择器",
+        "决策面板",
+        "选卡"
+      ],
+      "description": "编辑简单决策交互界面：决策时间、决策项表现、交互方式、已知/未知卡牌与卡牌库等。",
+      "config_fields": [
+        "可见性",
+        "变换",
+        "决策时间",
+        "显示已选择数量",
+        "显示可重置次数",
+        "时间显示",
+        "已知卡牌",
+        "未知卡牌",
+        "卡牌库"
+      ],
+      "related_nodes": [
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mh2teu0bmfbc",
+        "path": "界面控件 / 卡牌选择器界面控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh2teu0bmfbc/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh2teu0bmfbc"
+      }
+    },
+    {
+      "id": "ui/hover_page",
+      "name": "悬浮交互页控件",
+      "kind": "prefab",
+      "aliases": [
+        "悬浮交互页",
+        "页签",
+        "高级UI"
+      ],
+      "description": "高级页签、单选项视窗等配置，便于复杂关联界面；可添加按键、开关、订阅按钮等。",
+      "config_fields": [
+        "页签",
+        "单选项视窗",
+        "子控件列表",
+        "可见性"
+      ],
+      "related_nodes": [
+        "界面控件组触发时"
+      ],
+      "source": {
+        "path_id": "mh2u2e9o3jn6",
+        "path": "界面控件 / 悬浮交互页控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh2u2e9o3jn6/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh2u2e9o3jn6"
+      }
+    },
+    {
+      "id": "ui/image",
+      "name": "图片控件",
+      "kind": "prefab",
+      "aliases": [
+        "图片",
+        "image",
+        "图标控件"
+      ],
+      "description": "在布局中显示图片/特效类表现；图片源可为静态引用或其他类型，支持颜色配置。",
+      "config_fields": [
+        "图片源",
+        "颜色",
+        "变换",
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mh2oih9jou22",
+        "path": "界面控件 / 图片控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh2oih9jou22/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh2oih9jou22"
+      }
+    },
+    {
+      "id": "ui/fx",
+      "name": "界面动效控件",
+      "kind": "prefab",
+      "aliases": [
+        "界面动效",
+        "UI特效"
+      ],
+      "description": "配置在布局中显示对应特效，用于美化与丰富表现。",
+      "config_fields": [
+        "动效资源",
+        "可见性",
+        "变换"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mh2iyk9fa4gy",
+        "path": "界面控件 / 界面动效控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh2iyk9fa4gy/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh2iyk9fa4gy"
+      }
+    },
+    {
+      "id": "ui/fullscreen_fx",
+      "name": "全屏界面动效控件",
+      "kind": "prefab",
+      "aliases": [
+        "全屏动效"
+      ],
+      "description": "全屏范围的界面动效控件，与普通界面动效类似但覆盖全屏。",
+      "config_fields": [
+        "动效资源",
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhbn4i09l5ns",
+        "path": "界面控件 / 全屏界面动效控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhbn4i09l5ns/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhbn4i09l5ns"
+      }
+    },
+    {
+      "id": "ui/special_number",
+      "name": "特殊数字控件",
+      "kind": "prefab",
+      "aliases": [
+        "特殊数字",
+        "技能数字"
+      ],
+      "description": "表现与技能相关的诸多数据数字。",
+      "config_fields": [
+        "数据来源",
+        "显示格式",
+        "变换"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhkwucr8awfq",
+        "path": "界面控件 / 特殊数字控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhkwucr8awfq/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhkwucr8awfq"
+      }
+    },
+    {
+      "id": "ui/status_area",
+      "name": "状态显示区控件",
+      "kind": "prefab",
+      "aliases": [
+        "状态显示区",
+        "状态栏"
+      ],
+      "description": "展示单位/玩家状态相关信息的区域控件。",
+      "config_fields": [
+        "显示内容",
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mh4ve00q4j14",
+        "path": "界面控件 / 状态显示区控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh4ve00q4j14/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh4ve00q4j14"
+      }
+    },
+    {
+      "id": "ui/message_queue",
+      "name": "消息队列控件",
+      "kind": "prefab",
+      "aliases": [
+        "消息队列",
+        "tips队列"
+      ],
+      "description": "队列式消息/提示展示控件。",
+      "config_fields": [
+        "队列容量",
+        "显示时长"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhs1f7ibtc6c",
+        "path": "界面控件 / 消息队列控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhs1f7ibtc6c/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhs1f7ibtc6c"
+      }
+    },
+    {
+      "id": "ui/custom_minimap",
+      "name": "自定义小地图控件",
+      "kind": "prefab",
+      "aliases": [
+        "自定义小地图"
+      ],
+      "description": "可定制的小地图预制控件（区别于固有小地图）。",
+      "config_fields": [
+        "范围",
+        "标识",
+        "可见性"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mhls9miyjwjg",
+        "path": "界面控件 / 自定义小地图控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhls9miyjwjg/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhls9miyjwjg"
+      }
+    },
+    {
+      "id": "ui/rich_input",
+      "name": "图文输入框控件",
+      "kind": "prefab",
+      "aliases": [
+        "图文输入框",
+        "输入框"
+      ],
+      "description": "支持文本与图片配置的输入类控件。",
+      "config_fields": [
+        "文本框设置",
+        "图片设置"
+      ],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mh496c08hooo",
+        "path": "界面控件 / 图文输入框控件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh496c08hooo/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh496c08hooo"
+      }
+    }
+  ]
+}

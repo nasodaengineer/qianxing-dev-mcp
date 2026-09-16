@@ -1,0 +1,328 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-16 17:37 CST",
+  "source": "official docs under knowledge/resources/ (+ related/) + summaries/resources-overview.md",
+  "count": 10,
+  "items": [
+    {
+      "id": "resources/overview",
+      "name": "资源系统",
+      "kind": "system",
+      "aliases": [
+        "资源",
+        "局内资源"
+      ],
+      "description": "局内资源管理与道具投放整套方案：道具、装备、货币、背包、掉落物、商店、战利品等。",
+      "config_fields": [],
+      "related_nodes": [],
+      "source": {
+        "path_id": "mht8l59439d6",
+        "path": "资源系统",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mht8l59439d6/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mht8l59439d6"
+      }
+    },
+    {
+      "id": "resources/item",
+      "name": "道具",
+      "kind": "concept",
+      "aliases": [
+        "物品",
+        "item",
+        "基础道具"
+      ],
+      "description": "虚拟物品模板之一；可配置图标、堆叠、销毁掉落形态、对应掉落物外形等，并参与商店/背包/掉落。",
+      "config_fields": [
+        "图标",
+        "堆叠数量",
+        "销毁时掉落形态",
+        "对应掉落物外形",
+        "显示优先级"
+      ],
+      "related_nodes": [
+        "增加背包道具数量",
+        "获取背包道具数量",
+        "背包道具新增时",
+        "背包道具失去时",
+        "背包内道具被使用时"
+      ],
+      "source": {
+        "path_id": "mhbgx0rspbqu",
+        "path": "资源系统 / 道具",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhbgx0rspbqu/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhbgx0rspbqu"
+      }
+    },
+    {
+      "id": "resources/equip",
+      "name": "装备",
+      "kind": "concept",
+      "aliases": [
+        "装备系统",
+        "equipment",
+        "词条"
+      ],
+      "description": "可穿戴虚拟物品；词条可提供基础属性加成、赋予节点图或单位状态。支持装卸事件与词条读写节点。",
+      "config_fields": [
+        "装备槽位",
+        "词条类型",
+        "基础属性加成",
+        "赋予节点图",
+        "赋予单位状态",
+        "标签"
+      ],
+      "related_nodes": [
+        "修改装备词条值",
+        "移除装备词条",
+        "装备添加词条",
+        "装备指定序号添加词条",
+        "装备初始化时",
+        "装备的词条数值改变时",
+        "装备被卸下时",
+        "装备被穿戴时",
+        "查询装备标签列表",
+        "获取装备词条配置ID",
+        "获取装备词条列表",
+        "获取装备词条数值",
+        "获取背包所有装备"
+      ],
+      "source": {
+        "path_id": "mhkl2yin0cxo",
+        "path": "资源系统 / 装备",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhkl2yin0cxo/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhkl2yin0cxo"
+      }
+    },
+    {
+      "id": "resources/currency",
+      "name": "货币",
+      "kind": "concept",
+      "aliases": [
+        "钱",
+        "currency",
+        "金币"
+      ],
+      "description": "背包内可计量的交易媒介；配置图标、销毁掉落、战利品掉落形式与掉落物外形。商店买卖价以货币计量。",
+      "config_fields": [
+        "图标",
+        "销毁时掉落形态",
+        "战利品掉落形式",
+        "对应掉落物外形",
+        "显示优先级"
+      ],
+      "related_nodes": [
+        "增加背包货币数量",
+        "获取背包货币数量",
+        "获取背包所有货币",
+        "背包货币数量变化时",
+        "增加掉落物组件货币数量",
+        "获取掉落物组件货币数量"
+      ],
+      "source": {
+        "path_id": "mh2cr30yeak0",
+        "path": "资源系统 / 货币",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh2cr30yeak0/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh2cr30yeak0"
+      }
+    },
+    {
+      "id": "resources/backpack",
+      "name": "背包",
+      "kind": "concept",
+      "aliases": [
+        "背包模板",
+        "inventory",
+        "bag"
+      ],
+      "description": "资源系统容器，管理持有者道具/装备/货币。槽位展示，支持拆分/销毁/丢弃。入口：系统菜单「货币与背包」。",
+      "config_fields": [
+        "背包模板名称",
+        "背包格数量",
+        "销毁时掉落形态",
+        "战利品掉落形式",
+        "对应掉落物外形"
+      ],
+      "related_nodes": [
+        "设置背包掉落道具/货币数量",
+        "设置背包道具掉落内容",
+        "增加背包道具数量",
+        "增加背包货币数量",
+        "增加背包最大容量",
+        "背包道具失去时",
+        "背包道具数量变化时",
+        "背包道具新增时",
+        "背包货币数量变化时",
+        "背包内道具被使用时",
+        "获取背包道具数量",
+        "获取背包容量",
+        "获取背包所有基础道具",
+        "获取背包所有装备",
+        "获取背包所有货币",
+        "获取背包货币数量"
+      ],
+      "source": {
+        "path_id": "mhogfq9bf86q",
+        "path": "资源系统 / 背包",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhogfq9bf86q/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhogfq9bf86q"
+      }
+    },
+    {
+      "id": "resources/backpack_component",
+      "name": "背包组件",
+      "kind": "component",
+      "aliases": [
+        "背包组件节点"
+      ],
+      "description": "挂在实体上的背包运行时组件；节点图增减容量/道具/货币并监听变化事件。",
+      "config_fields": [
+        "引用背包模板"
+      ],
+      "related_nodes": [
+        "增加背包道具数量",
+        "增加背包货币数量",
+        "增加背包最大容量",
+        "获取背包道具数量",
+        "获取背包容量"
+      ],
+      "source": {
+        "path_id": "mh5y5001vqd4",
+        "path": "资源系统 / 背包组件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh5y5001vqd4/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh5y5001vqd4"
+      }
+    },
+    {
+      "id": "resources/drop",
+      "name": "掉落物",
+      "kind": "concept",
+      "aliases": [
+        "掉落",
+        "drop",
+        "pickup"
+      ],
+      "description": "虚拟物品掉落场景时转为带「掉落物内容组件」的元件实体。未关联掉落物元件则掉落逻辑屏蔽。拾取规则：交互/自动/打开拾取界面/自动吸附。",
+      "config_fields": [
+        "拾取规则",
+        "自动吸附距离",
+        "本地过滤器",
+        "过滤器节点图",
+        "掉落内容",
+        "拾取范围形状"
+      ],
+      "related_nodes": [
+        "增加掉落物组件道具数量",
+        "增加掉落物组件货币数量",
+        "获取掉落物组件道具数量",
+        "获取掉落物组件装备列表",
+        "获取掉落物组件货币数量"
+      ],
+      "source": {
+        "path_id": "mhkfj1iilnck",
+        "path": "资源系统 / 掉落物",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhkfj1iilnck/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhkfj1iilnck"
+      }
+    },
+    {
+      "id": "resources/loot",
+      "name": "战利品",
+      "kind": "concept",
+      "aliases": [
+        "loot",
+        "掉落表"
+      ],
+      "description": "定义击杀掉落等内容；可通过节点触发掉落并设置掉落内容。",
+      "config_fields": [
+        "掉落表",
+        "掉落内容"
+      ],
+      "related_nodes": [
+        "触发战利品掉落",
+        "设置战利品掉落内容"
+      ],
+      "source": {
+        "path_id": "mh63ox06afy8",
+        "path": "资源系统 / 战利品",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mh63ox06afy8/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mh63ox06afy8"
+      }
+    },
+    {
+      "id": "resources/shop",
+      "name": "商店",
+      "kind": "concept",
+      "aliases": [
+        "商店模板",
+        "shop",
+        "买卖"
+      ],
+      "description": "挂在实体上的虚拟物品交易模块。类型：自定义商品商店（模板交易，不影响持有者背包）与自身背包商店（真实交换）。可配置出售/收购表、页签、限量等。",
+      "config_fields": [
+        "商店名称",
+        "配置ID",
+        "开启商店时同时打开背包",
+        "商品页签类型",
+        "商品来源（自身背包/自定义列表）",
+        "是否可售",
+        "售价",
+        "是否限量",
+        "收购范围",
+        "收购价"
+      ],
+      "related_nodes": [
+        "打开商店",
+        "关闭商店",
+        "从背包商店出售表中移除商品",
+        "从物品收购表中移除物品",
+        "从自定义商店出售表中移除商品",
+        "向背包商店出售表中新增商品",
+        "向物品收购表中新增物品",
+        "向自定义商店出售表中新增商品",
+        "修改背包商店商品出售信息",
+        "修改物品收购表中道具收购信息",
+        "修改自定义商店商品出售信息",
+        "商店出售背包物品时",
+        "商店出售自定义商品时",
+        "商店收购道具时",
+        "查询背包商店商品出售信息",
+        "查询背包商店物品出售列表",
+        "查询商店收购物品列表",
+        "查询商店物品收购信息",
+        "查询自定义商店商品出售列表",
+        "查询自定义商店商品出售信息"
+      ],
+      "source": {
+        "path_id": "mhi9s7isvp50",
+        "path": "资源系统 / 商店",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mhi9s7isvp50/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mhi9s7isvp50"
+      }
+    },
+    {
+      "id": "resources/shop_component",
+      "name": "商店组件",
+      "kind": "component",
+      "aliases": [
+        "商店组件节点"
+      ],
+      "description": "引用商店模板并在运行时实例化；节点图可打开/关闭商店、改出售/收购表、监听交易事件。",
+      "config_fields": [
+        "引用商店模板配置ID"
+      ],
+      "related_nodes": [
+        "打开商店",
+        "关闭商店",
+        "商店出售背包物品时",
+        "商店出售自定义商品时",
+        "商店收购道具时"
+      ],
+      "source": {
+        "path_id": "mho6gviqhsqs",
+        "path": "资源系统 / 商店组件",
+        "url": "https://act-webstatic.mihoyo.com/ugc-tutorial/knowledge/cn/zh-cn/mho6gviqhsqs/content.html",
+        "detail_url": "https://act.mihoyo.com/ys/ugc/tutorial/detail/mho6gviqhsqs"
+      }
+    }
+  ]
+}
